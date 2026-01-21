@@ -20,7 +20,7 @@
  * ```
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import {
   applyNodeChanges,
   applyEdgeChanges,
@@ -322,7 +322,7 @@ const saveToStorage = async <T>(key: string, value: T): Promise<void> => {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useWorkflowEditorStore = create<WorkflowEditorState>()(
+export const useWorkflowEditorStore = createWithEqualityFn<WorkflowEditorState>()(
   (set, get) => ({
     ...initialState,
 

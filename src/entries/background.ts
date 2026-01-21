@@ -7,6 +7,8 @@ import { tldwModels } from "@/services/tldw"
 import { apiSend } from "@/services/api-send"
 import { tldwRequest } from "@/services/tldw/request-core"
 import {
+  buildYouTubeWatchUrl,
+  extractYouTubePlaylistId,
   getProcessPathForType,
   getProcessPathForUrl,
   inferMediaTypeFromUrl,
@@ -63,6 +65,142 @@ const backgroundDiagnostics: BackgroundDiagnostics = {
 
 const logBackgroundError = (label: string, error: unknown) => {
   console.debug(`[tldw] background ${label} failed`, error)
+}
+
+const YOUTUBE_PLAYLIST_MAX_ITEMS = 200
+const YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS = 15000
+const YOUTUBE_PLAYLIST_FEED_ID_RE = /<yt:videoId>([^<]+)<\/yt:videoId>/g
+const YOUTUBE_PLAYLIST_VIDEO_RE =
+  /"playlistVideoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/g
+const YOUTUBE_VIDEO_ID_RE = /"videoId":"([a-zA-Z0-9_-]{11})"/g
+
+const extractYouTubeVideoIdsFromFeed = (xml: string, limit: number): string[] => {
+  const ids: string[] = []
+  const seen = new Set<string>()
+  for (const match of xml.matchAll(YOUTUBE_PLAYLIST_FEED_ID_RE)) {
+    const id = match[1]
+    if (!id || seen.has(id)) continue
+    seen.add(id)
+    ids.push(id)
+    if (ids.length >= limit) break
+  }
+  return ids
+}
+
+const extractYouTubeVideoIdsFromHtml = (html: string, limit: number): string[] => {
+  const collect = (regex: RegExp) => {
+    const ids: string[] = []
+    const seen = new Set<string>()
+    for (const match of html.matchAll(regex)) {
+      const id = match[1]
+      if (!id || seen.has(id)) continue
+      seen.add(id)
+      ids.push(id)
+      if (ids.length >= limit) break
+    }
+    return ids
+  }
+
+  const playlistIds = collect(YOUTUBE_PLAYLIST_VIDEO_RE)
+  return playlistIds.length > 0 ? playlistIds : collect(YOUTUBE_VIDEO_ID_RE)
+}
+
+const fetchYouTubePlaylistFeedIds = async (
+  playlistId: string,
+  timeoutMs: number
+): Promise<string[]> => {
+  const controller = new AbortController()
+  const timeoutId = globalThis.setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${encodeURIComponent(
+      playlistId
+    )}`
+    const resp = await fetch(url, {
+      method: "GET",
+      headers: { accept: "application/atom+xml" },
+      signal: controller.signal
+    })
+    if (!resp.ok) return []
+    const xml = await resp.text()
+    return extractYouTubeVideoIdsFromFeed(xml, YOUTUBE_PLAYLIST_MAX_ITEMS)
+  } catch {
+    return []
+  } finally {
+    globalThis.clearTimeout(timeoutId)
+  }
+}
+
+const fetchYouTubePlaylistVideoIds = async (
+  playlistId: string,
+  timeoutMs: number
+): Promise<string[]> => {
+  const feedIds = await fetchYouTubePlaylistFeedIds(playlistId, timeoutMs)
+  if (feedIds.length > 0) return feedIds
+  const controller = new AbortController()
+  const timeoutId = globalThis.setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const url = `https://www.youtube.com/playlist?list=${encodeURIComponent(
+      playlistId
+    )}&hl=en`
+    const resp = await fetch(url, {
+      method: "GET",
+      headers: { accept: "text/html" },
+      signal: controller.signal
+    })
+    if (!resp.ok) {
+      throw new Error(`Playlist fetch failed (${resp.status})`)
+    }
+    const html = await resp.text()
+    return extractYouTubeVideoIdsFromHtml(html, YOUTUBE_PLAYLIST_MAX_ITEMS)
+  } finally {
+    globalThis.clearTimeout(timeoutId)
+  }
+}
+
+const expandYouTubePlaylistUrl = async (
+  url: string,
+  timeoutMs: number
+): Promise<string[] | null> => {
+  const playlistId = extractYouTubePlaylistId(url)
+  if (!playlistId) return null
+  const effectiveTimeout = Math.min(timeoutMs, YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS)
+  const videoIds = await fetchYouTubePlaylistVideoIds(playlistId, effectiveTimeout)
+  if (videoIds.length === 0) return []
+  return videoIds.map((videoId) => buildYouTubeWatchUrl(videoId))
+}
+
+const expandYouTubePlaylistEntries = async (
+  entries: any[],
+  timeoutMs: number
+): Promise<any[]> => {
+  if (!Array.isArray(entries) || entries.length === 0) return entries
+  const expanded: any[] = []
+  for (const entry of entries) {
+    const url = String(entry?.url || "").trim()
+    if (!url) continue
+    try {
+      const urls = await expandYouTubePlaylistUrl(url, timeoutMs)
+      if (!urls) {
+        expanded.push(entry)
+        continue
+      }
+      if (urls.length === 0) {
+        expanded.push(entry)
+        continue
+      }
+      for (const expandedUrl of urls) {
+        expanded.push({
+          ...entry,
+          id: crypto.randomUUID(),
+          url: expandedUrl
+        })
+      }
+    } catch (error) {
+      logBackgroundError("youtube playlist expansion", error)
+      expanded.push(entry)
+    }
+  }
+  return expanded
 }
 
 const warmModels = async (
@@ -435,6 +573,7 @@ export default defineBackground({
       fields?: Record<string, any>
       file?: { name?: string; type?: string; data?: ArrayBuffer | Uint8Array | { data?: number[] } | number[] | string }
       fileFieldName?: string
+      timeoutMs?: number
     }) => {
       const { path, method = 'POST', fields = {}, file, fileFieldName } = payload || {}
       const cfg = await storage.get<any>('tldwConfig')
@@ -503,11 +642,15 @@ export default defineBackground({
         }
         const controller = new AbortController()
         const timeoutMs =
-          Number(cfg?.uploadRequestTimeoutMs) > 0
-            ? Number(cfg.uploadRequestTimeoutMs)
-            : Number(cfg?.requestTimeoutMs) > 0
-              ? Number(cfg.requestTimeoutMs)
-              : 10000
+          Number(payload?.timeoutMs) > 0
+            ? Number(payload?.timeoutMs)
+            : Number(cfg?.uploadRequestTimeoutMs) > 0
+              ? Number(cfg.uploadRequestTimeoutMs)
+              : Number(cfg?.mediaRequestTimeoutMs) > 0
+                ? Number(cfg.mediaRequestTimeoutMs)
+                : Number(cfg?.requestTimeoutMs) > 0
+                  ? Number(cfg.requestTimeoutMs)
+                  : 60000
         const timeout = setTimeout(() => controller.abort(), timeoutMs)
         let resp: Response
         try {
@@ -524,7 +667,15 @@ export default defineBackground({
           : formatErrorMessage(data, `Upload failed: ${resp.status}`)
         return { ok: resp.ok, status: resp.status, data, error }
       } catch (e: any) {
-        return { ok: false, status: 0, error: e?.message || 'Upload failed' }
+        const raw = String(e?.message || "")
+        const isAbort = raw.toLowerCase().includes("abort")
+        return {
+          ok: false,
+          status: 0,
+          error: isAbort
+            ? "Upload timed out waiting for the server response. The ingest may still complete."
+            : raw || "Upload failed"
+        }
       }
     }
 
@@ -557,7 +708,7 @@ export default defineBackground({
       return runTldwRequest(payload)
     }
 
-    browser.runtime.onMessage.addListener(async (message, sender) => {
+    const handleRuntimeMessage = async (message: any, sender: any) => {
       if (message.type === "tldw:diagnostics") {
         return { ok: true, data: buildBackgroundDiagnostics() }
       }
@@ -578,6 +729,24 @@ export default defineBackground({
         const tabId = sender?.tab?.id ?? null
         return { ok: tabId != null, tabId }
       }
+      if (message.type === 'tldw:quick-ingest-expand-playlist') {
+        const url = String(message?.payload?.url || "").trim()
+        if (!url) {
+          return { ok: false, error: "Missing playlist URL" }
+        }
+        try {
+          const urls = await expandYouTubePlaylistUrl(
+            url,
+            YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS
+          )
+          return { ok: true, urls: urls || [] }
+        } catch (e: any) {
+          return {
+            ok: false,
+            error: e?.message || "Playlist expansion failed"
+          }
+        }
+      }
       if (message.type === 'tldw:quick-ingest-batch') {
         const payload = message.payload || {}
         const entries = Array.isArray(payload.entries) ? payload.entries : []
@@ -593,8 +762,18 @@ export default defineBackground({
           : {}
         // processOnly=true forces local-only processing even if storeRemote was requested
         const shouldStoreRemote = storeRemote && !processOnly
-
-        const totalCount = entries.length + files.length
+        const cfg = await storage.get<any>('tldwConfig')
+        const ingestTimeoutMs = Math.max(
+          Number(cfg?.uploadRequestTimeoutMs) || 0,
+          Number(cfg?.mediaRequestTimeoutMs) || 0,
+          Number(cfg?.requestTimeoutMs) || 0,
+          5 * 60 * 1000
+        )
+        const expandedEntries = await expandYouTubePlaylistEntries(
+          entries,
+          ingestTimeoutMs
+        )
+        const totalCount = expandedEntries.length + files.length
         let processedCount = 0
 
         const assignPath = (obj: any, path: string[], val: any) => {
@@ -635,6 +814,12 @@ export default defineBackground({
             else fields[k] = v
           }
           for (const [k, v] of Object.entries(nested)) fields[k] = v
+          if (typeof entry?.keywords === "string") {
+            const trimmed = entry.keywords.trim()
+            if (trimmed) {
+              fields.keywords = trimmed
+            }
+          }
           const audio = { ...(resolvedDefaults.audio || {}), ...(entry?.audio || {}) }
           const video = { ...(resolvedDefaults.video || {}), ...(entry?.video || {}) }
           const document = { ...(resolvedDefaults.document || {}), ...(entry?.document || {}) }
@@ -653,24 +838,51 @@ export default defineBackground({
           return fields
         }
 
-        const processWebScrape = async (url: string) => {
+        const processWebScrape = async (url: string, entry?: any) => {
           const nestedBody: Record<string, any> = {}
           for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
             if (k.includes('.')) assignPath(nestedBody, k.split('.'), v)
             else nestedBody[k] = v
           }
+          const normalizeJsonField = (value: unknown) => {
+            if (typeof value !== 'string') return value
+            const trimmed = value.trim()
+            if (!trimmed) return value
+            const looksJson =
+              (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+              (trimmed.startsWith('[') && trimmed.endsWith(']'))
+            if (!looksJson) return value
+            try {
+              return JSON.parse(trimmed)
+            } catch {
+              return value
+            }
+          }
+          const normalizedBody: Record<string, any> = { ...nestedBody }
+          for (const key of ['custom_headers', 'custom_cookies', 'custom_titles']) {
+            if (key in normalizedBody) {
+              normalizedBody[key] = normalizeJsonField(normalizedBody[key])
+            }
+          }
           const body: any = {
-            scrape_method: 'individual',
+            scrape_method: 'Individual URLs',
             url_input: url,
             mode: 'ephemeral',
             summarize_checkbox: Boolean(common.perform_analysis),
-            ...nestedBody
+            ...normalizedBody
+          }
+          if (typeof entry?.keywords === "string") {
+            const trimmed = entry.keywords.trim()
+            if (trimmed) {
+              body.keywords = trimmed
+            }
           }
           const resp = await handleTldwRequest({
             path: '/api/v1/media/process-web-scraping',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body
+            body,
+            timeoutMs: ingestTimeoutMs
           }) as { ok: boolean; error?: string; status?: number; data?: any } | undefined
           if (!resp?.ok) {
             const msg = resp?.error || `Request failed: ${resp?.status}`
@@ -738,8 +950,18 @@ export default defineBackground({
           }
         }
 
+        // Update UI with expanded total before processing starts.
+        try {
+          void browser.runtime.sendMessage({
+            type: "tldw:quick-ingest-progress",
+            payload: { processedCount, totalCount }
+          })
+        } catch (error) {
+          logBackgroundError("quick ingest progress message", error)
+        }
+
         // Process URL entries
-        for (const r of entries) {
+        for (const r of expandedEntries) {
           const url = String(r?.url || '').trim()
           if (!url) continue
           const explicitType = r?.type && typeof r.type === 'string' ? r.type : 'auto'
@@ -752,7 +974,12 @@ export default defineBackground({
                 r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
               const fields: Record<string, any> = buildFields(t, r, resolvedDefaults)
               fields.urls = [url]
-              const resp = await handleUpload({ path: '/api/v1/media/add', method: 'POST', fields })
+              const resp = await handleUpload({
+                path: '/api/v1/media/add',
+                method: 'POST',
+                fields,
+                timeoutMs: ingestTimeoutMs
+              })
               if (!resp?.ok) {
                 const msg = resp?.error || `Upload failed: ${resp?.status}`
                 throw new Error(msg)
@@ -761,7 +988,7 @@ export default defineBackground({
             } else {
               // Process only (no store)
               if (t === 'html') {
-                data = await processWebScrape(url)
+                data = await processWebScrape(url, r)
               } else {
                 const resolvedDefaults =
                   r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
@@ -770,7 +997,8 @@ export default defineBackground({
                 const resp = await handleUpload({
                   path: getProcessPathForType(t),
                   method: 'POST',
-                  fields
+                  fields,
+                  timeoutMs: ingestTimeoutMs
                 })
                 if (!resp?.ok) {
                   const msg = resp?.error || `Upload failed: ${resp?.status}`
@@ -816,7 +1044,8 @@ export default defineBackground({
                 path: '/api/v1/media/add',
                 method: 'POST',
                 fields,
-                file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+                file: { name, type: f?.type || 'application/octet-stream', data: f?.data },
+                timeoutMs: ingestTimeoutMs
               })
               if (!resp?.ok) {
                 const msg = resp?.error || `Upload failed: ${resp?.status}`
@@ -833,7 +1062,8 @@ export default defineBackground({
                 path: getProcessPathForType(mediaType),
                 method: 'POST',
                 fields,
-                file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+                file: { name, type: f?.type || 'application/octet-stream', data: f?.data },
+                timeoutMs: ingestTimeoutMs
               })
               if (!resp?.ok) {
                 const msg = resp?.error || `Upload failed: ${resp?.status}`
@@ -866,11 +1096,15 @@ export default defineBackground({
         } catch (error) {
           logBackgroundError("ensure sidepanel open", error)
         }
-      } else if (message.type === 'tldw:upload') {
+        return undefined
+      }
+      if (message.type === 'tldw:upload') {
         return handleUpload(message.payload || {})
-      } else if (message.type === 'tldw:request') {
+      }
+      if (message.type === 'tldw:request') {
         return handleTldwRequest(message.payload || {})
-      } else if (message.type === 'tldw:ingest') {
+      }
+      if (message.type === 'tldw:ingest') {
         try {
           const tabs = await browser.tabs.query({ active: true, currentWindow: true })
           const tab = tabs[0]
@@ -883,6 +1117,21 @@ export default defineBackground({
           return { ok: false, status: 0, error: e?.message || 'Ingest failed' }
         }
       }
+      return undefined
+    }
+
+    browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      void handleRuntimeMessage(message, sender)
+        .then((response) => sendResponse(response))
+        .catch((error) => {
+          logBackgroundError("runtime message", error)
+          sendResponse({
+            ok: false,
+            status: 0,
+            error: (error as Error)?.message || "Background error"
+          })
+        })
+      return true
     })
 
     browser.runtime.onConnect.addListener((port) => {

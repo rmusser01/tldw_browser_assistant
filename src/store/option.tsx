@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { createCompareSlice } from "@/store/option/slices/compare-slice"
 import { createCoreSlice } from "@/store/option/slices/core-slice"
 import { createRagSlice } from "@/store/option/slices/rag-slice"
@@ -17,7 +17,7 @@ export type {
   WebSearch
 } from "@/store/option/types"
 
-export const useStoreMessageOption = create<State>()((set, get) => ({
+export const useStoreMessageOption = createWithEqualityFn<State>()((set, get) => ({
   ...createCoreSlice(set, get),
   ...createRagSlice(set, get),
   ...createServerChatSlice(set, get),

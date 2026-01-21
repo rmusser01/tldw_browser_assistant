@@ -20,12 +20,15 @@ export type QueuedFileStub = {
 export type ResultItem = {
   id: string
   status: "ok" | "error"
+  outcome?: ResultOutcome
   url?: string
   fileName?: string
   type: string
   data?: unknown
   error?: string
 }
+
+export type ResultOutcome = "ingested" | "processed" | "skipped" | "failed"
 
 export type ResultItemWithMediaId = ResultItem & {
   mediaId: string | number | null

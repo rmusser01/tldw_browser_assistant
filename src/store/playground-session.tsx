@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware"
 
 const STORAGE_KEY = "tldw-playground-session"
@@ -55,7 +55,7 @@ const initialState: PlaygroundSessionData = {
   lastUpdated: 0
 }
 
-export const usePlaygroundSessionStore = create<PlaygroundSessionState>()(
+export const usePlaygroundSessionStore = createWithEqualityFn<PlaygroundSessionState>()(
   persist(
     (set, get) => ({
       ...initialState,

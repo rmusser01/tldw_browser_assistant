@@ -3,7 +3,7 @@
  * Manages UI state for the Evaluations Playground page
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type {
   DatasetResponse,
   DatasetSample,
@@ -214,7 +214,7 @@ const initialState = {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useEvaluationsStore = create<EvaluationsState>()((set) => ({
+export const useEvaluationsStore = createWithEqualityFn<EvaluationsState>()((set) => ({
   ...initialState,
 
   // ─────────────────────────────────────────────────────────────────────────

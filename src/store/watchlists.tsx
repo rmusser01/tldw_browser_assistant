@@ -3,7 +3,7 @@
  * Manages state for the Watchlists Playground page
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type {
   WatchlistGroup,
   WatchlistJob,
@@ -299,7 +299,7 @@ const initialState = {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useWatchlistsStore = create<WatchlistsState>()((set) => ({
+export const useWatchlistsStore = createWithEqualityFn<WatchlistsState>()((set) => ({
   ...initialState,
 
   // ─────────────────────────────────────────────────────────────────────────

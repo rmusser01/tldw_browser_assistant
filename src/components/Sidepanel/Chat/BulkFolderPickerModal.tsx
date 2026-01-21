@@ -263,7 +263,7 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
           conversationIds.length === 0 ||
           selectedFolderIds.length === 0
       }}
-      destroyOnClose
+      destroyOnHidden
     >
       {renderContent()}
     </Modal>

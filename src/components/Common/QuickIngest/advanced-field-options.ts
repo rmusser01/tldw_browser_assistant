@@ -38,6 +38,17 @@ const CONTEXT_STRATEGY_OPTIONS = [
   "window",
   "outline_window"
 ] as const
+const SCRAPE_METHOD_OPTIONS = [
+  "Individual URLs",
+  "Sitemap",
+  "URL Level",
+  "Recursive Scraping"
+] as const
+const CRAWL_STRATEGY_OPTIONS = [
+  "best_first",
+  "best-first",
+  "bestfirst"
+] as const
 
 const toTitleCase = (value: string) =>
   value
@@ -103,6 +114,14 @@ export const getAdvancedFieldSelectOptions = ({
       return enumOptions.length > 0
         ? enumOptions
         : toSimpleOptions(CONTEXT_STRATEGY_OPTIONS)
+    case "scrape_method":
+      return enumOptions.length > 0
+        ? enumOptions
+        : toSimpleOptions(SCRAPE_METHOD_OPTIONS)
+    case "crawl_strategy":
+      return enumOptions.length > 0
+        ? enumOptions
+        : toSimpleOptions(CRAWL_STRATEGY_OPTIONS)
     case "contextual_llm_model":
     case "embedding_model": {
       const source =

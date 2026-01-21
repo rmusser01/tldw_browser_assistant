@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 import { tldwClient, type TldwConfig } from "@/services/tldw/TldwApiClient"
 import { getStoredTldwServerURL } from "@/services/tldw-server"
@@ -230,7 +230,7 @@ const getPersistedServerUrl = async (): Promise<string | null> => {
   return null
 }
 
-export const useConnectionStore = create<ConnectionStore>((set, get) => ({
+export const useConnectionStore = createWithEqualityFn<ConnectionStore>((set, get) => ({
   state: initialState,
 
   async checkOnce() {

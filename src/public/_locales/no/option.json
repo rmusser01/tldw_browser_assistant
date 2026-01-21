@@ -1764,16 +1764,16 @@
     "message": "Mer"
   },
   "characters_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Opprett en ny karakter+"
   },
   "characters_importCharacter": {
-    "message": "Import Character"
+    "message": "Importer karakter"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "Last ned JSON for {{name}}"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "Velg filer"
   },
   "flashcards_cards": {
     "message": "Kort"
@@ -1956,7 +1956,7 @@
     "message": "Slett kort"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "Grunnleggende"
   },
   "flashcards_modelTypeBasicReverse": {
     "message": "Reverserbar"
@@ -2004,7 +2004,7 @@
     "message": "Vis snarveier"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "Globalt"
   },
   "flashcards_reverseCard": {
     "message": "omvendt"
@@ -2172,10 +2172,10 @@
     "message": "Temperatur"
   },
   "writingPlayground_topPLabel": {
-    "message": "Top P"
+    "message": "Topp P"
   },
   "writingPlayground_topKLabel": {
-    "message": "Top K"
+    "message": "Topp K"
   },
   "writingPlayground_maxTokensLabel": {
     "message": "Maks tokens"
@@ -2187,7 +2187,7 @@
     "message": "Frekvensstraff"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "Seed (startverdi)"
   },
   "writingPlayground_stopStringsLabel": {
     "message": "Stoppstrenger"
@@ -2232,7 +2232,7 @@
     "message": "Skill store/små bokstaver"
   },
   "writingPlayground_searchRegex": {
-    "message": "Regex"
+    "message": "Regulære uttrykk"
   },
   "writingPlayground_searchRegexError": {
     "message": "Ugyldig regex"
@@ -2358,7 +2358,7 @@
     "message": "Import mislyktes: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "Systemmelding"
   },
   "writingPlayground_templateInsertUser": {
     "message": "Bruker"
@@ -2554,5 +2554,20 @@
   },
   "writingPlayground_sessionExportError": {
     "message": "Kunne ikke eksportere sesjon: {{detail}}"
+  },
+  "quickIngest_resultStatusProcessed": {
+    "message": "Processed"
+  },
+  "quickIngest_resultStatusIngested": {
+    "message": "Ingested"
+  },
+  "quickIngest_resultStatusSkipped": {
+    "message": "Skipped"
+  },
+  "quickIngest_keywordsPlaceholder": {
+    "message": "Keywords (comma-separated)"
+  },
+  "quickIngest_keywordsAria": {
+    "message": "Keywords for this item"
   }
 }

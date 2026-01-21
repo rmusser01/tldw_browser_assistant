@@ -14,8 +14,21 @@ const KeyboardShortcutsModal = React.lazy(() =>
   }))
 )
 
+const routerFutureConfig = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true
+}
+
+const HashRouterWithFuture: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => <HashRouter future={routerFutureConfig}>{children}</HashRouter>
+
+const MemoryRouterWithFuture: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => <MemoryRouter future={routerFutureConfig}>{children}</MemoryRouter>
+
 const resolveRouter = (mode: "hash" | "memory") =>
-  mode === "hash" ? HashRouter : MemoryRouter
+  mode === "hash" ? HashRouterWithFuture : MemoryRouterWithFuture
 
 const resolveMemoryInitialEntry = () => {
   if (typeof window === "undefined") {
@@ -36,7 +49,14 @@ const SidepanelMemoryRouter: React.FC<{ children: React.ReactNode }> = ({
     () => [resolveMemoryInitialEntry()],
     []
   )
-  return <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+  return (
+    <MemoryRouter
+      initialEntries={initialEntries}
+      future={routerFutureConfig}
+    >
+      {children}
+    </MemoryRouter>
+  )
 }
 
 export const SidepanelApp: React.FC = () => {
@@ -45,7 +65,7 @@ export const SidepanelApp: React.FC = () => {
   })
   const Router =
     platformConfig.routers.sidepanel === "hash"
-      ? HashRouter
+      ? HashRouterWithFuture
       : SidepanelMemoryRouter
   const extras = (
     <>

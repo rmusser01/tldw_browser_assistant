@@ -433,7 +433,12 @@
     "healthAriaHint": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക.",
     "specReloadedToast": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു",
     "specReloadedToastDiff": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു (ചേർത്ത ഫീൽഡുകൾ: {{added}}, നീക്കിയ ഫീൽഡുകൾ: {{removed}})",
-    "specFallbackWarning": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
+    "specFallbackWarning": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "തലക്കെട്ടുകളും ഉള്ളടക്കവും തിരയുക",

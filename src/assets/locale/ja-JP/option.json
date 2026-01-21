@@ -745,7 +745,12 @@
     "reviewDraftsRetry": "下書き作成を再試行",
     "reviewDraftsStoreWithoutReview": "レビューせずに保存",
     "reviewNavigationFailed": "コンテンツレビューを開けませんでした。もう一度お試しください。",
-    "reviewNavigationRetry": "コンテンツレビューを再度開く"
+    "reviewNavigationRetry": "コンテンツレビューを再度開く",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "タイトルと内容を検索",

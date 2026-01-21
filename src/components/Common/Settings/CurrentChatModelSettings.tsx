@@ -601,7 +601,7 @@ export const CurrentChatModelSettings = ({
             }}>
             <Tabs
               defaultActiveKey="model"
-              destroyInactiveTabPane={false}
+              destroyOnHidden={false}
               items={tabItems}
               className="settings-tabs"
             />

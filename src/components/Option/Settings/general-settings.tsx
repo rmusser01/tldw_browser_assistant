@@ -1,11 +1,12 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
-import { Alert, Modal, Select, Switch, notification } from "antd"
+import { Alert, Modal, Select, Switch } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
 import { useTranslation } from "react-i18next"
 import { useI18n } from "@/hooks/useI18n"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { SystemSettings } from "./system-settings"
 import { getDefaultOcrLanguage, ocrLanguages } from "@/data/ocr-language"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -44,6 +45,7 @@ export const GeneralSettings = () => {
 
   const { mode, toggleDarkMode } = useDarkMode()
   const { t } = useTranslation("settings")
+  const notification = useAntdNotification()
   const { changeLocale, locale, supportLanguage } = useI18n()
   const isOnline = useServerOnline()
   const navigate = useNavigate()

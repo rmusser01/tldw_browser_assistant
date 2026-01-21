@@ -10,7 +10,7 @@ import {
 import { generateBranchMessage } from "@/db/dexie/branch"
 import { getPromptById, getSessionFiles, UploadedFile } from "@/db"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
-import { notification } from "antd"
+import type { NotificationInstance } from "antd/es/notification/interface"
 
 export const createRegenerateLastMessage = ({
   validateBeforeSubmitFn,
@@ -125,6 +125,7 @@ export const createEditMessage = ({
 }
 
 export const createBranchMessage = ({
+  notification,
   setMessages,
   setHistory,
   historyId,
@@ -182,6 +183,7 @@ export const createBranchMessage = ({
   messages?: Message[]
   history?: ChatHistory
   onServerChatMutated?: () => void
+  notification: NotificationInstance
 }) => {
   const createLocalBranch = async (index: number): Promise<string | null> => {
     if (!historyId) {

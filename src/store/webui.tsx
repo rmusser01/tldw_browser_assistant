@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 type State = {
   sendWhenEnter: boolean
@@ -8,7 +8,7 @@ type State = {
   setTTSEnabled: (isTTSEnabled: boolean) => void
 }
 
-export const useWebUI = create<State>((set) => ({
+export const useWebUI = createWithEqualityFn<State>((set) => ({
   sendWhenEnter: true,
   setSendWhenEnter: (sendWhenEnter) => set({ sendWhenEnter }),
 

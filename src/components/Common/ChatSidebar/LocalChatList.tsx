@@ -108,7 +108,7 @@ export function LocalChatList({
   const isConnected = useIsConnected()
   const queryClient = useQueryClient()
   const confirmDanger = useConfirmDanger()
-  const { showUndoNotification, contextHolder } = useUndoNotification()
+  const { showUndoNotification } = useUndoNotification()
 
   const {
     setMessages,
@@ -456,7 +456,6 @@ export function LocalChatList({
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {/* Notification context holder for undo notifications */}
-      {contextHolder}
       <Modal
         title={t("common:renameChat", { defaultValue: "Rename chat" })}
         open={!!renamingChat}

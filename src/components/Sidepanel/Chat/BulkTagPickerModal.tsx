@@ -177,7 +177,7 @@ export const BulkTagPickerModal: React.FC<BulkTagPickerModalProps> = ({
           conversationIds.length === 0 ||
           selectedTags.length === 0
       }}
-      destroyOnClose
+      destroyOnHidden
     >
       {renderContent()}
     </Modal>

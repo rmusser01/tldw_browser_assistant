@@ -88,3 +88,132 @@ export const MEDIA_ADD_SCHEMA_FALLBACK: Array<{
   { name: 'use_multi_level_chunking', type: 'boolean', description: 'Multi-level chunking', title: 'Use Multi Level Chunking' },
   { name: 'vad_use', type: 'boolean', description: 'Enable VAD filter', title: 'Vad Use' }
 ]
+
+// Web scraping request schema fallback when /openapi.json is unavailable.
+// This is intentionally separate from MEDIA_ADD_SCHEMA_FALLBACK to keep
+// verify:openapi checks scoped to /api/v1/media/add.
+export const WEB_SCRAPING_SCHEMA_FALLBACK_VERSION = "0.1.0"
+
+export const WEB_SCRAPING_SCHEMA_FALLBACK: Array<{
+  name: string
+  type: string
+  description?: string
+  title?: string
+  enum?: unknown[]
+}> = [
+  {
+    name: 'scrape_method',
+    type: 'string',
+    description: 'Scraping strategy for the provided URLs.',
+    title: 'Scrape Method',
+    enum: ['Individual URLs', 'Sitemap', 'URL Level', 'Recursive Scraping']
+  },
+  {
+    name: 'url_input',
+    type: 'string',
+    description: 'Base URL or newline-separated list of URLs.',
+    title: 'URL Input'
+  },
+  {
+    name: 'url_level',
+    type: 'integer',
+    description: 'Required when using URL Level scraping.',
+    title: 'URL Level'
+  },
+  { name: 'max_pages', type: 'integer', description: 'Max pages to crawl.', title: 'Max Pages' },
+  { name: 'max_depth', type: 'integer', description: 'Max crawl depth.', title: 'Max Depth' },
+  {
+    name: 'summarize_checkbox',
+    type: 'boolean',
+    description: 'Enable per-article LLM summarization.',
+    title: 'Summarize Articles'
+  },
+  { name: 'custom_prompt', type: 'string', description: 'Custom summary prompt.', title: 'Custom Prompt' },
+  { name: 'system_prompt', type: 'string', description: 'System prompt override.', title: 'System Prompt' },
+  { name: 'temperature', type: 'number', description: 'Summary temperature.', title: 'Temperature' },
+  { name: 'api_name', type: 'string', description: 'LLM provider name.', title: 'Api Name' },
+  { name: 'keywords', type: 'string', description: 'Comma-separated keywords.', title: 'Keywords' },
+  {
+    name: 'custom_titles',
+    type: 'string',
+    description: 'Optional titles per URL (JSON array or newline list).',
+    title: 'Custom Titles'
+  },
+  {
+    name: 'custom_cookies',
+    type: 'string',
+    description: 'Cookie list (JSON array of cookie objects).',
+    title: 'Custom Cookies'
+  },
+  { name: 'user_agent', type: 'string', description: 'User-Agent for scraping.', title: 'User Agent' },
+  {
+    name: 'custom_headers',
+    type: 'string',
+    description: 'Request headers (JSON object).',
+    title: 'Custom Headers'
+  },
+  {
+    name: 'crawl_strategy',
+    type: 'string',
+    description: 'Crawl strategy.',
+    title: 'Crawl Strategy',
+    enum: ['best_first', 'best-first', 'bestfirst']
+  },
+  {
+    name: 'include_external',
+    type: 'boolean',
+    description: 'Allow following off-domain links.',
+    title: 'Include External'
+  },
+  {
+    name: 'score_threshold',
+    type: 'number',
+    description: 'Crawl score threshold (0.0 - 1.0).',
+    title: 'Score Threshold'
+  },
+  {
+    name: 'mode',
+    type: 'string',
+    description: 'Persist results or keep them ephemeral.',
+    title: 'Mode',
+    enum: ['persist', 'ephemeral']
+  }
+]
+
+const mergeSchemaEntries = (
+  ...entries: Array<
+    Array<{
+      name: string
+      type: string
+      description?: string
+      title?: string
+      enum?: unknown[]
+    }>
+  >
+) => {
+  const byName = new Map<string, (typeof entries)[number][number]>()
+  for (const list of entries) {
+    for (const entry of list) {
+      const existing = byName.get(entry.name)
+      if (!existing) {
+        byName.set(entry.name, { ...entry })
+        continue
+      }
+      byName.set(entry.name, {
+        ...existing,
+        ...entry,
+        type: entry.type || existing.type,
+        enum: entry.enum ?? existing.enum,
+        description: entry.description ?? existing.description,
+        title: entry.title ?? existing.title
+      })
+    }
+  }
+  return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name))
+}
+
+export const QUICK_INGEST_SCHEMA_FALLBACK_VERSION = "0.1.0"
+export const QUICK_INGEST_SCHEMA_FALLBACK = mergeSchemaEntries(
+  MEDIA_ADD_SCHEMA_FALLBACK,
+  WEB_SCRAPING_SCHEMA_FALLBACK
+)

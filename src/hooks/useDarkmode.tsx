@@ -1,5 +1,5 @@
 import React from "react";
-import { create } from "zustand";
+import { createWithEqualityFn } from "zustand/traditional";
 import { useSetting } from "@/hooks/useSetting";
 import { THEME_SETTING } from "@/services/settings/ui-settings";
 
@@ -8,7 +8,7 @@ type DarkModeState = {
   setMode: (mode: "system" | "dark" | "light") => void;
 };
 
-export const useDarkModeStore = create<DarkModeState>((set) => ({
+export const useDarkModeStore = createWithEqualityFn<DarkModeState>((set) => ({
   mode: "system",
   setMode: (mode) => set({ mode }),
 }));

@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type { McpToolDefinition } from "@/services/tldw/mcp"
 
 export type McpHealthState =
@@ -16,7 +16,7 @@ type McpToolsState = {
   setToolsLoading: (loading: boolean) => void
 }
 
-export const useMcpToolsStore = create<McpToolsState>((set) => ({
+export const useMcpToolsStore = createWithEqualityFn<McpToolsState>((set) => ({
   tools: [],
   healthState: "unknown",
   toolsLoading: false,

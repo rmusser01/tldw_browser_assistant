@@ -745,7 +745,12 @@
     "healthAriaHint": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요.",
     "specReloadedToast": "서버에서 고급 스펙을 다시 로드했습니다",
     "specReloadedToastDiff": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})",
-    "specFallbackWarning": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요."
+    "specFallbackWarning": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "제목과 내용을 검색",

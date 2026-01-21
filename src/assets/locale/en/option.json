@@ -686,7 +686,12 @@
     "retryFailedUrls": "Retry failed URLs",
     "summaryAllSucceeded": "Quick ingest completed successfully.",
     "summarySomeFailed": "Quick ingest completed with some errors.",
-    "summaryCounts": "{{success}} succeeded · {{failed}} failed"
+    "summaryCounts": "{{success}} succeeded · {{failed}} failed",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "libraryView": "Library View",
   "notes": "Notes",

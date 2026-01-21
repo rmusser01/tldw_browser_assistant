@@ -158,7 +158,7 @@ export const PromptInsertModal: React.FC<Props> = ({
       open={open}
       onCancel={onClose}
       footer={null}
-      destroyOnClose
+      destroyOnHidden
       centered
     >
       <div className="space-y-3">

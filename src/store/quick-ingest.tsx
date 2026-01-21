@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 type QuickIngestStore = {
   /**
@@ -17,7 +17,7 @@ type QuickIngestStore = {
   clearFailure: () => void
 }
 
-export const useQuickIngestStore = create<QuickIngestStore>((set) => ({
+export const useQuickIngestStore = createWithEqualityFn<QuickIngestStore>((set) => ({
   queuedCount: 0,
   hadRecentFailure: false,
   setQueuedCount: (count) =>

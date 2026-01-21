@@ -5,7 +5,7 @@
  * UI preferences (expand state, colors) are persisted locally.
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { persist, createJSONStorage, type StateStorage } from "zustand/middleware"
 import { useShallow } from "zustand/react/shallow"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
@@ -241,7 +241,7 @@ const createThrottledLocalStorage = (delay = 1000): StateStorage => {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useFolderStore = create<FolderState>()(
+export const useFolderStore = createWithEqualityFn<FolderState>()(
   persist(
     (set, get) => ({
       // Initial state

@@ -3,7 +3,7 @@
  * Manages state for the Data Tables Studio feature
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type {
   CreateTableStep,
   DataTable,
@@ -232,7 +232,7 @@ const initialState = {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useDataTablesStore = create<DataTablesState>()((set) => ({
+export const useDataTablesStore = createWithEqualityFn<DataTablesState>()((set) => ({
   ...initialState,
 
   // ─────────────────────────────────────────────────────────────────────────

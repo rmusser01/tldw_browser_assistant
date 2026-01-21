@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 /**
  * Chat model settings - state values only (no actions)
@@ -159,7 +159,7 @@ const INITIAL_STATE: ChatModelSettings = {
   jsonMode: undefined
 }
 
-export const useStoreChatModelSettings = create<ChatModelSettingsStore>(
+export const useStoreChatModelSettings = createWithEqualityFn<ChatModelSettingsStore>(
   (set) => ({
     ...INITIAL_STATE,
 

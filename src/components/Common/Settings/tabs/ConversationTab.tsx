@@ -1,5 +1,5 @@
 import { FileIcon, X } from "lucide-react"
-import { Form, Input, notification, Select, Switch } from "antd"
+import { Form, Input, Select, Switch } from "antd"
 import { useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
@@ -7,6 +7,7 @@ import {
   CONVERSATION_STATE_OPTIONS,
   normalizeConversationState
 } from "@/utils/conversation-state"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 interface UploadedFile {
   id: string
@@ -72,6 +73,7 @@ export function ConversationTab({
   onVersionChange
 }: ConversationTabProps) {
   const { t } = useTranslation(["common", "playground"])
+  const notification = useAntdNotification()
   const queryClient = useQueryClient()
 
   const conversationStateOptions = CONVERSATION_STATE_OPTIONS.map((option) => ({

@@ -1,8 +1,8 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { notification } from "antd"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { SttSettings } from "@/hooks/useSttSettings"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 export interface UseServerDictationOptions {
   canUseServerAudio: boolean
@@ -21,6 +21,7 @@ export const useServerDictation = (
   options: UseServerDictationOptions
 ): UseServerDictationResult => {
   const { t } = useTranslation(["playground"])
+  const notification = useAntdNotification()
   const { canUseServerAudio, speechToTextLanguage, sttSettings, onTranscript } =
     options
 

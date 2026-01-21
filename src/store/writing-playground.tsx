@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 type WritingPlaygroundState = {
   activeSessionId: string | null
@@ -7,7 +7,7 @@ type WritingPlaygroundState = {
   setActiveSessionName: (activeSessionName: string | null) => void
 }
 
-export const useWritingPlaygroundStore = create<WritingPlaygroundState>((set) => ({
+export const useWritingPlaygroundStore = createWithEqualityFn<WritingPlaygroundState>((set) => ({
   activeSessionId: null,
   activeSessionName: null,
   setActiveSessionId: (activeSessionId) => set({ activeSessionId }),

@@ -1,7 +1,8 @@
 import React from "react"
-import { notification, Button } from "antd"
+import { Button } from "antd"
 import { Undo2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 export interface UndoNotificationOptions {
   /** Title of the notification */
@@ -36,7 +37,7 @@ export interface UndoNotificationOptions {
  */
 export function useUndoNotification() {
   const { t } = useTranslation(["common"])
-  const [api, contextHolder] = notification.useNotification()
+  const notification = useAntdNotification()
 
   const showUndoNotification = ({
     title,
@@ -50,16 +51,16 @@ export function useUndoNotification() {
 
     const handleUndo = async () => {
       undoClicked = true
-      api.destroy(key)
+      notification.destroy(key)
       try {
         await onUndo()
-        api.success({
+        notification.success({
           message: t("common:undo.restored", "Restored successfully"),
           duration: 2,
           placement: "bottomRight"
         })
       } catch (err) {
-        api.error({
+        notification.error({
           message: t("common:undo.restoreFailed", "Failed to restore"),
           description: err instanceof Error ? err.message : undefined,
           duration: 4,
@@ -68,7 +69,7 @@ export function useUndoNotification() {
       }
     }
 
-    api.open({
+    notification.open({
       key,
       message: (
         <span className="font-medium text-gray-900 dark:text-gray-100">
@@ -104,8 +105,7 @@ export function useUndoNotification() {
   }
 
   return {
-    showUndoNotification,
-    contextHolder
+    showUndoNotification
   }
 }
 

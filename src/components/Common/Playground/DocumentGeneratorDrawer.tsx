@@ -514,7 +514,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
       onClose={onClose}
       width={480}
       title={t("playground:documentGenerator.title", "Document generator")}
-      destroyOnClose={false}
+      destroyOnHidden={false}
     >
       {capabilities && !capabilities.hasChatDocuments && (
         <Alert

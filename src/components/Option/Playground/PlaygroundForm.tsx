@@ -11,7 +11,6 @@ import {
   Select,
   Switch,
   Tooltip,
-  notification,
   Popover,
   Modal,
   Button
@@ -89,6 +88,7 @@ import { clearSetting, getSetting } from "@/services/settings/registry"
 import { DISCUSS_MEDIA_PROMPT_SETTING } from "@/services/settings/ui-settings"
 import { Button as TldwButton } from "@/components/Common/Button"
 import { useSimpleForm } from "@/hooks/useSimpleForm"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -125,6 +125,7 @@ type Props = {
 
 export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { t } = useTranslation(["playground", "common", "option"])
+  const notificationApi = useAntdNotification()
   const inputRef = React.useRef<HTMLInputElement>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
   const processedFilesRef = React.useRef<WeakSet<File>>(new WeakSet())
@@ -557,7 +558,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         : MAX_COMPARE_MODELS
     const next = values.slice(0, max)
     if (values.length > max) {
-      notification.warning({
+      notificationApi.warning({
         message: t("playground:composer.compareMaxModelsTitle", "Compare limit reached"),
         description: t(
           "playground:composer.compareMaxModels",
@@ -1901,7 +1902,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const handleToggleTemporaryChat = React.useCallback(
     (next: boolean) => {
       if (isFireFoxPrivateMode) {
-        notification.error({
+        notificationApi.error({
           message: t(
             "common:privateModeSaveErrorTitle",
             "tldw Assistant can't save data"
@@ -1917,7 +1918,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       const hasExistingHistory = history.length > 0
 
       if (!next && temporaryChat && hasExistingHistory) {
-        notification.warning({
+        notificationApi.warning({
           message: t(
             "playground:composer.privateChatLockedTitle",
             "Private chat is locked"
@@ -1952,7 +1953,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
               isConnectionReady,
               serverChatId
             )
-            notification.info({
+            notificationApi.info({
               message: modeLabel,
               placement: "bottomRight",
               duration: 2.5
@@ -1975,7 +1976,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         serverChatId
       )
 
-      notification.info({
+      notificationApi.info({
         message: modeLabel,
         placement: "bottomRight",
         duration: 2.5
@@ -1985,6 +1986,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       clearChat,
       history.length,
       isConnectionReady,
+      notificationApi,
       serverChatId,
       setTemporaryChat,
       t,
@@ -2043,7 +2045,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       }
 
       if (characterId == null) {
-        notification.error({
+        notificationApi.error({
           message: t("error"),
           description: t(
             "playground:composer.persistence.serverCharacterRequired",
@@ -2112,7 +2114,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       }
 
       if (!serverPersistenceHintSeen) {
-        notification.success({
+        notificationApi.success({
           message: t(
             "playground:composer.persistence.serverSavedTitle",
             "Chat now saved on server"
@@ -2132,7 +2134,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         setShowServerPersistenceHint(true)
       }
     } catch (e: any) {
-      notification.error({
+      notificationApi.error({
         message: t("error"),
         description: e?.message || t("somethingWentWrong")
       })
@@ -2141,6 +2143,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     history,
     invalidateServerChatHistory,
     isConnectionReady,
+    notificationApi,
     selectedCharacter,
     temporaryChat,
     serverChatId,
@@ -2200,7 +2203,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       cancelText: t("common:cancel", "Cancel"),
       onOk: () => {
         setHistory([])
-        notification.success({
+        notificationApi.success({
           message: t(
             "playground:composer.clearContextSuccess",
             "Conversation cleared"
@@ -2209,7 +2212,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         })
       }
     })
-  }, [history.length, setHistory, t])
+  }, [history.length, notificationApi, setHistory, t])
 
   const handleToggleContextTools = React.useCallback(() => {
     setContextToolsOpen(!contextToolsOpen)
@@ -2390,7 +2393,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         setServerChatVersion((updated as any)?.version ?? null)
         invalidateServerChatHistory()
       } catch (e: any) {
-        notification.error({
+        notificationApi.error({
           message: t("error", { defaultValue: "Error" }),
           description:
             e?.message ||
@@ -2400,6 +2403,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     },
     [
       invalidateServerChatHistory,
+      notificationApi,
       serverChatId,
       setServerChatSource,
       setServerChatState,
@@ -2414,7 +2418,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       return
     }
     if (!canUseServerAudio) {
-      notification.error({
+      notificationApi.error({
         message: t(
           "playground:actions.speechUnavailableTitle",
           "Dictation unavailable"
@@ -2437,7 +2441,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       }
       recorder.onerror = (event: Event) => {
         console.error("MediaRecorder error", event)
-        notification.error({
+        notificationApi.error({
           message: t("playground:actions.speechErrorTitle", "Dictation failed"),
           description: t(
             "playground:actions.speechErrorBody",
@@ -2516,7 +2520,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
           if (text) {
             setMessageValue(text, { collapseLarge: true, forceCollapse: true })
           } else {
-            notification.error({
+            notificationApi.error({
               message: t("playground:actions.speechErrorTitle", "Dictation failed"),
               description: t(
                 "playground:actions.speechNoText",
@@ -2525,7 +2529,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
             })
           }
         } catch (e: any) {
-          notification.error({
+          notificationApi.error({
             message: t("playground:actions.speechErrorTitle", "Dictation failed"),
             description: e?.message || t(
               "playground:actions.speechErrorBody",
@@ -2544,7 +2548,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       recorder.start()
       setIsServerDictating(true)
     } catch (e: any) {
-      notification.error({
+      notificationApi.error({
         message: t("playground:actions.speechErrorTitle", "Dictation failed"),
         description: t(
           "playground:actions.speechMicError",
@@ -2555,6 +2559,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   }, [
     canUseServerAudio,
     isServerDictating,
+    notificationApi,
     speechToTextLanguage,
     sttModel,
     sttTimestampGranularities,
@@ -4512,7 +4517,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         onCancel={() => setPromptInsertChoice(null)}
         footer={null}
         centered
-        destroyOnClose
+        destroyOnHidden
       >
         <div className="space-y-3">
           <p className="text-sm text-text">

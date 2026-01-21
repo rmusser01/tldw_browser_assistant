@@ -7,7 +7,6 @@ import { PlaygroundMessage } from "@/components/Common/Playground/Message"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
-import { notification } from "antd"
 import { Clock, Hash } from "lucide-react"
 import { generateID } from "@/db/dexie/helpers"
 import { decodeChatErrorPayload } from "@/utils/chat-error-message"
@@ -17,6 +16,7 @@ import { fetchChatModels } from "@/services/tldw-server"
 import { tldwModels } from "@/services/tldw"
 import { applyVariantToMessage } from "@/utils/message-variants"
 import type { Character } from "@/types/character"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 type TimelineBlock =
   | { kind: "single"; index: number }
@@ -108,6 +108,7 @@ const buildBlocks = (messages: { messageType?: string; clusterId?: string }[]): 
 
 export const PlaygroundChat = () => {
   const { t } = useTranslation(["playground", "common"])
+  const notification = useAntdNotification()
   const {
     messages,
     setMessages,

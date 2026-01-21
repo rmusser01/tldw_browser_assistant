@@ -758,7 +758,12 @@
     "healthAriaHint": "Недавние запуски завершились с ошибкой — откройте «Health & diagnostics» в заголовке для подробностей.",
     "specReloadedToast": "Расширенная спецификация перезагружена с сервера",
     "specReloadedToastDiff": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})",
-    "specFallbackWarning": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
+    "specFallbackWarning": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Поиск по заголовкам и содержимому",

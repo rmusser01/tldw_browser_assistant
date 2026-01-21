@@ -13,7 +13,7 @@ import {
   getAdvancedFieldSelectOptions
 } from "@/components/Common/QuickIngest/advanced-field-options"
 import type { IngestPreset } from "@/components/Common/QuickIngest/types"
-import { MEDIA_ADD_SCHEMA_FALLBACK } from "@/services/tldw/fallback-schemas"
+import { QUICK_INGEST_SCHEMA_FALLBACK } from "@/services/tldw/fallback-schemas"
 import { fetchChatModels, getEmbeddingModels } from "@/services/tldw-server"
 
 const PRESET_KEYS: Array<Exclude<IngestPreset, "custom">> = [
@@ -78,7 +78,7 @@ export const QuickIngestSettings = () => {
   )
   const advancedFields = React.useMemo(
     () =>
-      MEDIA_ADD_SCHEMA_FALLBACK.filter(
+      QUICK_INGEST_SCHEMA_FALLBACK.filter(
         (field) => !EXCLUDED_ADVANCED_FIELDS.has(field.name)
       ),
     []

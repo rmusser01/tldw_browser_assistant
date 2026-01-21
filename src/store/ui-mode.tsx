@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware"
 
 export type UiMode = "casual" | "pro"
@@ -15,7 +15,7 @@ const createMemoryStorage = (): StateStorage => ({
   removeItem: () => {}
 })
 
-export const useUiModeStore = create<UiModeState>()(
+export const useUiModeStore = createWithEqualityFn<UiModeState>()(
   persist(
     (set, get) => ({
       mode: "casual",

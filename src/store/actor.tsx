@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { createJSONStorage, persist } from "zustand/middleware"
 
 import type { ActorEditorMode, ActorSettings } from "@/types/actor"
@@ -32,7 +32,7 @@ type ActorUiStoreState = {
   reset: () => void
 }
 
-export const useActorStore = create<ActorUiStoreState>((set) => ({
+export const useActorStore = createWithEqualityFn<ActorUiStoreState>((set) => ({
   settings: null,
   preview: "",
   tokenCount: 0,
@@ -63,7 +63,7 @@ type ActorEditorPrefsState = {
   setEditorMode: (mode: ActorEditorMode) => void
 }
 
-export const useActorEditorPrefs = create<ActorEditorPrefsState>()(
+export const useActorEditorPrefs = createWithEqualityFn<ActorEditorPrefsState>()(
   persist(
     (set) => ({
       editorMode: "simple", // Default to simple for new users

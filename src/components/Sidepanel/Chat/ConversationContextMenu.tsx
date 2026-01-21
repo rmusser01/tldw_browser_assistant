@@ -186,7 +186,7 @@ export const ConversationContextMenu: React.FC<
         onCancel={() => setRenameModalOpen(false)}
         okText={t("common:save", "Save")}
         cancelText={t("common:cancel", "Cancel")}
-        destroyOnClose
+        destroyOnHidden
       >
         <Input
           value={renameValue}
@@ -209,7 +209,7 @@ export const ConversationContextMenu: React.FC<
         okText={t("common:delete", "Delete")}
         cancelText={t("common:cancel", "Cancel")}
         okButtonProps={{ danger: true }}
-        destroyOnClose
+        destroyOnHidden
       >
         <p>
           {t(

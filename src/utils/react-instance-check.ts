@@ -43,7 +43,6 @@ export const checkReactInstance = (label: string) => {
   }
 
   if (renderers.length === 0) {
-    console.warn(`[react-check] ${label} no devtools renderer detected`)
     return
   }
 

@@ -442,7 +442,12 @@
     "healthAriaHint": "Senaste körningarna misslyckades — öppna Health & diagnostics från rubriken för mer information.",
     "specReloadedToast": "Avancerad spec har laddats om från servern",
     "specReloadedToastDiff": "Avancerad spec har laddats om från servern (fält tillagda: {{added}}, borttagna: {{removed}})",
-    "specFallbackWarning": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+    "specFallbackWarning": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Sök titlar och innehåll",

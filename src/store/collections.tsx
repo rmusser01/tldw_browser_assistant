@@ -3,7 +3,7 @@
  * Manages state for the Collections Playground feature
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type {
   CollectionsTab,
   ReadingItemSummary,
@@ -308,7 +308,7 @@ const initialState = {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useCollectionsStore = create<CollectionsState>()((set) => ({
+export const useCollectionsStore = createWithEqualityFn<CollectionsState>()((set) => ({
   ...initialState,
 
   // ─────────────────────────────────────────────────────────────────────────

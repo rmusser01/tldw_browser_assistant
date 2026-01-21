@@ -10,6 +10,7 @@ type Entry = {
   id: string
   url: string
   type: EntryType
+  keywords?: string
 }
 
 type QueuedItemRowProps = {
@@ -52,6 +53,23 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
   onRemove
 }) => {
   const inputDisabled = running || queueDisabled
+  const KEYWORD_CLEANUP_RE = /[^a-zA-Z0-9 _-]+/g
+  const normalizeKeywords = React.useCallback((raw: string) => {
+    const tokens = String(raw || "")
+      .split(",")
+      .map((token) => token.replace(KEYWORD_CLEANUP_RE, "").trim())
+      .map((token) => token.replace(/\s+/g, " "))
+      .filter(Boolean)
+    const seen = new Set<string>()
+    const deduped: string[] = []
+    for (const token of tokens) {
+      const key = token.toLowerCase()
+      if (seen.has(key)) continue
+      seen.add(key)
+      deduped.push(token)
+    }
+    return deduped.join(", ")
+  }, [])
 
   return (
     <div
@@ -113,7 +131,7 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
           aria-label={qi("sourceUrlAria", "Source URL")}
           title={qi("sourceUrlAria", "Source URL")}
         />
-        <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
+        <div className="grid grid-cols-[auto,1fr] items-center gap-2 text-xs text-text-subtle">
           <Select
             className="min-w-32"
             value={row.type}
@@ -131,33 +149,50 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
             ]}
             disabled={inputDisabled}
           />
-          {canRetry && (
+          <Input
+            placeholder={qi("keywordsPlaceholder", "Keywords (comma-separated)")}
+            value={row.keywords || ""}
+            onClick={(event) => event.stopPropagation()}
+            onChange={(event) =>
+              onUpdateRow({ keywords: normalizeKeywords(event.target.value) })
+            }
+            disabled={inputDisabled}
+            aria-label={qi("keywordsAria", "Keywords for this item")}
+            title={qi("keywordsAria", "Keywords for this item")}
+          />
+        </div>
+        <div className="grid grid-cols-[auto,1fr] items-center gap-2 text-xs text-text-subtle">
+          <div className="flex items-center gap-2">
+            {canRetry && (
+              <Button
+                size="small"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onRetry()
+                }}
+                disabled={inputDisabled}
+                aria-label={qi("retryItemAria", "Retry this item")}
+                title={qi("retryItemAria", "Retry this item")}
+              >
+                {qi("retryItem", "Retry")}
+              </Button>
+            )}
+          </div>
+          <div className="flex justify-center">
             <Button
               size="small"
+              danger
               onClick={(event) => {
                 event.stopPropagation()
-                onRetry()
+                onRemove()
               }}
-              disabled={inputDisabled}
-              aria-label={qi("retryItemAria", "Retry this item")}
-              title={qi("retryItemAria", "Retry this item")}
+              disabled={running}
+              aria-label={qi("removeItemAria", "Remove this row from queue")}
+              title={qi("removeItemAria", "Remove this row from queue")}
             >
-              {qi("retryItem", "Retry")}
+              {qi("removeItem", "Remove")}
             </Button>
-          )}
-          <Button
-            size="small"
-            danger
-            onClick={(event) => {
-              event.stopPropagation()
-              onRemove()
-            }}
-            disabled={running}
-            aria-label={qi("removeItemAria", "Remove this row from queue")}
-            title={qi("removeItemAria", "Remove this row from queue")}
-          >
-            {qi("removeItem", "Remove")}
-          </Button>
+          </div>
         </div>
         {processingIndicator}
       </div>

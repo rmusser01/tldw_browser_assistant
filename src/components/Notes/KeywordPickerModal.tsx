@@ -42,7 +42,7 @@ const KeywordPickerModal: React.FC<KeywordPickerModalProps> = ({
       defaultValue: 'Apply filters'
     })}
     cancelText={t('common:cancel', { defaultValue: 'Cancel' })}
-    destroyOnClose
+    destroyOnHidden
   >
     <div className="space-y-3">
       <Input

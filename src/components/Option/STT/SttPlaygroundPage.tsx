@@ -1,10 +1,11 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
-import { Button, Card, Input, List, Select, Space, Switch, Tag, Tooltip, Typography, notification } from "antd"
+import { Button, Card, Input, List, Select, Space, Switch, Tag, Tooltip, Typography } from "antd"
 import { Mic, Pause, Save, Trash2 } from "lucide-react"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { PageShell } from "@/components/Common/PageShell"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 const { Text, Title } = Typography
 
@@ -19,6 +20,7 @@ type RecordedItem = {
 
 export const SttPlaygroundPage: React.FC = () => {
   const { t } = useTranslation(["playground", "settings"])
+  const notification = useAntdNotification()
   const [speechToTextLanguage] = useStorage("speechToTextLanguage", "en-US")
   const [sttModel] = useStorage("sttModel", "whisper-1")
   const [sttTask] = useStorage("sttTask", "transcribe")

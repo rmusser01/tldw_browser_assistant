@@ -230,7 +230,7 @@ export const FolderPickerModal: React.FC<FolderPickerModalProps> = ({
       okText={t("common:save", "Save")}
       cancelText={t("common:cancel", "Cancel")}
       okButtonProps={{ loading: isSaving, disabled: folderApiAvailable === false }}
-      destroyOnClose
+      destroyOnHidden
     >
       {renderContent()}
     </Modal>

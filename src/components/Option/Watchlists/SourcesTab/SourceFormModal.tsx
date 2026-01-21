@@ -85,7 +85,7 @@ export const SourceFormModal: React.FC<SourceFormModalProps> = ({
       }
       cancelText={t("common:cancel", "Cancel")}
       confirmLoading={submitting}
-      destroyOnClose
+      destroyOnHidden
       width={500}
     >
       <Form

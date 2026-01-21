@@ -445,7 +445,12 @@
     "healthAriaHint": "Seneste kørsler mislykkedes — åbn Health & diagnostics fra headeren for flere detaljer.",
     "specReloadedToast": "Avanceret specifikation genindlæst fra serveren",
     "specReloadedToastDiff": "Avanceret specifikation genindlæst fra serveren (tilføjede felter: {{added}}, fjernede felter: {{removed}})",
-    "specFallbackWarning": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
+    "specFallbackWarning": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Søg i titler og indhold",

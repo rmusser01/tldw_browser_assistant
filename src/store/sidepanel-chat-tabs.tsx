@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type { ChatHistory, Message as ChatMessage, ToolChoice } from "@/store/option"
 import type { ConversationState } from "@/services/tldw/TldwApiClient"
 
@@ -107,7 +107,7 @@ type State = {
   clear: () => void
 }
 
-export const useSidepanelChatTabsStore = create<State>((set, get) => ({
+export const useSidepanelChatTabsStore = createWithEqualityFn<State>((set, get) => ({
   tabs: [],
   activeTabId: null,
   snapshotsById: {},

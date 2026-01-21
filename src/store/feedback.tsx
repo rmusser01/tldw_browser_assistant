@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware"
 
 export type FeedbackThumb = "up" | "down" | null
@@ -71,7 +71,7 @@ const updateEntry = (
   }
 }
 
-export const useFeedbackStore = create<FeedbackState>()(
+export const useFeedbackStore = createWithEqualityFn<FeedbackState>()(
   persist(
     (set) => ({
       entries: {},

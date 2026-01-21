@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 export type Message = {
   isBot: boolean
@@ -63,7 +63,7 @@ type State = {
   setUseOCR: (useOCR: boolean) => void
 }
 
-export const useStoreMessage = create<State>((set) => ({
+export const useStoreMessage = createWithEqualityFn<State>((set) => ({
   messages: [],
   setMessages: (messages) => set({ messages }),
   history: [],

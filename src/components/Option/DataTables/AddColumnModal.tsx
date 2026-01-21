@@ -82,7 +82,7 @@ export const AddColumnModal: React.FC<AddColumnModalProps> = ({
       onOk={handleSubmit}
       okText={t("dataTables:add", "Add")}
       cancelText={t("common:cancel", "Cancel")}
-      destroyOnClose
+      destroyOnHidden
     >
       <Form form={form} layout="vertical" className="mt-4">
         <Form.Item

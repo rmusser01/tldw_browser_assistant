@@ -26,7 +26,7 @@
  * @see README.md for full documentation
  */
 
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type {
   WorkflowId,
   WorkflowInstance,
@@ -190,7 +190,7 @@ const saveToStorage = async <T>(key: string, value: T): Promise<void> => {
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const useWorkflowsStore = create<WorkflowsState>()((set, get) => ({
+export const useWorkflowsStore = createWithEqualityFn<WorkflowsState>()((set, get) => ({
   ...initialState,
 
   // ─────────────────────────────────────────────────────────────────────────

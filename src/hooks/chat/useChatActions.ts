@@ -1581,6 +1581,7 @@ export const useChatActions = ({
   )
 
   const createChatBranch = createBranchMessage({
+    notification,
     historyId,
     setHistory,
     setHistoryId: setHistoryId as (id: string | null) => void,

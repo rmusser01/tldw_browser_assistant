@@ -12,7 +12,7 @@ import { OptionsTab } from "./QuickIngest/OptionsTab/OptionsTab"
 import { ResultsTab } from "./QuickIngest/ResultsTab/ResultsTab"
 import { ProcessButton } from "./QuickIngest/shared/ProcessButton"
 import { QUICK_INGEST_ACCEPT_STRING } from "./QuickIngest/constants"
-import type { QuickIngestTab, IngestPreset } from "./QuickIngest/types"
+import type { QuickIngestTab, IngestPreset, ResultOutcome } from "./QuickIngest/types"
 import {
   DEFAULT_PRESET,
   detectPreset,
@@ -20,7 +20,10 @@ import {
   resolvePresetMap,
   type PresetMap
 } from "./QuickIngest/presets"
-import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
+import {
+  QUICK_INGEST_SCHEMA_FALLBACK,
+  QUICK_INGEST_SCHEMA_FALLBACK_VERSION
+} from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star, X } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
@@ -37,6 +40,7 @@ import {
 } from "@/components/Common/QuickIngest/advanced-field-options"
 import {
   coerceDraftMediaType,
+  extractYouTubePlaylistId,
   inferIngestTypeFromUrl,
   inferUploadMediaTypeFromFile
 } from "@/services/tldw/media-routing"
@@ -68,6 +72,7 @@ type Entry = {
   url: string
   type: 'auto' | 'html' | 'pdf' | 'document' | 'audio' | 'video'
   defaults?: TypeDefaults
+  keywords?: string
   // Simple per-type options; server can ignore unknown fields
   audio?: { language?: string; diarize?: boolean }
   document?: { ocr?: boolean }
@@ -124,6 +129,7 @@ type ProcessingResultPayload =
 type ResultItem = {
   id: string
   status: 'ok' | 'error'
+  outcome?: ResultOutcome
   url?: string
   fileName?: string
   type: string
@@ -138,6 +144,14 @@ type ProcessingOptions = {
   perform_chunking: boolean
   overwrite_existing: boolean
   advancedValues: Record<string, any>
+}
+
+type AdvSchemaEntry = {
+  name: string
+  type: string
+  enum?: any[]
+  description?: string
+  title?: string
 }
 
 type Props = {
@@ -162,6 +176,31 @@ const getFileInstanceId = (file: File) => {
   const id = crypto.randomUUID()
   fileInstanceIds.set(file, id)
   return id
+}
+
+type QuickIngestSpecCache = {
+  entries: AdvSchemaEntry[]
+  source: 'server' | 'fallback'
+  cachedAt: number
+  version?: string
+}
+
+const SPEC_CACHE_TTL_MS = 60 * 60 * 1000
+const SPEC_FALLBACK_TTL_MS = 5 * 60 * 1000
+let quickIngestSpecCache: QuickIngestSpecCache | null = null
+
+const readSpecCache = (preferServer: boolean) => {
+  const cache = quickIngestSpecCache
+  if (!cache) return null
+  if (!preferServer && cache.source !== 'fallback') return null
+  const maxAge =
+    cache.source === 'server' ? SPEC_CACHE_TTL_MS : SPEC_FALLBACK_TTL_MS
+  if (Date.now() - cache.cachedAt > maxAge) return null
+  return cache
+}
+
+const writeSpecCache = (next: Omit<QuickIngestSpecCache, 'cachedAt'>) => {
+  quickIngestSpecCache = { ...next, cachedAt: Date.now() }
 }
 
 const snapshotTypeDefaults = (defaults?: TypeDefaults): TypeDefaults | undefined => {
@@ -226,6 +265,8 @@ const DEFAULT_TYPE_DEFAULTS: TypeDefaults = {
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
 const MAX_RECOMMENDED_FIELDS = 12
+const PLAYLIST_EXPAND_DEBOUNCE_MS = 500
+const PLAYLIST_CACHE_TTL_MS = 60 * 60 * 1000
 
 const RESULT_FILTERS = {
   ALL: "all",
@@ -236,16 +277,32 @@ const RESULT_FILTERS = {
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 
 const isLikelyUrl = (raw: string) => {
-  const val = (raw || '').trim()
-  if (!val) return false
+  const trimmed = (raw || "").trim()
+  if (!trimmed) return false
   try {
-    // eslint-disable-next-line no-new
-    new URL(val)
-    return true
+    const parsed = new URL(trimmed)
+    return parsed.protocol === "http:" || parsed.protocol === "https:"
   } catch {
     return false
   }
 }
+
+
+const SKIPPED_STATUS_TOKENS = [
+  "skip",
+  "skipped",
+  "duplicate",
+  "exists",
+  "already",
+  "cached",
+  "unchanged"
+]
+
+const normalizeStatusLabel = (value: unknown) =>
+  String(value || "").trim().toLowerCase()
+
+const isSkippedStatus = (status: string) =>
+  SKIPPED_STATUS_TOKENS.some((token) => status.includes(token))
 
 function mediaIdFromPayload(
   data: ProcessingResultPayload,
@@ -408,6 +465,11 @@ const extractProcessingItems = (data: ProcessingResultPayload): ProcessingItem[]
   return []
 }
 
+const getProcessingStatusLabels = (data: ProcessingResultPayload): string[] =>
+  extractProcessingItems(data)
+    .map((item) => normalizeStatusLabel(item.status))
+    .filter(Boolean)
+
 const cloneObject = <T extends Record<string, any>>(value: T): T | null => {
   try {
     return structuredClone(value)
@@ -506,7 +568,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [localFiles, setLocalFiles] = React.useState<File[]>([])
   const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
   const [advancedValues, setAdvancedValues] = React.useState<Record<string, any>>({})
-  const [advSchema, setAdvSchema] = React.useState<Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }>>([])
+  const [advSchema, setAdvSchema] = React.useState<AdvSchemaEntry[]>([])
   const [specSource, setSpecSource] = React.useState<'server' | 'fallback' | 'none'>('none')
   const [fieldDetailsOpen, setFieldDetailsOpen] = React.useState<Record<string, boolean>>({})
   const [advSearch, setAdvSearch] = React.useState<string>('')
@@ -556,11 +618,12 @@ export const QuickIngestModal: React.FC<Props> = ({
     return d.toLocaleString()
   }, [specPrefs])
 
-  const fallbackSchemaVersion = MEDIA_ADD_SCHEMA_FALLBACK_VERSION
+  const fallbackSchemaVersion = QUICK_INGEST_SCHEMA_FALLBACK_VERSION
   const SAVE_DEBOUNCE_MS = 2000
   const lastSavedAdvValuesRef = React.useRef<string | null>(null)
   const lastSavedUiPrefsRef = React.useRef<string | null>(null)
   const specPrefsCacheRef = React.useRef<string | null>(null)
+  const advSchemaRef = React.useRef(advSchema)
   const [totalPlanned, setTotalPlanned] = React.useState<number>(0)
   const [processedCount, setProcessedCount] = React.useState<number>(0)
   const [liveTotalCount, setLiveTotalCount] = React.useState<number>(0)
@@ -575,6 +638,12 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [showInspectorIntro, setShowInspectorIntro] = React.useState<boolean>(true)
   const [inspectorIntroDismissed, setInspectorIntroDismissed] = useStorage<boolean>('quickIngestInspectorIntroDismissed', false)
   const [onboardingDismissed, setOnboardingDismissed] = useStorage<boolean>('quickIngestOnboardingDismissed', false)
+  const playlistExpandTimersRef = React.useRef<Map<string, number>>(new Map())
+  const playlistExpandInFlightRef = React.useRef<Set<string>>(new Set())
+  const playlistCacheRef = React.useRef<Map<string, { urls: string[]; cachedAt: number }>>(
+    new Map()
+  )
+  const selectedRowIdRef = React.useRef<string | null>(null)
   const reattachInputRef = React.useRef<HTMLInputElement | null>(null)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
@@ -661,10 +730,37 @@ export const QuickIngestModal: React.FC<Props> = ({
   const unmountedRef = React.useRef(false)
   const processOnly = reviewBeforeStorage || !storeRemote
   const shouldStoreRemote = storeRemote && !processOnly
+  const [lastRunProcessOnly, setLastRunProcessOnly] = React.useState(processOnly)
+  const deriveResultOutcome = React.useCallback(
+    (item: ResultItem): ResultOutcome => {
+      if (item.status === "error") return "failed"
+      const statuses = getProcessingStatusLabels(item.data)
+      const isSkipped =
+        statuses.length > 0 && statuses.every((status) => isSkippedStatus(status))
+      if (isSkipped) return "skipped"
+      return lastRunProcessOnly ? "processed" : "ingested"
+    },
+    [lastRunProcessOnly]
+  )
 
   React.useEffect(() => {
     return () => {
       unmountedRef.current = true
+    }
+  }, [])
+
+  React.useEffect(() => {
+    selectedRowIdRef.current = selectedRowId
+  }, [selectedRowId])
+
+  React.useEffect(() => {
+    return () => {
+      const timers = playlistExpandTimersRef.current
+      for (const timerId of timers.values()) {
+        window.clearTimeout(timerId)
+      }
+      timers.clear()
+      playlistExpandInFlightRef.current.clear()
     }
   }, [])
 
@@ -1262,8 +1358,10 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
     }
     const baselineDefaults = row.defaults || normalizedTypeDefaults
+    const hasKeywords = Boolean(row.keywords && row.keywords.trim())
     const custom =
       row.type !== 'auto' ||
+      hasKeywords ||
       hasOverrides(row.audio, baselineDefaults.audio) ||
       hasOverrides(row.document, baselineDefaults.document) ||
       hasOverrides(row.video, baselineDefaults.video)
@@ -1297,8 +1395,37 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }, [qi])
 
+  const fetchPlaylistUrls = React.useCallback(async (url: string): Promise<string[] | null> => {
+    const trimmed = (url || "").trim()
+    if (!trimmed) return null
+    const playlistId = extractYouTubePlaylistId(trimmed)
+    if (!playlistId) return null
+    const cached = playlistCacheRef.current.get(playlistId)
+    if (cached && Date.now() - cached.cachedAt < PLAYLIST_CACHE_TTL_MS) {
+      return cached.urls
+    }
+    try {
+      const resp = (await browser.runtime.sendMessage({
+        type: "tldw:quick-ingest-expand-playlist",
+        payload: { url: trimmed }
+      })) as { ok: boolean; urls?: string[] } | undefined
+      if (!resp?.ok) return []
+      const urls = Array.isArray(resp?.urls) ? resp?.urls : []
+      if (urls.length > 0) {
+        playlistCacheRef.current.set(playlistId, {
+          urls,
+          cachedAt: Date.now()
+        })
+      }
+      return urls
+    } catch (error) {
+      console.debug("[quick-ingest] playlist expansion failed", error)
+      return []
+    }
+  }, [])
+
   const addUrlsFromInput = React.useCallback(
-    (text: string) => {
+    async (text: string) => {
       if (ingestBlocked) {
         messageApi.warning(
           qi("queueBlocked", "Connect to your server to add items.")
@@ -1310,7 +1437,20 @@ export const QuickIngestModal: React.FC<Props> = ({
         .map((s) => s.trim())
         .filter(Boolean)
       if (parts.length === 0) return
-      const entries = parts.map((u) =>
+      const expanded: string[] = []
+      for (const raw of parts) {
+        const trimmed = raw.trim()
+        if (!trimmed) continue
+        if (isLikelyUrl(trimmed)) {
+          const playlistUrls = await fetchPlaylistUrls(trimmed)
+          if (playlistUrls && playlistUrls.length > 0) {
+            expanded.push(...playlistUrls)
+            continue
+          }
+        }
+        expanded.push(trimmed)
+      }
+      const entries = expanded.map((u) =>
         buildRowEntry(u, inferIngestTypeFromUrl(u) as Entry['type'])
       )
       setRows((prev) => [...prev, ...entries])
@@ -1323,7 +1463,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         })
       )
     },
-    [buildRowEntry, ingestBlocked, messageApi, qi]
+    [buildRowEntry, fetchPlaylistUrls, ingestBlocked, messageApi, qi]
   )
 
   const clearAllQueues = React.useCallback(() => {
@@ -1343,11 +1483,11 @@ export const QuickIngestModal: React.FC<Props> = ({
         messageApi.info('Clipboard is empty.')
         return
       }
-      addUrlsFromInput(text)
+      setPendingUrlInput(text)
     } catch {
       messageApi.error('Unable to read from clipboard. Check browser permissions.')
     }
-  }, [addUrlsFromInput, messageApi])
+  }, [messageApi])
 
   const persistSpecPrefs = React.useCallback(
     (next: { preferServer?: boolean; lastRemote?: { version?: string; cachedAt?: number } }) => {
@@ -1359,6 +1499,85 @@ export const QuickIngestModal: React.FC<Props> = ({
     [setSpecPrefs]
   )
 
+  const expandPlaylistRow = React.useCallback(
+    async (rowId: string, urlSnapshot: string) => {
+      if (running || !open) return
+      const trimmedUrl = String(urlSnapshot || "").trim()
+      if (!trimmedUrl || !isLikelyUrl(trimmedUrl)) return
+      if (playlistExpandInFlightRef.current.has(rowId)) return
+      if (!extractYouTubePlaylistId(trimmedUrl)) return
+
+      playlistExpandInFlightRef.current.add(rowId)
+      try {
+        const urls = await fetchPlaylistUrls(trimmedUrl)
+        if (!urls || urls.length === 0) return
+
+        const shouldSelectReplacement = selectedRowIdRef.current === rowId
+        let nextSelectedId: string | null = null
+
+        setRows((prev) => {
+          const idx = prev.findIndex((row) => row.id === rowId)
+          if (idx === -1) return prev
+          const existing = prev[idx]
+          const existingTrimmed = String(existing.url || "").trim()
+          if (!existingTrimmed || existingTrimmed !== trimmedUrl) {
+            return prev
+          }
+          const mapped = urls.map((playlistUrl, index) => {
+            const id = crypto.randomUUID()
+            if (index === 0 && shouldSelectReplacement) {
+              nextSelectedId = id
+            }
+            return {
+              ...existing,
+              id,
+              url: playlistUrl
+            }
+          })
+          return [...prev.slice(0, idx), ...mapped, ...prev.slice(idx + 1)]
+        })
+
+        if (shouldSelectReplacement && nextSelectedId) {
+          setSelectedRowId(nextSelectedId)
+        }
+      } finally {
+        playlistExpandInFlightRef.current.delete(rowId)
+      }
+    },
+    [fetchPlaylistUrls, open, running, setRows]
+  )
+
+  const schedulePlaylistExpansion = React.useCallback(
+    (rowId: string, url: string) => {
+      if (!open || running) return
+      const trimmed = (url || "").trim()
+      if (!trimmed) return
+      if (!isLikelyUrl(trimmed)) return
+      if (!extractYouTubePlaylistId(trimmed)) return
+      if (playlistExpandInFlightRef.current.has(rowId)) return
+      const timers = playlistExpandTimersRef.current
+      const existing = timers.get(rowId)
+      if (existing) {
+        window.clearTimeout(existing)
+      }
+      const timeoutId = window.setTimeout(() => {
+        timers.delete(rowId)
+        void expandPlaylistRow(rowId, trimmed)
+      }, PLAYLIST_EXPAND_DEBOUNCE_MS)
+      timers.set(rowId, timeoutId)
+    },
+    [expandPlaylistRow, open, running]
+  )
+
+  React.useEffect(() => {
+    if (!open || running) return
+    for (const row of rows) {
+      const url = String(row?.url || "").trim()
+      if (!url) continue
+      schedulePlaylistExpansion(row.id, url)
+    }
+  }, [open, rows, running, schedulePlaylistExpansion])
+
   const addRow = () => setRows((r) => [...r, buildRowEntry()])
   const removeRow = (id: string) => {
     setRows((r) => r.filter((x) => x.id !== id))
@@ -1366,7 +1585,15 @@ export const QuickIngestModal: React.FC<Props> = ({
       setSelectedRowId(null)
     }
   }
-  const updateRow = (id: string, patch: Partial<Entry>) => setRows((r) => r.map((x) => (x.id === id ? { ...x, ...patch } : x)))
+  const updateRow = React.useCallback(
+    (id: string, patch: Partial<Entry>) => {
+      setRows((r) => r.map((x) => (x.id === id ? { ...x, ...patch } : x)))
+      if (typeof patch.url === "string") {
+        schedulePlaylistExpansion(id, patch.url)
+      }
+    },
+    [schedulePlaylistExpansion, setRows]
+  )
 
   // Resolve current RAG embedding model for display in Advanced section
   React.useEffect(() => {
@@ -1699,6 +1926,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     setProcessedCount(0)
     setLiveTotalCount(total)
     setRunStartedAt(Date.now())
+    setLastRunProcessOnly(processOnly)
     setRunning(true)
     setResults([])
     setReviewBatchId(null)
@@ -1728,6 +1956,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           id: r.id,
           url: r.url,
           type: r.type,
+          keywords: r.keywords,
           audio,
           document,
           video
@@ -1996,6 +2225,9 @@ export const QuickIngestModal: React.FC<Props> = ({
     "cookies",
     "cookie",
     "headers",
+    "custom_headers",
+    "custom_cookies",
+    "user_agent",
     "authorization",
     "auth_header",
     "embedding_model",
@@ -2005,7 +2237,14 @@ export const QuickIngestModal: React.FC<Props> = ({
     "perform_analysis",
     "overwrite_existing",
     "system_prompt",
-    "custom_prompt"
+    "custom_prompt",
+    "scrape_method",
+    "crawl_strategy",
+    "include_external",
+    "score_threshold",
+    "max_pages",
+    "max_depth",
+    "url_level"
   ])
 
   // Load OpenAPI schema to build advanced fields (best-effort)
@@ -2018,7 +2257,9 @@ export const QuickIngestModal: React.FC<Props> = ({
     if (n.includes('summarization') || n.includes('analysis') || n === 'system_prompt' || n === 'custom_prompt') return 'Analysis/Summarization'
     if (n.includes('pdf') || n.includes('ocr')) return 'Document/PDF'
     if (n.includes('video')) return 'Video'
-    if (n.includes('cookie') || n === 'cookies' || n === 'headers' || n === 'authorization' || n === 'auth_header') return 'Cookies/Auth'
+    if (n.includes('cookie') || n === 'cookies' || n === 'headers' || n === 'authorization' || n === 'auth_header' || n.includes('user_agent')) {
+      return 'Cookies/Auth'
+    }
     if (['author', 'title', 'keywords', 'api_name'].includes(n)) return 'Metadata'
     if (['start_time', 'end_time'].includes(n)) return 'Timing'
     return 'Other'
@@ -2155,73 +2396,146 @@ export const QuickIngestModal: React.FC<Props> = ({
       return out
     }
 
-    const paths = spec?.paths || {}
-    const mediaAdd = paths['/api/v1/media/add'] || paths['/api/v1/media/add/']
-    const content = mediaAdd?.post?.requestBody?.content || {}
-    const mp = content['multipart/form-data'] || content['application/x-www-form-urlencoded'] || content['application/json'] || {}
-    const rootSchema = mp?.schema || {}
-    const stack = new WeakSet<object>()
-    const rootResolved = resolveRef(rootSchema)
-    if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
-      stack.add(rootResolved)
-    }
-
-    let props: Record<string, any> = {}
-    let flat: Array<[string, any]> = []
-    try {
-      props = mergeProps(rootSchema, stack, true)
-      flat = flattenProps(props, '', stack)
-    } finally {
-      if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
-        stack.delete(rootResolved)
+    const extractSchemaFromPath = (paths: Record<string, any>, candidates: string[]) => {
+      for (const candidate of candidates) {
+        const entry = paths?.[candidate]
+        const content = entry?.post?.requestBody?.content
+        if (!content) continue
+        const schemaSource =
+          content['multipart/form-data'] ||
+          content['application/x-www-form-urlencoded'] ||
+          content['application/json'] ||
+          {}
+        const schema = schemaSource?.schema
+        if (schema) return schema
       }
+      return null
     }
 
-    const entries: Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }> = []
-    // Expose all available ingestion-time options, except input list and media type selector which are handled above
-    const exclude = new Set([ 'urls', 'media_type' ])
-    for (const [name, def0] of flat) {
-      if (exclude.has(name)) continue
-      const def = resolveRef(def0)
-      // Infer a reasonable type
-      let type: string = 'string'
-      if (def.type) type = Array.isArray(def.type) ? String(def.type[0]) : String(def.type)
-      else if (def.enum) type = 'string'
-      else if (def.anyOf || def.oneOf) type = 'string'
-      const en = Array.isArray(def?.enum) ? def.enum : undefined
-      const description = def?.description || def?.title || undefined
-      entries.push({ name, type, enum: en, description, title: def?.title })
+    const extractEntriesFromSchema = (rootSchema: any) => {
+      if (!rootSchema) return []
+      const stack = new WeakSet<object>()
+      const rootResolved = resolveRef(rootSchema)
+      if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+        stack.add(rootResolved)
+      }
+
+      let props: Record<string, any> = {}
+      let flat: Array<[string, any]> = []
+      try {
+        props = mergeProps(rootSchema, stack, true)
+        flat = flattenProps(props, '', stack)
+      } finally {
+        if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+          stack.delete(rootResolved)
+        }
+      }
+
+      const entries: AdvSchemaEntry[] = []
+      // Expose all available ingestion-time options, except input list and media type selector which are handled above
+      const exclude = new Set([ 'urls', 'media_type' ])
+      for (const [name, def0] of flat) {
+        if (exclude.has(name)) continue
+        const def = resolveRef(def0)
+        // Infer a reasonable type
+        let type: string = 'string'
+        if (def.type) type = Array.isArray(def.type) ? String(def.type[0]) : String(def.type)
+        else if (def.enum) type = 'string'
+        else if (def.anyOf || def.oneOf) type = 'string'
+        const en = Array.isArray(def?.enum) ? def.enum : undefined
+        const description = def?.description || def?.title || undefined
+        entries.push({ name, type, enum: en, description, title: def?.title })
+      }
+      return entries
     }
-    entries.sort((a,b) => a.name.localeCompare(b.name))
-    setAdvSchema(entries)
-    return entries
+
+    const mergeSchemaEntries = (...lists: AdvSchemaEntry[][]) => {
+      const byName = new Map<string, AdvSchemaEntry>()
+      for (const list of lists) {
+        for (const entry of list) {
+          const existing = byName.get(entry.name)
+          if (!existing) {
+            byName.set(entry.name, { ...entry })
+            continue
+          }
+          byName.set(entry.name, {
+            ...existing,
+            ...entry,
+            type: entry.type || existing.type,
+            enum: entry.enum ?? existing.enum,
+            description: entry.description ?? existing.description,
+            title: entry.title ?? existing.title
+          })
+        }
+      }
+      return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name))
+    }
+
+    const paths = spec?.paths || {}
+    const mediaAddSchema = extractSchemaFromPath(paths, [
+      '/api/v1/media/add',
+      '/api/v1/media/add/'
+    ])
+    const webScrapeSchema = extractSchemaFromPath(paths, [
+      '/api/v1/media/process-web-scraping',
+      '/api/v1/media/process-web-scraping/',
+      '/process-web-scraping',
+      '/process-web-scraping/'
+    ])
+
+    const mediaAddEntries = extractEntriesFromSchema(mediaAddSchema)
+    const webScrapeEntries = extractEntriesFromSchema(webScrapeSchema)
+    const merged = mergeSchemaEntries(mediaAddEntries, webScrapeEntries)
+    setAdvSchema(merged)
+    return merged
   }, [])
 
   const loadSpec = React.useCallback(
     async (
       preferServer = true,
-      options: { reportDiff?: boolean; persist?: boolean } = {}
+      options: { reportDiff?: boolean; persist?: boolean; forceFetch?: boolean } = {}
     ) => {
-      const { reportDiff = false, persist = false } = options
+      const { reportDiff = false, persist = false, forceFetch = false } = options
       let used: 'server' | 'fallback' | 'none' = 'none'
       let remote: any | null = null
-      const prevSchema = reportDiff ? [...advSchema] : null
+      const prevSchema = reportDiff ? [...(advSchemaRef.current || [])] : null
 
-      if (preferServer) {
-        try {
-          const healthy = await tldwClient.healthCheck()
-          if (healthy) remote = await tldwClient.getOpenAPISpec()
-        } catch (e) {
-          console.debug(
-            "[QuickIngest] Failed to load OpenAPI spec from server; using bundled fallback.",
-            (e as any)?.message || e
-          )
-        }
+      const cached = !forceFetch ? readSpecCache(preferServer) : null
+      if (cached) {
+        setAdvSchema(cached.entries)
+        setSpecSource(cached.source)
+        return cached.source
+      }
+
+      if (!preferServer) {
+        setAdvSchema(QUICK_INGEST_SCHEMA_FALLBACK)
+        used = 'fallback'
+        writeSpecCache({
+          entries: QUICK_INGEST_SCHEMA_FALLBACK,
+          source: 'fallback',
+          version: fallbackSchemaVersion
+        })
+        setSpecSource(used)
+        return used
+      }
+
+      try {
+        remote = await tldwClient.getOpenAPISpec()
+      } catch (e) {
+        console.debug(
+          "[QuickIngest] Failed to load OpenAPI spec from server; using bundled fallback.",
+          (e as any)?.message || e
+        )
       }
 
       if (remote) {
         const nextSchema = parseSpec(remote)
         used = 'server'
+        writeSpecCache({
+          entries: nextSchema,
+          source: 'server',
+          version: remote?.info?.version
+        })
 
         try {
           const rVer = remote?.info?.version
@@ -2297,8 +2611,13 @@ export const QuickIngestModal: React.FC<Props> = ({
         }
       } else {
         // Use extracted schema fallback (no bundled openapi.json import)
-        setAdvSchema(MEDIA_ADD_SCHEMA_FALLBACK)
+        setAdvSchema(QUICK_INGEST_SCHEMA_FALLBACK)
         used = 'fallback'
+        writeSpecCache({
+          entries: QUICK_INGEST_SCHEMA_FALLBACK,
+          source: 'fallback',
+          version: fallbackSchemaVersion
+        })
 
         // Warn when falling back to a bundled schema that may be stale.
         if (reportDiff) {
@@ -2315,12 +2634,16 @@ export const QuickIngestModal: React.FC<Props> = ({
       setSpecSource(used)
       return used
     },
-    [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion, parseSpec, qi]
+    [persistSpecPrefs, specPrefs, messageApi, fallbackSchemaVersion, parseSpec, qi]
   )
 
   React.useEffect(() => {
     specPrefsCacheRef.current = JSON.stringify(specPrefs || {})
   }, [specPrefs])
+
+  React.useEffect(() => {
+    advSchemaRef.current = advSchema
+  }, [advSchema])
 
   const preferServerSpec =
     typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
@@ -2625,6 +2948,13 @@ export const QuickIngestModal: React.FC<Props> = ({
   const totalCount = liveTotalCount || totalPlanned || 0
   const missingFileCount = missingFileStubs.length
   const draftStorageCapLabel = formatBytes(DRAFT_STORAGE_CAP_BYTES)
+  const resultsWithOutcome = React.useMemo(() => {
+    if (!results || results.length === 0) return results
+    return results.map((item) => ({
+      ...item,
+      outcome: deriveResultOutcome(item)
+    }))
+  }, [deriveResultOutcome, results])
 
   const resultSummary = React.useMemo(() => {
     if (!results || results.length === 0) {
@@ -2657,7 +2987,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     React.useState<ResultsFilter>(RESULT_FILTERS.ALL)
 
   const visibleResults = React.useMemo(() => {
-    let items = results || []
+    let items = resultsWithOutcome || []
     if (resultsFilter === RESULT_FILTERS.SUCCESS) {
       items = items.filter((r) => r.status === "ok")
     } else if (resultsFilter === RESULT_FILTERS.ERROR) {
@@ -2669,7 +2999,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       return rank(a.status) - rank(b.status)
     })
     return ranked
-  }, [results, resultsFilter])
+  }, [resultsFilter, resultsWithOutcome])
 
   const specSourceLabel = React.useMemo(() => {
     if (specSource === 'server') {
@@ -3206,6 +3536,13 @@ export const QuickIngestModal: React.FC<Props> = ({
       const result = payload.result as ResultItem | undefined
       if (typeof payload.processedCount === "number") {
         setProcessedCount(payload.processedCount)
+        if (
+          typeof payload.totalCount === "number" &&
+          payload.processedCount >= payload.totalCount
+        ) {
+          setRunning(false)
+          setRunStartedAt(null)
+        }
       }
       if (typeof payload.totalCount === "number") {
         setLiveTotalCount(payload.totalCount)
@@ -3590,17 +3927,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                     placeholder={qi('urlsPlaceholder', 'https://example.com, https://...')}
                     value={pendingUrlInput}
                     onChange={(e) => setPendingUrlInput(e.target.value)}
-                    onPressEnter={(e) => {
-                      e.preventDefault()
-                      addUrlsFromInput(pendingUrlInput)
-                    }}
                     disabled={running || !isOnlineForIngest}
                     aria-label={qi('urlsInputAria', 'Paste URLs input')}
                     title={qi('urlsInputAria', 'Paste URLs input')}
                   />
                   <Button
                     type="primary"
-                    onClick={() => addUrlsFromInput(pendingUrlInput)}
+                    onClick={() => void addUrlsFromInput(pendingUrlInput)}
                     disabled={running || !isOnlineForIngest}
                     aria-label={qi('addUrlsAria', 'Add URLs to queue')}
                     title={qi('addUrlsAria', 'Add URLs to queue')}
@@ -4024,7 +4357,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     checked={!!specPrefs?.preferServer}
                     onChange={async (v) => {
                       persistSpecPrefs({ ...(specPrefs || {}), preferServer: v })
-                      await loadSpec(v, { reportDiff: true, persist: true })
+                      await loadSpec(v, { reportDiff: true, persist: true, forceFetch: v })
                     }}
                   />
                 </Space>
@@ -4034,7 +4367,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   title={qi('reloadSpecAria', 'Reload advanced spec from server')}
                   onClick={(e) => {
                     e.stopPropagation()
-                    void loadSpec(true, { reportDiff: true, persist: true })
+                    void loadSpec(true, { reportDiff: true, persist: true, forceFetch: true })
                   }}>
                   {qi('reloadFromServer', 'Reload from server')}
                 </Button>
@@ -4409,7 +4742,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             />
           }
           data={{
-            results,
+            results: resultsWithOutcome,
             visibleResults,
             resultSummary,
             running,

@@ -648,7 +648,7 @@ export function ServerChatList({
         <Modal
           title={t("common:renameChat", { defaultValue: "Rename chat" })}
           open
-          destroyOnClose
+          destroyOnHidden
           onCancel={() => {
             setRenamingChat(null)
             setRenameValue("")
@@ -682,7 +682,7 @@ export function ServerChatList({
         <Modal
           title={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
           open
-          destroyOnClose
+          destroyOnHidden
           onCancel={() => {
             setEditingTopicChat(null)
             setTopicValue("")
@@ -843,7 +843,7 @@ export function ServerChatList({
           "sidepanel:multiSelect.deleteConfirmTitle",
           "Move chats to trash?"
         )}
-        destroyOnClose
+        destroyOnHidden
       >
         <p>
           {t(

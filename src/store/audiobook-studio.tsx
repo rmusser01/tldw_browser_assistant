@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 import type { TtsProviderOverrides } from "@/services/tts-provider"
 
 export type ChapterStatus = "pending" | "generating" | "completed" | "error"
@@ -114,7 +114,7 @@ const splitByCustom = (text: string, delimiter: string): string[] => {
     .filter((p) => p.length > 0)
 }
 
-export const useAudiobookStudioStore = create<AudiobookStudioStore>(
+export const useAudiobookStudioStore = createWithEqualityFn<AudiobookStudioStore>(
   (set, get) => ({
     currentProjectId: null,
     rawContent: "",

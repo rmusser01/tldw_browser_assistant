@@ -4,7 +4,7 @@
  * Zustand store for managing timeline/graph visualization state.
  */
 
-import { create } from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 import { useShallow } from 'zustand/react/shallow'
 import type {
   TimelineGraph,
@@ -183,7 +183,7 @@ const scheduleSearchFromState = (
   }, SEARCH_DEBOUNCE_MS)
 }
 
-export const useTimelineStore = create<TimelineState>((set, get) => ({
+export const useTimelineStore = createWithEqualityFn<TimelineState>((set, get) => ({
   // Initial state
   isOpen: false,
   isLoading: false,

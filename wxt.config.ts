@@ -300,11 +300,12 @@ export default defineConfig({
       }
     }
   },
-  runner: {
+  webExt: {
     disabled: isRunnerDisabled
   },
   entrypointsDir: "entries",
   srcDir: "src",
+  publicDir: "src/public",
   outDir: "build",
 
   manifest: ({

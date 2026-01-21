@@ -444,7 +444,12 @@
     "healthAriaHint": "As últimas execuções falharam — abra Saúde e diagnóstico no cabeçalho para mais detalhes.",
     "specReloadedToast": "Spec avançada recarregada do servidor",
     "specReloadedToastDiff": "Spec avançada recarregada do servidor (campos adicionados: {{added}}, removidos: {{removed}})",
-    "specFallbackWarning": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
+    "specFallbackWarning": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Buscar títulos e conteúdos",

@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 type RouteTransitionState = {
   active: boolean
@@ -8,7 +8,7 @@ type RouteTransitionState = {
   stop: () => void
 }
 
-export const useRouteTransitionStore = create<RouteTransitionState>((set) => ({
+export const useRouteTransitionStore = createWithEqualityFn<RouteTransitionState>((set) => ({
   active: false,
   pendingPath: null,
   startedAt: null,

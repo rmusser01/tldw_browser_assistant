@@ -74,7 +74,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const qc = useQueryClient()
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
-  const { showUndoNotification, contextHolder: undoContextHolder } = useUndoNotification()
+  const { showUndoNotification } = useUndoNotification()
 
   // Track pending deletions for soft-delete with undo + trash view
   const [pendingDeletions, setPendingDeletions] = React.useState<Record<string, PendingDeletion>>({})
@@ -774,7 +774,6 @@ export const ManageTab: React.FC<ManageTabProps> = ({
 
   return (
     <>
-      {undoContextHolder}
       <div>
         <div className="mb-3 flex items-center justify-between gap-2">
           <Segmented

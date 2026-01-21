@@ -1103,7 +1103,7 @@ export const SidepanelChatSidebar = ({
           "sidepanel:multiSelect.deleteConfirmTitle",
           "Move chats to trash?"
         )}
-        destroyOnClose
+        destroyOnHidden
       >
         <p>
           {t(

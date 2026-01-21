@@ -2509,5 +2509,20 @@
   },
   "writingPlayground_sessionExportError": {
     "message": "സെഷൻ എക്സ്പോർട്ട് ചെയ്യാനായില്ല: {{detail}}"
+  },
+  "quickIngest_resultStatusProcessed": {
+    "message": "Processed"
+  },
+  "quickIngest_resultStatusIngested": {
+    "message": "Ingested"
+  },
+  "quickIngest_resultStatusSkipped": {
+    "message": "Skipped"
+  },
+  "quickIngest_keywordsPlaceholder": {
+    "message": "Keywords (comma-separated)"
+  },
+  "quickIngest_keywordsAria": {
+    "message": "Keywords for this item"
   }
 }

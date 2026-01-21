@@ -179,7 +179,7 @@ export const JobFormModal: React.FC<JobFormModalProps> = ({
       okText={isEditing ? t("common:save", "Save") : t("common:create", "Create")}
       cancelText={t("common:cancel", "Cancel")}
       confirmLoading={submitting}
-      destroyOnClose
+      destroyOnHidden
       width={700}
       styles={{ body: { maxHeight: "70vh", overflowY: "auto" } }}
     >

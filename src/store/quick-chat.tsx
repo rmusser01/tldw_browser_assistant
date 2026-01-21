@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 export type QuickChatMessage = {
   id: string
@@ -38,7 +38,7 @@ type QuickChatStore = {
   }) => void
 }
 
-export const useQuickChatStore = create<QuickChatStore>((set, get) => ({
+export const useQuickChatStore = createWithEqualityFn<QuickChatStore>((set, get) => ({
   isOpen: false,
   messages: [],
   isStreaming: false,

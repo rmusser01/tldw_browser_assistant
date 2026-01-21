@@ -19,6 +19,29 @@ export const ResultsListItem: React.FC<ResultsListItemProps> = React.memo(
   ({ item, processOnly, onDownloadJson, onOpenMedia, onDiscussInChat, t }) => {
     const mediaId = item.mediaId
     const hasMediaId = mediaId != null
+    const outcome =
+      item.outcome ||
+      (item.status === "error"
+        ? "failed"
+        : processOnly
+          ? "processed"
+          : "ingested")
+    const outcomeLabel =
+      outcome === "skipped"
+        ? t("quickIngest.resultStatusSkipped", "Skipped")
+        : outcome === "processed"
+          ? t("quickIngest.resultStatusProcessed", "Processed")
+          : outcome === "ingested"
+            ? t("quickIngest.resultStatusIngested", "Ingested")
+            : t("quickIngest.statusFailed", "Failed")
+    const outcomeColor =
+      outcome === "skipped"
+        ? "gold"
+        : outcome === "processed"
+          ? "blue"
+          : outcome === "ingested"
+            ? "green"
+            : "red"
     const handleDownloadJson = React.useCallback(() => {
       onDownloadJson(item)
     }, [item, onDownloadJson])
@@ -76,9 +99,7 @@ export const ResultsListItem: React.FC<ResultsListItemProps> = React.memo(
       <List.Item actions={actions}>
         <div className="text-sm">
           <div className="flex items-center gap-2">
-            <Tag color={item.status === "ok" ? "green" : "red"}>
-              {item.status.toUpperCase()}
-            </Tag>
+            <Tag color={outcomeColor}>{outcomeLabel}</Tag>
             <span>{item.type.toUpperCase()}</span>
           </div>
           <div className="text-xs text-text-subtle break-all">

@@ -745,7 +745,12 @@
     "healthAriaHint": "Les dernières exécutions ont échoué — ouvrez Santé et diagnostics depuis l'en-tête pour plus de détails.",
     "specReloadedToast": "Spécification avancée rechargée depuis le serveur",
     "specReloadedToastDiff": "Spécification avancée rechargée depuis le serveur (champs ajoutés : {{added}}, supprimés : {{removed}})",
-    "specFallbackWarning": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
+    "specFallbackWarning": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Rechercher dans les titres et contenus",

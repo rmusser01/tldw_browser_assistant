@@ -435,7 +435,12 @@
     "healthAriaHint": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше.",
     "specReloadedToast": "Розширену специфікацію перезавантажено із сервера",
     "specReloadedToastDiff": "Розширену специфікацію перезавантажено із сервера (додано полів: {{added}}, видалено: {{removed}})",
-    "specFallbackWarning": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+    "specFallbackWarning": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими.",
+    "resultStatusProcessed": "Processed",
+    "resultStatusIngested": "Ingested",
+    "resultStatusSkipped": "Skipped",
+    "keywordsPlaceholder": "Keywords (comma-separated)",
+    "keywordsAria": "Keywords for this item"
   },
   "notesSearch": {
     "placeholder": "Пошук за заголовками та вмістом",

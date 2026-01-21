@@ -3490,5 +3490,20 @@
   },
   "writingPlayground_sessionExportError": {
     "message": "Failed to export session: {{detail}}"
+  },
+  "quickIngest_resultStatusProcessed": {
+    "message": "Processed"
+  },
+  "quickIngest_resultStatusIngested": {
+    "message": "Ingested"
+  },
+  "quickIngest_resultStatusSkipped": {
+    "message": "Skipped"
+  },
+  "quickIngest_keywordsPlaceholder": {
+    "message": "Keywords (comma-separated)"
+  },
+  "quickIngest_keywordsAria": {
+    "message": "Keywords for this item"
   }
 }

@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createWithEqualityFn } from "zustand/traditional"
 
 export type ArtifactKind = "code" | "table" | "diagram"
 
@@ -26,7 +26,7 @@ type ArtifactState = {
   setPinned: (value: boolean) => void
 }
 
-export const useArtifactsStore = create<ArtifactState>((set, get) => ({
+export const useArtifactsStore = createWithEqualityFn<ArtifactState>((set, get) => ({
   active: null,
   isOpen: false,
   isPinned: false,

@@ -2009,6 +2009,7 @@ export const useMessage = () => {
     }
   }
   const createChatBranch = createBranchMessage({
+    notification,
     historyId,
     setHistory,
     setHistoryId,

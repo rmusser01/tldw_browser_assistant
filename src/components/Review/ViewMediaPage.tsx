@@ -212,7 +212,7 @@ const MediaPageContent: React.FC = () => {
   const { t } = useTranslation(['review', 'common'])
   const navigate = useNavigate()
   const message = useAntdMessage()
-  const { showUndoNotification, contextHolder } = useUndoNotification()
+  const { showUndoNotification } = useUndoNotification()
   const {
     setChatMode,
     setSelectedKnowledge,
@@ -1265,7 +1265,6 @@ const MediaPageContent: React.FC = () => {
 
   return (
     <div className="flex bg-bg" style={{ minHeight: '100vh' }}>
-      {contextHolder}
       {/* Left Sidebar */}
       <div
         className={`bg-surface border-r border-border flex flex-col ${

@@ -775,7 +775,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
             <Tabs
               activeKey={activeTab}
               onChange={(key) => setActiveTab(key)}
-              destroyInactiveTabPane={false}
+              destroyOnHidden={false}
               items={[
                 {
                   key: "editor",
