@@ -504,6 +504,8 @@
   "contextRephrase": "Umformulieren",
   "contextTranslate": "Übersetzen",
   "contextCustom": "Benutzerdefiniert",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "An tldw_server senden",
   "contextProcessLocalTldw": "Mit tldw_server verarbeiten (nicht speichern)",
   "contextTranscribeMedia": "Video/Audio transkribieren",

@@ -61,7 +61,9 @@ import {
   updateWritingTheme,
   type WritingSessionListResponse,
   type WritingSessionListItem,
+  type WritingTemplateListResponse,
   type WritingTemplateResponse,
+  type WritingThemeListResponse,
   type WritingThemeResponse
 } from "@/services/writing-playground"
 import type { ChatMessage } from "@/services/tldw/TldwApiClient"
@@ -1875,6 +1877,33 @@ export const WritingPlayground = () => {
       message.success(
         t("option:writingPlayground.templateCreateSuccess", "Template created.")
       )
+      queryClient.setQueryData<WritingTemplateListResponse | undefined>(
+        ["writing-templates"],
+        (prev) => {
+          if (!prev) {
+            return { templates: [template], total: 1 }
+          }
+          const exists = prev.templates.some(
+            (item) => item.name === template.name
+          )
+          if (exists) {
+            return {
+              ...prev,
+              templates: prev.templates.map((item) =>
+                item.name === template.name ? template : item
+              )
+            }
+          }
+          const total = Number.isFinite(prev.total)
+            ? prev.total + 1
+            : prev.templates.length + 1
+          return {
+            ...prev,
+            templates: [template, ...prev.templates],
+            total
+          }
+        }
+      )
       queryClient.invalidateQueries({ queryKey: ["writing-templates"] })
       setEditingTemplate(template)
       setTemplateForm(buildTemplateForm(template))
@@ -1970,6 +1999,31 @@ export const WritingPlayground = () => {
     onSuccess: (theme) => {
       message.success(
         t("option:writingPlayground.themeCreateSuccess", "Theme created.")
+      )
+      queryClient.setQueryData<WritingThemeListResponse | undefined>(
+        ["writing-themes"],
+        (prev) => {
+          if (!prev) {
+            return { themes: [theme], total: 1 }
+          }
+          const exists = prev.themes.some((item) => item.name === theme.name)
+          if (exists) {
+            return {
+              ...prev,
+              themes: prev.themes.map((item) =>
+                item.name === theme.name ? theme : item
+              )
+            }
+          }
+          const total = Number.isFinite(prev.total)
+            ? prev.total + 1
+            : prev.themes.length + 1
+          return {
+            ...prev,
+            themes: [theme, ...prev.themes],
+            total
+          }
+        }
       )
       queryClient.invalidateQueries({ queryKey: ["writing-themes"] })
       setEditingTheme(theme)

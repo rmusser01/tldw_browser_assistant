@@ -2016,160 +2016,160 @@
     "message": "现在到期"
   },
   "header_writingPlayground": {
-    "message": "Writing Playground"
+    "message": "写作工坊"
   },
   "writingPlayground_title": {
-    "message": "Writing Playground"
+    "message": "写作工坊"
   },
   "writingPlayground_subtitle": {
-    "message": "Draft long-form prompts, manage sessions, and generate with your tldw server."
+    "message": "撰写长篇提示词草稿，管理会话，并使用你的 tldw 服务器生成。"
   },
   "writingPlayground_offlineTitle": {
-    "message": "Server required"
+    "message": "需要服务器"
   },
   "writingPlayground_offlineBody": {
-    "message": "Connect to your tldw server to load writing sessions and generate."
+    "message": "连接到你的 tldw 服务器以加载写作会话并生成内容。"
   },
   "writingPlayground_unavailableTitle": {
-    "message": "Playground unavailable"
+    "message": "工坊不可用"
   },
   "writingPlayground_unavailableBody": {
-    "message": "This server does not advertise writing playground support yet."
+    "message": "此服务器尚未声明支持写作工坊。"
   },
   "writingPlayground_emptyState": {
-    "message": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
+    "message": "基础已就绪。编辑器、会话与工具将在下一阶段上线。"
   },
   "writingPlayground_sessionsTitle": {
-    "message": "Sessions"
+    "message": "会话"
   },
   "writingPlayground_newSession": {
-    "message": "New session"
+    "message": "新会话"
   },
   "writingPlayground_sessionsError": {
-    "message": "Unable to load sessions."
+    "message": "无法加载会话。"
   },
   "writingPlayground_sessionsEmpty": {
-    "message": "Create your first session to start writing."
+    "message": "创建你的第一个会话以开始写作。"
   },
   "writingPlayground_active": {
-    "message": "Active"
+    "message": "活动"
   },
   "writingPlayground_sessionHint": {
-    "message": "Session is ready. Editor scaffolding arrives in the next stage."
+    "message": "会话已就绪。编辑器基础将在下一阶段上线。"
   },
   "writingPlayground_selectSession": {
-    "message": "Select a session to begin."
+    "message": "选择一个会话开始。"
   },
   "writingPlayground_createSessionTitle": {
-    "message": "New session"
+    "message": "新会话"
   },
   "writingPlayground_createSessionLabel": {
-    "message": "Session name"
+    "message": "会话名称"
   },
   "writingPlayground_createSessionPlaceholder": {
-    "message": "e.g. Draft ideas"
+    "message": "例如：草稿思路"
   },
   "writingPlayground_createSuccess": {
-    "message": "Session created."
+    "message": "会话已创建。"
   },
   "writingPlayground_createError": {
-    "message": "Failed to create session: {{detail}}"
+    "message": "创建会话失败：{{detail}}"
   },
   "writingPlayground_lastOpenedLabel": {
-    "message": "Last opened {{time}}"
+    "message": "上次打开 {{time}}"
   },
   "writingPlayground_notOpened": {
-    "message": "Not opened yet"
+    "message": "尚未打开"
   },
   "writingPlayground_renameSessionTitle": {
-    "message": "Rename session"
+    "message": "重命名会话"
   },
   "writingPlayground_renameSessionLabel": {
-    "message": "Session name"
+    "message": "会话名称"
   },
   "writingPlayground_renameSessionPlaceholder": {
-    "message": "e.g. Revised draft"
+    "message": "例如：修订版草稿"
   },
   "writingPlayground_renameSuccess": {
-    "message": "Session renamed."
+    "message": "会话已重命名。"
   },
   "writingPlayground_renameError": {
-    "message": "Failed to rename session: {{detail}}"
+    "message": "重命名会话失败：{{detail}}"
   },
   "writingPlayground_deleteSessionTitle": {
-    "message": "Delete session?"
+    "message": "删除会话？"
   },
   "writingPlayground_deleteSessionBody": {
-    "message": "This will permanently delete the session."
+    "message": "这将永久删除该会话。"
   },
   "writingPlayground_deleteSuccess": {
-    "message": "Session deleted."
+    "message": "会话已删除。"
   },
   "writingPlayground_deleteError": {
-    "message": "Failed to delete session: {{detail}}"
+    "message": "删除会话失败：{{detail}}"
   },
   "writingPlayground_cloneSuccess": {
-    "message": "Session cloned."
+    "message": "会话已克隆。"
   },
   "writingPlayground_cloneError": {
-    "message": "Failed to clone session: {{detail}}"
+    "message": "克隆会话失败：{{detail}}"
   },
   "writingPlayground_cloneSession": {
-    "message": "Clone session"
+    "message": "克隆会话"
   },
   "writingPlayground_renameSession": {
-    "message": "Rename session"
+    "message": "重命名会话"
   },
   "writingPlayground_deleteSession": {
-    "message": "Delete session"
+    "message": "删除会话"
   },
   "writingPlayground_conflictError": {
-    "message": "Session changed on the server."
+    "message": "会话已在服务器上被更改。"
   },
   "writingPlayground_editorTitle": {
-    "message": "Prompt editor"
+    "message": "提示词编辑器"
   },
   "writingPlayground_editorPlaceholder": {
-    "message": "Start writing your prompt..."
+    "message": "开始撰写你的提示词…"
   },
   "writingPlayground_editorError": {
-    "message": "Unable to load this session."
+    "message": "无法加载此会话。"
   },
   "writingPlayground_savingLabel": {
-    "message": "Saving..."
+    "message": "正在保存..."
   },
   "writingPlayground_savedLabel": {
-    "message": "Saved {{time}}"
+    "message": "已保存 {{time}}"
   },
   "writingPlayground_unsavedLabel": {
-    "message": "Unsaved changes"
+    "message": "未保存的更改"
   },
   "writingPlayground_saveError": {
-    "message": "Failed to save session: {{detail}}"
+    "message": "保存会话失败：{{detail}}"
   },
   "writingPlayground_editorModeEdit": {
-    "message": "Edit"
+    "message": "编辑"
   },
   "writingPlayground_editorModePreview": {
-    "message": "Preview"
+    "message": "预览"
   },
   "writingPlayground_editorModeSplit": {
-    "message": "Split"
+    "message": "分屏"
   },
   "writingPlayground_editorEmptyPreview": {
-    "message": "Nothing to preview yet."
+    "message": "暂无可预览内容。"
   },
   "writingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "设置"
   },
   "writingPlayground_settingsEmpty": {
-    "message": "Select a session to edit settings."
+    "message": "选择一个会话以编辑设置。"
   },
   "writingPlayground_settingsError": {
-    "message": "Unable to load session settings."
+    "message": "无法加载会话设置。"
   },
   "writingPlayground_temperatureLabel": {
-    "message": "Temperature"
+    "message": "温度"
   },
   "writingPlayground_topPLabel": {
     "message": "Top P"
@@ -2178,381 +2178,381 @@
     "message": "Top K"
   },
   "writingPlayground_maxTokensLabel": {
-    "message": "Max tokens"
+    "message": "最大 token"
   },
   "writingPlayground_presencePenaltyLabel": {
-    "message": "Presence penalty"
+    "message": "存在惩罚"
   },
   "writingPlayground_frequencyPenaltyLabel": {
-    "message": "Frequency penalty"
+    "message": "频率惩罚"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "种子"
   },
   "writingPlayground_stopStringsLabel": {
-    "message": "Stop strings"
+    "message": "停止字符串"
   },
   "writingPlayground_stopStringsPlaceholder": {
-    "message": "One per line"
+    "message": "每行一个"
   },
   "writingPlayground_insertPredict": {
-    "message": "Insert {predict}"
+    "message": "插入 {predict}"
   },
   "writingPlayground_insertFill": {
-    "message": "Insert {fill}"
+    "message": "插入 {fill}"
   },
   "writingPlayground_searchReplace": {
-    "message": "Search & replace"
+    "message": "查找与替换"
   },
   "writingPlayground_searchToggle": {
-    "message": "Find"
+    "message": "查找"
   },
   "writingPlayground_searchClose": {
-    "message": "Close"
+    "message": "关闭"
   },
   "writingPlayground_searchPlaceholder": {
-    "message": "Find text"
+    "message": "查找文本"
   },
   "writingPlayground_replacePlaceholder": {
-    "message": "Replace with"
+    "message": "替换为"
   },
   "writingPlayground_searchPrev": {
-    "message": "Prev"
+    "message": "上一处"
   },
   "writingPlayground_searchNext": {
-    "message": "Next"
+    "message": "下一处"
   },
   "writingPlayground_searchReplaceAction": {
-    "message": "Replace"
+    "message": "替换"
   },
   "writingPlayground_searchReplaceAll": {
-    "message": "Replace all"
+    "message": "全部替换"
   },
   "writingPlayground_searchMatchCase": {
-    "message": "Match case"
+    "message": "区分大小写"
   },
   "writingPlayground_searchRegex": {
-    "message": "Regex"
+    "message": "正则表达式"
   },
   "writingPlayground_searchRegexError": {
-    "message": "Invalid regex"
+    "message": "无效的正则表达式"
   },
   "writingPlayground_searchMatchCount": {
-    "message": "{{current}} of {{total}} matches"
+    "message": "第 {{current}} 个/共 {{total}} 个匹配"
   },
   "writingPlayground_searchNoMatches": {
-    "message": "No matches"
+    "message": "无匹配项"
   },
   "writingPlayground_searchHint": {
-    "message": "Enter text to search"
+    "message": "输入要搜索的文本"
   },
   "writingPlayground_promptChunksTitle": {
-    "message": "Prompt chunks ({{count}})"
+    "message": "提示词分块 ({{count}})"
   },
   "writingPlayground_promptChunksEmpty": {
-    "message": "No chunks yet."
+    "message": "暂无分块。"
   },
   "writingPlayground_promptChunksTruncated": {
-    "message": "Showing first {{count}} chunks."
+    "message": "仅显示前 {{count}} 个分块。"
   },
   "writingPlayground_chunkPlaceholder": {
-    "message": "Placeholder"
+    "message": "占位符"
   },
   "writingPlayground_chunkText": {
-    "message": "Text"
+    "message": "文本"
   },
   "writingPlayground_generateAction": {
-    "message": "Generate"
+    "message": "生成"
   },
   "writingPlayground_stopAction": {
-    "message": "Stop"
+    "message": "停止"
   },
   "writingPlayground_undoGeneration": {
-    "message": "Undo"
+    "message": "撤销"
   },
   "writingPlayground_redoGeneration": {
-    "message": "Redo"
+    "message": "重做"
   },
   "writingPlayground_generatingLabel": {
-    "message": "Generating..."
+    "message": "生成中..."
   },
   "writingPlayground_generateError": {
-    "message": "Generation failed: {{detail}}"
+    "message": "生成失败：{{detail}}"
   },
   "writingPlayground_generateUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "聊天补全不可用。"
   },
   "writingPlayground_modelMissing": {
-    "message": "Select a model in Settings to generate."
+    "message": "请在设置中选择一个模型以生成。"
   },
   "writingPlayground_generationInProgress": {
-    "message": "Stop generation before switching sessions."
+    "message": "切换会话前请先停止生成。"
   },
   "writingPlayground_generateShortcutTooltip": {
-    "message": "Ctrl/Cmd+Enter to generate"
+    "message": "Ctrl/Cmd+Enter 生成"
   },
   "writingPlayground_stopShortcutTooltip": {
-    "message": "Esc to stop"
+    "message": "Esc 停止"
   },
   "writingPlayground_shortcutsHint": {
-    "message": "Shortcuts: Ctrl/Cmd+Enter to generate, Esc to stop."
+    "message": "快捷键：Ctrl/Cmd+Enter 生成，Esc 停止。"
   },
   "writingPlayground_templateLabel": {
-    "message": "Template"
+    "message": "模板"
   },
   "writingPlayground_templatePlaceholder": {
-    "message": "Server default"
+    "message": "服务器默认"
   },
   "writingPlayground_templateHint": {
-    "message": "Choose an instruct template for chat parsing and FIM."
+    "message": "选择用于聊天解析和 FIM 的指令模板。"
   },
   "writingPlayground_templateUnavailable": {
-    "message": "Templates unavailable."
+    "message": "模板不可用。"
   },
   "writingPlayground_templateError": {
-    "message": "Unable to load templates."
+    "message": "无法加载模板。"
   },
   "writingPlayground_chatModeLabel": {
-    "message": "Chat mode"
+    "message": "聊天模式"
   },
   "writingPlayground_chatModeHint": {
-    "message": "Parse prompt text into messages using the selected template."
+    "message": "使用所选模板将提示词文本解析为消息。"
   },
   "writingPlayground_fillFallbackNotice": {
-    "message": "Fill template missing; using a basic fill prompt."
+    "message": "缺少填充模板；使用基础填充提示词。"
   },
   "writingPlayground_templateCreateSuccess": {
-    "message": "Template created."
+    "message": "模板已创建。"
   },
   "writingPlayground_templateCreateError": {
-    "message": "Failed to create template: {{detail}}"
+    "message": "创建模板失败：{{detail}}"
   },
   "writingPlayground_templateSaveSuccess": {
-    "message": "Template saved."
+    "message": "模板已保存。"
   },
   "writingPlayground_templateSaveError": {
-    "message": "Failed to save template: {{detail}}"
+    "message": "保存模板失败：{{detail}}"
   },
   "writingPlayground_templateDeleteSuccess": {
-    "message": "Template deleted."
+    "message": "模板已删除。"
   },
   "writingPlayground_templateDeleteError": {
-    "message": "Failed to delete template: {{detail}}"
+    "message": "删除模板失败：{{detail}}"
   },
   "writingPlayground_templateNameRequired": {
-    "message": "Enter a template name."
+    "message": "请输入模板名称。"
   },
   "writingPlayground_templateDeleteTitle": {
-    "message": "Delete template?"
+    "message": "删除模板？"
   },
   "writingPlayground_templateDeleteBody": {
-    "message": "This will permanently delete the template."
+    "message": "这将永久删除该模板。"
   },
   "writingPlayground_templateImportInvalid": {
-    "message": "No templates found in file."
+    "message": "文件中未找到模板。"
   },
   "writingPlayground_templateImportSuccess": {
-    "message": "Templates imported."
+    "message": "模板已导入。"
   },
   "writingPlayground_templateImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "导入失败：{{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "系统"
   },
   "writingPlayground_templateInsertUser": {
-    "message": "User"
+    "message": "用户"
   },
   "writingPlayground_templateInsertAssistant": {
-    "message": "Assistant"
+    "message": "助手"
   },
   "writingPlayground_templateInsertMissing": {
-    "message": "{{label}} markers missing in template."
+    "message": "模板中缺少 {{label}} 标记。"
   },
   "writingPlayground_templateInsertAction": {
-    "message": "Insert"
+    "message": "插入"
   },
   "writingPlayground_manageTemplates": {
-    "message": "Manage templates"
+    "message": "管理模板"
   },
   "writingPlayground_templatesModalTitle": {
-    "message": "Manage templates"
+    "message": "管理模板"
   },
   "writingPlayground_templateImportHint": {
-    "message": "Import JSON to add or update templates."
+    "message": "导入 JSON 以添加或更新模板。"
   },
   "writingPlayground_templateNewAction": {
-    "message": "New"
+    "message": "新建"
   },
   "writingPlayground_templateImportAction": {
-    "message": "Import"
+    "message": "导入"
   },
   "writingPlayground_templateExportAction": {
-    "message": "Export"
+    "message": "导出"
   },
   "writingPlayground_templateListTitle": {
-    "message": "Templates"
+    "message": "模板"
   },
   "writingPlayground_templateListEmpty": {
-    "message": "No templates yet."
+    "message": "暂无模板。"
   },
   "writingPlayground_templateDefaultTag": {
-    "message": "Default"
+    "message": "默认"
   },
   "writingPlayground_templateNameLabel": {
-    "message": "Template name"
+    "message": "模板名称"
   },
   "writingPlayground_templateSystemPrefixLabel": {
-    "message": "System prefix"
+    "message": "系统前缀"
   },
   "writingPlayground_templateSystemSuffixLabel": {
-    "message": "System suffix"
+    "message": "系统后缀"
   },
   "writingPlayground_templateUserPrefixLabel": {
-    "message": "User prefix"
+    "message": "用户前缀"
   },
   "writingPlayground_templateUserSuffixLabel": {
-    "message": "User suffix"
+    "message": "用户后缀"
   },
   "writingPlayground_templateAssistantPrefixLabel": {
-    "message": "Assistant prefix"
+    "message": "助手前缀"
   },
   "writingPlayground_templateAssistantSuffixLabel": {
-    "message": "Assistant suffix"
+    "message": "助手后缀"
   },
   "writingPlayground_templateFimTemplateLabel": {
-    "message": "FIM template"
+    "message": "FIM 模板"
   },
   "writingPlayground_templateFimTemplateHint": {
-    "message": "Use {{prefix}} and {{suffix}} placeholders."
+    "message": "使用 {{prefix}} 和 {{suffix}} 占位符。"
   },
   "writingPlayground_templateDefaultLabel": {
-    "message": "Default template"
+    "message": "默认模板"
   },
   "writingPlayground_templateCreateAction": {
-    "message": "Create"
+    "message": "创建"
   },
   "writingPlayground_themeLabel": {
-    "message": "Theme"
+    "message": "主题"
   },
   "writingPlayground_themePlaceholder": {
-    "message": "Server default"
+    "message": "服务器默认"
   },
   "writingPlayground_themeHint": {
-    "message": "Apply a theme to style the editor."
+    "message": "应用主题以设置编辑器样式。"
   },
   "writingPlayground_themeUnavailable": {
-    "message": "Themes unavailable."
+    "message": "主题不可用。"
   },
   "writingPlayground_themeError": {
-    "message": "Unable to load themes."
+    "message": "无法加载主题。"
   },
   "writingPlayground_manageThemes": {
-    "message": "Manage themes"
+    "message": "管理主题"
   },
   "writingPlayground_themesModalTitle": {
-    "message": "Manage themes"
+    "message": "管理主题"
   },
   "writingPlayground_themeImportHint": {
-    "message": "Import JSON to add or update themes."
+    "message": "导入 JSON 以添加或更新主题。"
   },
   "writingPlayground_themeNewAction": {
-    "message": "New"
+    "message": "新建"
   },
   "writingPlayground_themeImportAction": {
-    "message": "Import"
+    "message": "导入"
   },
   "writingPlayground_themeExportAction": {
-    "message": "Export"
+    "message": "导出"
   },
   "writingPlayground_themeListTitle": {
-    "message": "Themes"
+    "message": "主题"
   },
   "writingPlayground_themeListEmpty": {
-    "message": "No themes yet."
+    "message": "暂无主题。"
   },
   "writingPlayground_themeDefaultTag": {
-    "message": "Default"
+    "message": "默认"
   },
   "writingPlayground_themeNameLabel": {
-    "message": "Theme name"
+    "message": "主题名称"
   },
   "writingPlayground_themeClassLabel": {
-    "message": "Theme class"
+    "message": "主题类名"
   },
   "writingPlayground_themeClassPlaceholder": {
-    "message": "e.g. miku-dream"
+    "message": "例如：miku-dream"
   },
   "writingPlayground_themeCssLabel": {
-    "message": "Theme CSS"
+    "message": "主题 CSS"
   },
   "writingPlayground_themeCssHint": {
-    "message": "CSS is scoped to .writing-playground; @import and url() are stripped."
+    "message": "CSS 仅作用于 .writing-playground；@import 和 url() 会被移除。"
   },
   "writingPlayground_themeOrderLabel": {
-    "message": "Order"
+    "message": "顺序"
   },
   "writingPlayground_themeDefaultLabel": {
-    "message": "Default theme"
+    "message": "默认主题"
   },
   "writingPlayground_themeCreateAction": {
-    "message": "Create"
+    "message": "创建"
   },
   "writingPlayground_themeCreateSuccess": {
-    "message": "Theme created."
+    "message": "主题已创建。"
   },
   "writingPlayground_themeCreateError": {
-    "message": "Failed to create theme: {{detail}}"
+    "message": "创建主题失败：{{detail}}"
   },
   "writingPlayground_themeSaveSuccess": {
-    "message": "Theme saved."
+    "message": "主题已保存。"
   },
   "writingPlayground_themeSaveError": {
-    "message": "Failed to save theme: {{detail}}"
+    "message": "保存主题失败：{{detail}}"
   },
   "writingPlayground_themeDeleteSuccess": {
-    "message": "Theme deleted."
+    "message": "主题已删除。"
   },
   "writingPlayground_themeDeleteError": {
-    "message": "Failed to delete theme: {{detail}}"
+    "message": "删除主题失败：{{detail}}"
   },
   "writingPlayground_themeNameRequired": {
-    "message": "Enter a theme name."
+    "message": "请输入主题名称。"
   },
   "writingPlayground_themeDeleteTitle": {
-    "message": "Delete theme?"
+    "message": "删除主题？"
   },
   "writingPlayground_themeDeleteBody": {
-    "message": "This will permanently delete the theme."
+    "message": "这将永久删除该主题。"
   },
   "writingPlayground_themeImportInvalid": {
-    "message": "No themes found in file."
+    "message": "文件中未找到主题。"
   },
   "writingPlayground_themeImportSuccess": {
-    "message": "Themes imported."
+    "message": "主题已导入。"
   },
   "writingPlayground_themeImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "导入失败：{{detail}}"
   },
   "writingPlayground_importSession": {
-    "message": "Import"
+    "message": "导入"
   },
   "writingPlayground_exportSession": {
-    "message": "Export session"
+    "message": "导出会话"
   },
   "writingPlayground_sessionImportInvalid": {
-    "message": "No sessions found in file."
+    "message": "文件中未找到会话。"
   },
   "writingPlayground_sessionImportSuccess": {
-    "message": "Sessions imported."
+    "message": "会话已导入。"
   },
   "writingPlayground_sessionImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "导入失败：{{detail}}"
   },
   "writingPlayground_sessionExportSuccess": {
-    "message": "Session exported."
+    "message": "会话已导出。"
   },
   "writingPlayground_sessionExportError": {
-    "message": "Failed to export session: {{detail}}"
+    "message": "导出会话失败：{{detail}}"
   }
 }

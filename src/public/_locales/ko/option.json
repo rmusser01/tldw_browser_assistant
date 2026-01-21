@@ -195,7 +195,7 @@
     "message": "모델 설정"
   },
   "header_serverSettings": {
-    "message": "Server settings"
+    "message": "서버 설정"
   },
   "header_more": {
     "message": "AI 도구"
@@ -2049,160 +2049,160 @@
     "message": "지금 복습"
   },
   "header_writingPlayground": {
-    "message": "Writing Playground"
+    "message": "글쓰기 플레이그라운드"
   },
   "writingPlayground_title": {
-    "message": "Writing Playground"
+    "message": "글쓰기 플레이그라운드"
   },
   "writingPlayground_subtitle": {
-    "message": "Draft long-form prompts, manage sessions, and generate with your tldw server."
+    "message": "장문 프롬프트 초안을 작성하고 세션을 관리하며 tldw 서버로 생성합니다."
   },
   "writingPlayground_offlineTitle": {
-    "message": "Server required"
+    "message": "서버가 필요합니다"
   },
   "writingPlayground_offlineBody": {
-    "message": "Connect to your tldw server to load writing sessions and generate."
+    "message": "tldw 서버에 연결해 글쓰기 세션을 불러오고 생성하세요."
   },
   "writingPlayground_unavailableTitle": {
-    "message": "Playground unavailable"
+    "message": "플레이그라운드를 사용할 수 없습니다"
   },
   "writingPlayground_unavailableBody": {
-    "message": "This server does not advertise writing playground support yet."
+    "message": "이 서버는 아직 글쓰기 플레이그라운드 지원을 알리지 않습니다."
   },
   "writingPlayground_emptyState": {
-    "message": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
+    "message": "기반이 준비되었습니다. 편집기, 세션, 도구는 다음 단계에서 제공됩니다."
   },
   "writingPlayground_sessionsTitle": {
-    "message": "Sessions"
+    "message": "세션"
   },
   "writingPlayground_newSession": {
-    "message": "New session"
+    "message": "새 세션"
   },
   "writingPlayground_sessionsError": {
-    "message": "Unable to load sessions."
+    "message": "세션을 불러올 수 없습니다."
   },
   "writingPlayground_sessionsEmpty": {
-    "message": "Create your first session to start writing."
+    "message": "첫 세션을 만들어 글쓰기를 시작하세요."
   },
   "writingPlayground_active": {
-    "message": "Active"
+    "message": "활성"
   },
   "writingPlayground_sessionHint": {
-    "message": "Session is ready. Editor scaffolding arrives in the next stage."
+    "message": "세션이 준비되었습니다. 편집기 기반은 다음 단계에서 추가됩니다."
   },
   "writingPlayground_selectSession": {
-    "message": "Select a session to begin."
+    "message": "시작할 세션을 선택하세요."
   },
   "writingPlayground_createSessionTitle": {
-    "message": "New session"
+    "message": "새 세션"
   },
   "writingPlayground_createSessionLabel": {
-    "message": "Session name"
+    "message": "세션 이름"
   },
   "writingPlayground_createSessionPlaceholder": {
-    "message": "e.g. Draft ideas"
+    "message": "예: 초안 아이디어"
   },
   "writingPlayground_createSuccess": {
-    "message": "Session created."
+    "message": "세션을 만들었습니다."
   },
   "writingPlayground_createError": {
-    "message": "Failed to create session: {{detail}}"
+    "message": "세션을 만들지 못했습니다: {{detail}}"
   },
   "writingPlayground_lastOpenedLabel": {
-    "message": "Last opened {{time}}"
+    "message": "마지막으로 연 시간 {{time}}"
   },
   "writingPlayground_notOpened": {
-    "message": "Not opened yet"
+    "message": "아직 열지 않음"
   },
   "writingPlayground_renameSessionTitle": {
-    "message": "Rename session"
+    "message": "세션 이름 변경"
   },
   "writingPlayground_renameSessionLabel": {
-    "message": "Session name"
+    "message": "세션 이름"
   },
   "writingPlayground_renameSessionPlaceholder": {
-    "message": "e.g. Revised draft"
+    "message": "예: 수정된 초안"
   },
   "writingPlayground_renameSuccess": {
-    "message": "Session renamed."
+    "message": "세션 이름을 변경했습니다."
   },
   "writingPlayground_renameError": {
-    "message": "Failed to rename session: {{detail}}"
+    "message": "세션 이름 변경 실패: {{detail}}"
   },
   "writingPlayground_deleteSessionTitle": {
-    "message": "Delete session?"
+    "message": "세션을 삭제할까요?"
   },
   "writingPlayground_deleteSessionBody": {
-    "message": "This will permanently delete the session."
+    "message": "이 작업은 세션을 영구적으로 삭제합니다."
   },
   "writingPlayground_deleteSuccess": {
-    "message": "Session deleted."
+    "message": "세션을 삭제했습니다."
   },
   "writingPlayground_deleteError": {
-    "message": "Failed to delete session: {{detail}}"
+    "message": "세션 삭제 실패: {{detail}}"
   },
   "writingPlayground_cloneSuccess": {
-    "message": "Session cloned."
+    "message": "세션을 복제했습니다."
   },
   "writingPlayground_cloneError": {
-    "message": "Failed to clone session: {{detail}}"
+    "message": "세션 복제 실패: {{detail}}"
   },
   "writingPlayground_cloneSession": {
-    "message": "Clone session"
+    "message": "세션 복제"
   },
   "writingPlayground_renameSession": {
-    "message": "Rename session"
+    "message": "세션 이름 변경"
   },
   "writingPlayground_deleteSession": {
-    "message": "Delete session"
+    "message": "세션 삭제"
   },
   "writingPlayground_conflictError": {
-    "message": "Session changed on the server."
+    "message": "세션이 서버에서 변경되었습니다."
   },
   "writingPlayground_editorTitle": {
-    "message": "Prompt editor"
+    "message": "프롬프트 편집기"
   },
   "writingPlayground_editorPlaceholder": {
-    "message": "Start writing your prompt..."
+    "message": "프롬프트 작성을 시작하세요..."
   },
   "writingPlayground_editorError": {
-    "message": "Unable to load this session."
+    "message": "이 세션을 불러올 수 없습니다."
   },
   "writingPlayground_savingLabel": {
-    "message": "Saving..."
+    "message": "저장 중..."
   },
   "writingPlayground_savedLabel": {
-    "message": "Saved {{time}}"
+    "message": "{{time}}에 저장됨"
   },
   "writingPlayground_unsavedLabel": {
-    "message": "Unsaved changes"
+    "message": "저장되지 않은 변경 사항"
   },
   "writingPlayground_saveError": {
-    "message": "Failed to save session: {{detail}}"
+    "message": "세션 저장 실패: {{detail}}"
   },
   "writingPlayground_editorModeEdit": {
-    "message": "Edit"
+    "message": "편집"
   },
   "writingPlayground_editorModePreview": {
-    "message": "Preview"
+    "message": "미리보기"
   },
   "writingPlayground_editorModeSplit": {
-    "message": "Split"
+    "message": "분할"
   },
   "writingPlayground_editorEmptyPreview": {
-    "message": "Nothing to preview yet."
+    "message": "아직 미리볼 내용이 없습니다."
   },
   "writingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "설정"
   },
   "writingPlayground_settingsEmpty": {
-    "message": "Select a session to edit settings."
+    "message": "설정을 편집할 세션을 선택하세요."
   },
   "writingPlayground_settingsError": {
-    "message": "Unable to load session settings."
+    "message": "세션 설정을 불러올 수 없습니다."
   },
   "writingPlayground_temperatureLabel": {
-    "message": "Temperature"
+    "message": "온도"
   },
   "writingPlayground_topPLabel": {
     "message": "Top P"
@@ -2211,381 +2211,381 @@
     "message": "Top K"
   },
   "writingPlayground_maxTokensLabel": {
-    "message": "Max tokens"
+    "message": "최대 토큰"
   },
   "writingPlayground_presencePenaltyLabel": {
-    "message": "Presence penalty"
+    "message": "존재 페널티"
   },
   "writingPlayground_frequencyPenaltyLabel": {
-    "message": "Frequency penalty"
+    "message": "빈도 페널티"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "시드"
   },
   "writingPlayground_stopStringsLabel": {
-    "message": "Stop strings"
+    "message": "중지 문자열"
   },
   "writingPlayground_stopStringsPlaceholder": {
-    "message": "One per line"
+    "message": "한 줄에 하나"
   },
   "writingPlayground_insertPredict": {
-    "message": "Insert {predict}"
+    "message": "{predict} 삽입"
   },
   "writingPlayground_insertFill": {
-    "message": "Insert {fill}"
+    "message": "{fill} 삽입"
   },
   "writingPlayground_searchReplace": {
-    "message": "Search & replace"
+    "message": "검색 및 바꾸기"
   },
   "writingPlayground_searchToggle": {
-    "message": "Find"
+    "message": "찾기"
   },
   "writingPlayground_searchClose": {
-    "message": "Close"
+    "message": "닫기"
   },
   "writingPlayground_searchPlaceholder": {
-    "message": "Find text"
+    "message": "텍스트 찾기"
   },
   "writingPlayground_replacePlaceholder": {
-    "message": "Replace with"
+    "message": "바꿀 내용"
   },
   "writingPlayground_searchPrev": {
-    "message": "Prev"
+    "message": "이전"
   },
   "writingPlayground_searchNext": {
-    "message": "Next"
+    "message": "다음"
   },
   "writingPlayground_searchReplaceAction": {
-    "message": "Replace"
+    "message": "바꾸기"
   },
   "writingPlayground_searchReplaceAll": {
-    "message": "Replace all"
+    "message": "모두 바꾸기"
   },
   "writingPlayground_searchMatchCase": {
-    "message": "Match case"
+    "message": "대/소문자 구분"
   },
   "writingPlayground_searchRegex": {
-    "message": "Regex"
+    "message": "정규식"
   },
   "writingPlayground_searchRegexError": {
-    "message": "Invalid regex"
+    "message": "잘못된 정규식"
   },
   "writingPlayground_searchMatchCount": {
-    "message": "{{current}} of {{total}} matches"
+    "message": "{{current}} / {{total}}개 일치"
   },
   "writingPlayground_searchNoMatches": {
-    "message": "No matches"
+    "message": "일치하는 항목 없음"
   },
   "writingPlayground_searchHint": {
-    "message": "Enter text to search"
+    "message": "검색할 텍스트를 입력하세요"
   },
   "writingPlayground_promptChunksTitle": {
-    "message": "Prompt chunks ({{count}})"
+    "message": "프롬프트 청크 ({{count}})"
   },
   "writingPlayground_promptChunksEmpty": {
-    "message": "No chunks yet."
+    "message": "아직 청크가 없습니다."
   },
   "writingPlayground_promptChunksTruncated": {
-    "message": "Showing first {{count}} chunks."
+    "message": "처음 {{count}}개 청크를 표시합니다."
   },
   "writingPlayground_chunkPlaceholder": {
-    "message": "Placeholder"
+    "message": "플레이스홀더"
   },
   "writingPlayground_chunkText": {
-    "message": "Text"
+    "message": "텍스트"
   },
   "writingPlayground_generateAction": {
-    "message": "Generate"
+    "message": "생성"
   },
   "writingPlayground_stopAction": {
-    "message": "Stop"
+    "message": "중지"
   },
   "writingPlayground_undoGeneration": {
-    "message": "Undo"
+    "message": "되돌리기"
   },
   "writingPlayground_redoGeneration": {
-    "message": "Redo"
+    "message": "다시 실행"
   },
   "writingPlayground_generatingLabel": {
-    "message": "Generating..."
+    "message": "생성 중..."
   },
   "writingPlayground_generateError": {
-    "message": "Generation failed: {{detail}}"
+    "message": "생성 실패: {{detail}}"
   },
   "writingPlayground_generateUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "채팅 완성이 사용 불가능합니다."
   },
   "writingPlayground_modelMissing": {
-    "message": "Select a model in Settings to generate."
+    "message": "생성하려면 설정에서 모델을 선택하세요."
   },
   "writingPlayground_generationInProgress": {
-    "message": "Stop generation before switching sessions."
+    "message": "세션을 전환하기 전에 생성을 중지하세요."
   },
   "writingPlayground_generateShortcutTooltip": {
-    "message": "Ctrl/Cmd+Enter to generate"
+    "message": "Ctrl/Cmd+Enter로 생성"
   },
   "writingPlayground_stopShortcutTooltip": {
-    "message": "Esc to stop"
+    "message": "Esc로 중지"
   },
   "writingPlayground_shortcutsHint": {
-    "message": "Shortcuts: Ctrl/Cmd+Enter to generate, Esc to stop."
+    "message": "단축키: Ctrl/Cmd+Enter로 생성, Esc로 중지."
   },
   "writingPlayground_templateLabel": {
-    "message": "Template"
+    "message": "템플릿"
   },
   "writingPlayground_templatePlaceholder": {
-    "message": "Server default"
+    "message": "서버 기본값"
   },
   "writingPlayground_templateHint": {
-    "message": "Choose an instruct template for chat parsing and FIM."
+    "message": "채팅 파싱과 FIM을 위한 인스트럭트 템플릿을 선택하세요."
   },
   "writingPlayground_templateUnavailable": {
-    "message": "Templates unavailable."
+    "message": "템플릿을 사용할 수 없습니다."
   },
   "writingPlayground_templateError": {
-    "message": "Unable to load templates."
+    "message": "템플릿을 불러올 수 없습니다."
   },
   "writingPlayground_chatModeLabel": {
-    "message": "Chat mode"
+    "message": "채팅 모드"
   },
   "writingPlayground_chatModeHint": {
-    "message": "Parse prompt text into messages using the selected template."
+    "message": "선택한 템플릿으로 프롬프트 텍스트를 메시지로 파싱합니다."
   },
   "writingPlayground_fillFallbackNotice": {
-    "message": "Fill template missing; using a basic fill prompt."
+    "message": "Fill 템플릿이 없어 기본 fill 프롬프트를 사용합니다."
   },
   "writingPlayground_templateCreateSuccess": {
-    "message": "Template created."
+    "message": "템플릿을 만들었습니다."
   },
   "writingPlayground_templateCreateError": {
-    "message": "Failed to create template: {{detail}}"
+    "message": "템플릿 만들기 실패: {{detail}}"
   },
   "writingPlayground_templateSaveSuccess": {
-    "message": "Template saved."
+    "message": "템플릿을 저장했습니다."
   },
   "writingPlayground_templateSaveError": {
-    "message": "Failed to save template: {{detail}}"
+    "message": "템플릿 저장 실패: {{detail}}"
   },
   "writingPlayground_templateDeleteSuccess": {
-    "message": "Template deleted."
+    "message": "템플릿을 삭제했습니다."
   },
   "writingPlayground_templateDeleteError": {
-    "message": "Failed to delete template: {{detail}}"
+    "message": "템플릿 삭제 실패: {{detail}}"
   },
   "writingPlayground_templateNameRequired": {
-    "message": "Enter a template name."
+    "message": "템플릿 이름을 입력하세요."
   },
   "writingPlayground_templateDeleteTitle": {
-    "message": "Delete template?"
+    "message": "템플릿을 삭제할까요?"
   },
   "writingPlayground_templateDeleteBody": {
-    "message": "This will permanently delete the template."
+    "message": "이 작업은 템플릿을 영구적으로 삭제합니다."
   },
   "writingPlayground_templateImportInvalid": {
-    "message": "No templates found in file."
+    "message": "파일에서 템플릿을 찾을 수 없습니다."
   },
   "writingPlayground_templateImportSuccess": {
-    "message": "Templates imported."
+    "message": "템플릿을 가져왔습니다."
   },
   "writingPlayground_templateImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "가져오기 실패: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "시스템"
   },
   "writingPlayground_templateInsertUser": {
-    "message": "User"
+    "message": "사용자"
   },
   "writingPlayground_templateInsertAssistant": {
-    "message": "Assistant"
+    "message": "어시스턴트"
   },
   "writingPlayground_templateInsertMissing": {
-    "message": "{{label}} markers missing in template."
+    "message": "템플릿에 {{label}} 마커가 없습니다."
   },
   "writingPlayground_templateInsertAction": {
-    "message": "Insert"
+    "message": "삽입"
   },
   "writingPlayground_manageTemplates": {
-    "message": "Manage templates"
+    "message": "템플릿 관리"
   },
   "writingPlayground_templatesModalTitle": {
-    "message": "Manage templates"
+    "message": "템플릿 관리"
   },
   "writingPlayground_templateImportHint": {
-    "message": "Import JSON to add or update templates."
+    "message": "JSON을 가져와 템플릿을 추가하거나 업데이트하세요."
   },
   "writingPlayground_templateNewAction": {
-    "message": "New"
+    "message": "새로 만들기"
   },
   "writingPlayground_templateImportAction": {
-    "message": "Import"
+    "message": "가져오기"
   },
   "writingPlayground_templateExportAction": {
-    "message": "Export"
+    "message": "내보내기"
   },
   "writingPlayground_templateListTitle": {
-    "message": "Templates"
+    "message": "템플릿"
   },
   "writingPlayground_templateListEmpty": {
-    "message": "No templates yet."
+    "message": "아직 템플릿이 없습니다."
   },
   "writingPlayground_templateDefaultTag": {
-    "message": "Default"
+    "message": "기본"
   },
   "writingPlayground_templateNameLabel": {
-    "message": "Template name"
+    "message": "템플릿 이름"
   },
   "writingPlayground_templateSystemPrefixLabel": {
-    "message": "System prefix"
+    "message": "시스템 접두사"
   },
   "writingPlayground_templateSystemSuffixLabel": {
-    "message": "System suffix"
+    "message": "시스템 접미사"
   },
   "writingPlayground_templateUserPrefixLabel": {
-    "message": "User prefix"
+    "message": "사용자 접두사"
   },
   "writingPlayground_templateUserSuffixLabel": {
-    "message": "User suffix"
+    "message": "사용자 접미사"
   },
   "writingPlayground_templateAssistantPrefixLabel": {
-    "message": "Assistant prefix"
+    "message": "어시스턴트 접두사"
   },
   "writingPlayground_templateAssistantSuffixLabel": {
-    "message": "Assistant suffix"
+    "message": "어시스턴트 접미사"
   },
   "writingPlayground_templateFimTemplateLabel": {
-    "message": "FIM template"
+    "message": "FIM 템플릿"
   },
   "writingPlayground_templateFimTemplateHint": {
-    "message": "Use {{prefix}} and {{suffix}} placeholders."
+    "message": "{{prefix}} 및 {{suffix}} 플레이스홀더를 사용하세요."
   },
   "writingPlayground_templateDefaultLabel": {
-    "message": "Default template"
+    "message": "기본 템플릿"
   },
   "writingPlayground_templateCreateAction": {
-    "message": "Create"
+    "message": "만들기"
   },
   "writingPlayground_themeLabel": {
-    "message": "Theme"
+    "message": "테마"
   },
   "writingPlayground_themePlaceholder": {
-    "message": "Server default"
+    "message": "서버 기본값"
   },
   "writingPlayground_themeHint": {
-    "message": "Apply a theme to style the editor."
+    "message": "편집기 스타일을 위해 테마를 적용하세요."
   },
   "writingPlayground_themeUnavailable": {
-    "message": "Themes unavailable."
+    "message": "테마를 사용할 수 없습니다."
   },
   "writingPlayground_themeError": {
-    "message": "Unable to load themes."
+    "message": "테마를 불러올 수 없습니다."
   },
   "writingPlayground_manageThemes": {
-    "message": "Manage themes"
+    "message": "테마 관리"
   },
   "writingPlayground_themesModalTitle": {
-    "message": "Manage themes"
+    "message": "테마 관리"
   },
   "writingPlayground_themeImportHint": {
-    "message": "Import JSON to add or update themes."
+    "message": "JSON을 가져와 테마를 추가하거나 업데이트하세요."
   },
   "writingPlayground_themeNewAction": {
-    "message": "New"
+    "message": "새로 만들기"
   },
   "writingPlayground_themeImportAction": {
-    "message": "Import"
+    "message": "가져오기"
   },
   "writingPlayground_themeExportAction": {
-    "message": "Export"
+    "message": "내보내기"
   },
   "writingPlayground_themeListTitle": {
-    "message": "Themes"
+    "message": "테마"
   },
   "writingPlayground_themeListEmpty": {
-    "message": "No themes yet."
+    "message": "아직 테마가 없습니다."
   },
   "writingPlayground_themeDefaultTag": {
-    "message": "Default"
+    "message": "기본"
   },
   "writingPlayground_themeNameLabel": {
-    "message": "Theme name"
+    "message": "테마 이름"
   },
   "writingPlayground_themeClassLabel": {
-    "message": "Theme class"
+    "message": "테마 클래스"
   },
   "writingPlayground_themeClassPlaceholder": {
-    "message": "e.g. miku-dream"
+    "message": "예: miku-dream"
   },
   "writingPlayground_themeCssLabel": {
-    "message": "Theme CSS"
+    "message": "테마 CSS"
   },
   "writingPlayground_themeCssHint": {
-    "message": "CSS is scoped to .writing-playground; @import and url() are stripped."
+    "message": "CSS는 .writing-playground에만 적용되며 @import와 url()은 제거됩니다."
   },
   "writingPlayground_themeOrderLabel": {
-    "message": "Order"
+    "message": "순서"
   },
   "writingPlayground_themeDefaultLabel": {
-    "message": "Default theme"
+    "message": "기본 테마"
   },
   "writingPlayground_themeCreateAction": {
-    "message": "Create"
+    "message": "만들기"
   },
   "writingPlayground_themeCreateSuccess": {
-    "message": "Theme created."
+    "message": "테마를 만들었습니다."
   },
   "writingPlayground_themeCreateError": {
-    "message": "Failed to create theme: {{detail}}"
+    "message": "테마 만들기 실패: {{detail}}"
   },
   "writingPlayground_themeSaveSuccess": {
-    "message": "Theme saved."
+    "message": "테마를 저장했습니다."
   },
   "writingPlayground_themeSaveError": {
-    "message": "Failed to save theme: {{detail}}"
+    "message": "테마 저장 실패: {{detail}}"
   },
   "writingPlayground_themeDeleteSuccess": {
-    "message": "Theme deleted."
+    "message": "테마를 삭제했습니다."
   },
   "writingPlayground_themeDeleteError": {
-    "message": "Failed to delete theme: {{detail}}"
+    "message": "테마 삭제 실패: {{detail}}"
   },
   "writingPlayground_themeNameRequired": {
-    "message": "Enter a theme name."
+    "message": "테마 이름을 입력하세요."
   },
   "writingPlayground_themeDeleteTitle": {
-    "message": "Delete theme?"
+    "message": "테마를 삭제할까요?"
   },
   "writingPlayground_themeDeleteBody": {
-    "message": "This will permanently delete the theme."
+    "message": "이 작업은 테마를 영구적으로 삭제합니다."
   },
   "writingPlayground_themeImportInvalid": {
-    "message": "No themes found in file."
+    "message": "파일에서 테마를 찾을 수 없습니다."
   },
   "writingPlayground_themeImportSuccess": {
-    "message": "Themes imported."
+    "message": "테마를 가져왔습니다."
   },
   "writingPlayground_themeImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "가져오기 실패: {{detail}}"
   },
   "writingPlayground_importSession": {
-    "message": "Import"
+    "message": "가져오기"
   },
   "writingPlayground_exportSession": {
-    "message": "Export session"
+    "message": "세션 내보내기"
   },
   "writingPlayground_sessionImportInvalid": {
-    "message": "No sessions found in file."
+    "message": "파일에서 세션을 찾을 수 없습니다."
   },
   "writingPlayground_sessionImportSuccess": {
-    "message": "Sessions imported."
+    "message": "세션을 가져왔습니다."
   },
   "writingPlayground_sessionImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "가져오기 실패: {{detail}}"
   },
   "writingPlayground_sessionExportSuccess": {
-    "message": "Session exported."
+    "message": "세션을 내보냈습니다."
   },
   "writingPlayground_sessionExportError": {
-    "message": "Failed to export session: {{detail}}"
+    "message": "세션 내보내기 실패: {{detail}}"
   }
 }

@@ -1384,5 +1384,11 @@
   },
   "playground_composer_compareBulkSplitPartialFail": {
     "message": "Failed to create {{count}} chats"
+  },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
   }
 }

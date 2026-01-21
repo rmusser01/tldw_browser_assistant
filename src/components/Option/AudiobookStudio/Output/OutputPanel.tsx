@@ -30,9 +30,9 @@ import { useAudiobookStudioStore, type AudioChapter } from "@/store/audiobook-st
 import { useAudiobookGeneration } from "@/hooks/useAudiobookGeneration"
 import {
   concatenateAudioChapters,
-  downloadBlob,
   type ChapterTiming
 } from "@/utils/audio-concat"
+import { downloadBlob } from "@/utils/download-blob"
 import { exportSubtitles, type SubtitleFormat } from "@/utils/subtitle-generator"
 import { AudiobookPlayer } from "./AudiobookPlayer"
 

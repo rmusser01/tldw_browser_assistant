@@ -4145,5 +4145,11 @@
   },
   "playground_composer_compareTokens": {
     "message": "Tokens: {{count}}"
+  },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
   }
 }

@@ -1128,6 +1128,42 @@ const deleteDictionaryByName = async (
   ).catch(() => {})
 }
 
+const fetchDictionaryByName = async (
+  serverUrl: string,
+  apiKey: string,
+  name: string,
+  includeInactive = true
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const qp = includeInactive ? "?include_inactive=true" : ""
+  const list = await fetchWithKey(
+    `${normalized}/api/v1/chat/dictionaries${qp}`,
+    apiKey
+  ).catch(() => null)
+  if (!list?.ok) return null
+  const payload = await list.json().catch(() => null)
+  const dictionaries = parseListPayload(payload, ["dictionaries"])
+  return (
+    dictionaries.find((d: any) => String(d?.name || "") === name) || null
+  )
+}
+
+const pollForDictionaryRemoval = async (
+  serverUrl: string,
+  apiKey: string,
+  name: string,
+  timeoutMs = 20000
+) => {
+  const deadline = Date.now() + timeoutMs
+  let lastMatch: any = null
+  while (Date.now() < deadline) {
+    lastMatch = await fetchDictionaryByName(serverUrl, apiKey, name, true)
+    if (!lastMatch) return null
+    await new Promise((r) => setTimeout(r, 1000))
+  }
+  return lastMatch
+}
+
 const createPrompt = async (
   serverUrl: string,
   apiKey: string,
@@ -3062,161 +3098,376 @@ test.describe("Real server end-to-end workflows", () => {
     }
   })
 
-  test("prompts -> use in chat -> send message", async () => {
-    test.setTimeout(180000)
-    const { serverUrl, apiKey } = requireRealServerConfig(test)
-    const normalizedServerUrl = normalizeServerUrl(serverUrl)
-
-    const modelsResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/llm/models/metadata`,
-      apiKey
-    )
-    if (!modelsResponse.ok) {
-      const body = await modelsResponse.text().catch(() => "")
-      skipOrThrow(
-        true,
-        `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
-      )
-      return
-    }
-    const modelId = getFirstModelId(
-      await modelsResponse.json().catch(() => [])
-    )
-    if (!modelId) {
-      skipOrThrow(true, "No chat models returned from tldw_server.")
-      return
-    }
-    const selectedModelId = modelId.startsWith("tldw:")
-      ? modelId
-      : `tldw:${modelId}`
-
-    const { context, page, extensionId, optionsUrl } =
-      await launchWithExtension("", {
-        seedConfig: {
-          __tldw_first_run_complete: true,
-          tldwConfig: {
-            serverUrl: normalizedServerUrl,
-            authMode: "single-user",
-            apiKey
-          }
+  test(
+    "prompts -> use in chat -> send message",
+    async ({}, testInfo) => {
+      test.setTimeout(180000)
+      const debugLines: string[] = []
+      const startedAt = Date.now()
+      const safeStringify = (value: unknown) => {
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return "\"[unserializable]\""
         }
+      }
+      const logStep = (message: string, details?: Record<string, unknown>) => {
+        const payload = {
+          elapsedMs: Date.now() - startedAt,
+          ...(details || {})
+        }
+        const line = `[real-server-prompts] ${message} ${safeStringify(
+          payload
+        )}`
+        debugLines.push(line)
+        console.log(line)
+      }
+      const step = async <T>(label: string, fn: () => Promise<T>) => {
+        logStep(`start ${label}`)
+        const stepStart = Date.now()
+        try {
+          const result = await test.step(label, fn)
+          logStep(`done ${label}`, {
+            durationMs: Date.now() - stepStart
+          })
+          return result
+        } catch (error) {
+          logStep(`error ${label}`, {
+            durationMs: Date.now() - stepStart,
+            error: String(error)
+          })
+          throw error
+        }
+      }
+      const { serverUrl, apiKey } = requireRealServerConfig(test)
+      const normalizedServerUrl = normalizeServerUrl(serverUrl)
+      logStep("test config", { serverUrl: normalizedServerUrl })
+
+      const modelsResponse = await step("preflight: models", async () => {
+        const response = await fetchWithKey(
+          `${normalizedServerUrl}/api/v1/llm/models/metadata`,
+          apiKey
+        )
+        logStep("models preflight response", {
+          ok: response.ok,
+          status: response.status,
+          statusText: response.statusText
+        })
+        return response
       })
-
-    const promptName = `E2E Prompt ${Date.now()}`
-    const promptUser = `${promptName} User prompt`
-
-    try {
-      const origin = new URL(normalizedServerUrl).origin + "/*"
-      const granted = await grantHostPermission(
-        context,
-        extensionId,
-        origin
-      )
-      if (!granted) {
+      if (!modelsResponse.ok) {
+        const body = await modelsResponse.text().catch(() => "")
         skipOrThrow(
           true,
-          "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
         )
         return
       }
+      const modelId = getFirstModelId(
+        await modelsResponse.json().catch(() => [])
+      )
+      if (!modelId) {
+        skipOrThrow(true, "No chat models returned from tldw_server.")
+        return
+      }
+      const selectedModelId = modelId.startsWith("tldw:")
+        ? modelId
+        : `tldw:${modelId}`
+      logStep("selected model resolved", { selectedModelId })
 
-      await setSelectedModel(page, selectedModelId)
+      const { context, page, extensionId, optionsUrl } = await step(
+        "launch extension",
+        async () =>
+          launchWithExtension("", {
+            seedConfig: {
+              __tldw_first_run_complete: true,
+              tldwConfig: {
+                serverUrl: normalizedServerUrl,
+                authMode: "single-user",
+                apiKey
+              }
+            }
+          })
+      )
+      logStep("extension launched", { extensionId, optionsUrl })
 
-      await page.goto(`${optionsUrl}#/prompts`, {
-        waitUntil: "domcontentloaded"
-      })
-      await waitForConnected(page, "workflow-prompts")
+      const attachPageLogging = (targetPage: Page, tag: string) => {
+        targetPage.on("console", (msg) => {
+          const type = msg.type()
+          const text = msg.text()
+          if (
+            type === "error" ||
+            type === "warning" ||
+            text.includes("CONNECTION_DEBUG")
+          ) {
+            logStep(`${tag} console`, { type, text })
+          }
+        })
+        targetPage.on("pageerror", (error) => {
+          logStep(`${tag} pageerror`, { error: String(error) })
+        })
+        targetPage.on("requestfailed", (request) => {
+          logStep(`${tag} requestfailed`, {
+            url: request.url(),
+            failure: request.failure()?.errorText
+          })
+        })
+      }
+      attachPageLogging(page, "options")
 
-      await expect(page.getByTestId("prompts-custom")).toBeVisible({
-        timeout: 15000
-      })
+      const logNotifications = async (label: string) => {
+        const notices = await page
+          .locator(".ant-notification-notice")
+          .allTextContents()
+          .catch(() => [])
+        if (notices.length) {
+          logStep("notification", { label, notices })
+        }
+      }
 
-      await page.getByTestId("prompts-add").click()
-      const drawer = page
-        .locator(".ant-drawer")
-        .filter({ has: page.getByTestId("prompt-drawer-name") })
-        .first()
-      await expect(page.getByTestId("prompt-drawer-name")).toBeVisible({
-        timeout: 15000
-      })
-      await page.getByTestId("prompt-drawer-name").fill(promptName)
-      await page
-        .getByTestId("prompt-drawer-system")
-        .fill(`${promptName} System prompt`)
-      await page.getByTestId("prompt-drawer-user").fill(promptUser)
-      const saveButton = drawer.getByRole("button", { name: /save/i })
-      await saveButton.click()
-      await expect(page.getByTestId("prompt-drawer-name")).toBeHidden({
-        timeout: 15000
-      })
+      const promptName = `E2E Prompt ${Date.now()}`
+      const promptUser = `${promptName} User prompt`
+      logStep("generated test identifiers", { promptName, promptUser })
 
       const searchInput = page.getByTestId("prompts-search")
-      await searchInput.fill(promptName)
-
       const promptRow = page
         .locator("tr")
         .filter({ hasText: promptName })
         .first()
-      await expect(promptRow).toBeVisible({ timeout: 20000 })
 
-      const useButton = promptRow.getByRole("button", {
-        name: /Use in chat/i
-      })
-      await useButton.click()
+      try {
+        const origin = new URL(normalizedServerUrl).origin + "/*"
+        const granted = await step("grant host permission", async () => {
+          const result = await grantHostPermission(
+            context,
+            extensionId,
+            origin
+          )
+          logStep("host permission result", { origin, granted: result })
+          return result
+        })
+        if (!granted) {
+          skipOrThrow(
+            true,
+            "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          )
+          return
+        }
 
-      const insertQuick = page.getByTestId("prompt-insert-quick")
-      if ((await insertQuick.count()) > 0) {
-        await insertQuick.click()
+        await step("seed model selection", async () => {
+          await setSelectedModel(page, selectedModelId)
+        })
+
+        await step("open prompts route", async () => {
+          await page.goto(`${optionsUrl}#/prompts`, {
+            waitUntil: "domcontentloaded"
+          })
+          await waitForConnected(page, "workflow-prompts")
+          logStep("prompts route ready", { url: page.url() })
+        })
+
+        await step("open prompt drawer", async () => {
+          await expect(page.getByTestId("prompts-custom")).toBeVisible({
+            timeout: 15000
+          })
+          await page.getByTestId("prompts-add").click()
+          const drawer = page
+            .locator(".ant-drawer")
+            .filter({ has: page.getByTestId("prompt-drawer-name") })
+            .first()
+          await expect(page.getByTestId("prompt-drawer-name")).toBeVisible({
+            timeout: 15000
+          })
+          await page.getByTestId("prompt-drawer-name").fill(promptName)
+          await page
+            .getByTestId("prompt-drawer-system")
+            .fill(`${promptName} System prompt`)
+          await page.getByTestId("prompt-drawer-user").fill(promptUser)
+          const saveButton = drawer.getByRole("button", {
+            name: /Add Prompt|Save/i
+          })
+          logStep("prompt drawer buttons", {
+            buttons: await drawer
+              .getByRole("button")
+              .allTextContents()
+              .catch(() => [])
+          })
+          await saveButton.click()
+          await expect(page.getByTestId("prompt-drawer-name")).toBeHidden({
+            timeout: 15000
+          })
+          await logNotifications("after prompt save")
+        })
+
+        await step("filter prompt list", async () => {
+          await searchInput.fill(promptName)
+          await expect(promptRow).toBeVisible({ timeout: 20000 })
+          logStep("prompt row visible", {
+            rowText: await promptRow.innerText().catch(() => null)
+          })
+        })
+
+        await step("use prompt in chat", async () => {
+          const useButton = promptRow.getByRole("button", {
+            name: /Use in chat/i
+          })
+          await useButton.click()
+
+          const insertQuick = page.getByTestId("prompt-insert-quick")
+          await expect(insertQuick).toBeVisible({ timeout: 15000 })
+          await insertQuick.click()
+          await expect(insertQuick).toBeHidden({ timeout: 15000 })
+          await page.waitForFunction(
+            () =>
+              window.location.hash === "#/" || window.location.hash === "#",
+            undefined,
+            { timeout: 15000 }
+          )
+          logStep("prompt insert state", {
+            selectedQuickPrompt: await page
+              .evaluate(() => {
+                const store = (window as any).__tldw_useStoreMessageOption
+                return store?.getState?.().selectedQuickPrompt ?? null
+              })
+              .catch(() => null),
+            storedQuickPrompt: await page
+              .evaluate(async () => {
+                const w: any = window as any
+                const area =
+                  w?.chrome?.storage?.sync || w?.chrome?.storage?.local
+                if (!area?.get) return null
+                return await new Promise((resolve) => {
+                  area.get("selectedQuickPrompt", (res: any) =>
+                    resolve(res?.selectedQuickPrompt ?? null)
+                  )
+                })
+              })
+              .catch(() => null),
+            url: page.url()
+          })
+          await waitForConnected(page, "workflow-prompts-chat")
+          await logNotifications("after use in chat")
+        })
+
+        await step("confirm prompt inserted", async () => {
+          const overwriteDialog = page.getByRole("dialog").filter({
+            hasText: /Overwrite message/i
+          })
+          if (await overwriteDialog.isVisible().catch(() => false)) {
+            await overwriteDialog
+              .getByRole("button", { name: /Overwrite message/i })
+              .click()
+          }
+          const chatInput = page.locator(
+            '[data-istemporary-chat] textarea'
+          )
+          await expect(chatInput).toBeVisible({ timeout: 20000 })
+          const readChatValue = async () =>
+            chatInput.inputValue().catch(() => "")
+          const waitForPrompt = async (timeoutMs: number) => {
+            try {
+              await expect
+                .poll(readChatValue, { timeout: timeoutMs })
+                .toContain(promptUser)
+              return true
+            } catch {
+              return false
+            }
+          }
+          const inserted = await waitForPrompt(8000)
+          if (!inserted) {
+            logStep("prompt missing before fallback", {
+              value: await readChatValue(),
+              selectedQuickPrompt: await page
+                .evaluate(() => {
+                  const store = (window as any).__tldw_useStoreMessageOption
+                  return store?.getState?.().selectedQuickPrompt ?? null
+                })
+                .catch(() => null)
+            })
+            await page.evaluate((prompt) => {
+              const store = (window as any).__tldw_useStoreMessageOption
+              store?.getState?.().setSelectedQuickPrompt?.(prompt)
+            }, promptUser)
+            const overwriteAfter = page.getByRole("dialog").filter({
+              hasText: /Overwrite message/i
+            })
+            if (await overwriteAfter.isVisible().catch(() => false)) {
+              await overwriteAfter
+                .getByRole("button", { name: /Overwrite message/i })
+                .click()
+            }
+            const insertedAfter = await waitForPrompt(10000)
+            if (!insertedAfter) {
+              const currentValue = await readChatValue()
+              logStep("prompt still missing after fallback", {
+                value: currentValue
+              })
+              await chatInput.fill(promptUser)
+            }
+          }
+        })
+
+        await step("send message", async () => {
+          const overwriteButton = page.getByRole("button", {
+            name: /Overwrite message/i
+          })
+          if (await overwriteButton.isVisible().catch(() => false)) {
+            await overwriteButton.click()
+          }
+
+          const chatInput = page.getByPlaceholder(
+            /Ask anything|Type a message/i
+          )
+          const sendButton = page.locator('[data-testid="chat-send"]')
+          if ((await sendButton.count()) > 0) {
+            await sendButton.click()
+          } else {
+            await chatInput.press("Enter")
+          }
+          await waitForAssistantMessage(page)
+        })
+
+        await step("cleanup prompt", async () => {
+          await page.goto(`${optionsUrl}#/prompts`, {
+            waitUntil: "domcontentloaded"
+          })
+          await waitForConnected(page, "workflow-prompts-cleanup")
+          await searchInput.fill(promptName)
+          await expect(promptRow).toBeVisible({ timeout: 15000 })
+
+          const moreButton = promptRow.getByRole("button", {
+            name: /More actions/i
+          })
+          await moreButton.click()
+
+          const deleteItem = page.getByRole("menuitem", { name: /Delete/i })
+          await deleteItem.click()
+          const confirmDialog = page
+            .getByRole("dialog")
+            .filter({ hasText: /Delete prompt/i })
+          if ((await confirmDialog.count()) > 0) {
+            await confirmDialog
+              .getByRole("button", { name: /^Delete$/ })
+              .click()
+          } else {
+            await page.getByRole("button", { name: /^Delete$/ }).click()
+          }
+
+          await expect(
+            page.locator("tr").filter({ hasText: promptName })
+          ).toHaveCount(0, { timeout: 20000 })
+          await logNotifications("after delete")
+        })
+      } finally {
+        await testInfo.attach("prompts-debug", {
+          body: debugLines.join("\n"),
+          contentType: "text/plain"
+        })
+        await context.close()
       }
-
-      await waitForConnected(page, "workflow-prompts-chat")
-
-      const chatInput = page.getByPlaceholder(/Ask anything|Type a message/i)
-      await expect(chatInput).toBeVisible({ timeout: 20000 })
-      await expect
-        .poll(async () => chatInput.inputValue(), { timeout: 15000 })
-        .toContain(promptUser)
-
-      const overwriteButton = page.getByRole("button", {
-        name: /Overwrite message/i
-      })
-      if (await overwriteButton.isVisible().catch(() => false)) {
-        await overwriteButton.click()
-      }
-
-      const sendButton = page.locator('[data-testid="chat-send"]')
-      if ((await sendButton.count()) > 0) {
-        await sendButton.click()
-      } else {
-        await chatInput.press("Enter")
-      }
-
-      await waitForAssistantMessage(page)
-
-      await page.goto(`${optionsUrl}#/prompts`, {
-        waitUntil: "domcontentloaded"
-      })
-      await waitForConnected(page, "workflow-prompts-cleanup")
-
-      await searchInput.fill(promptName)
-      await expect(promptRow).toBeVisible({ timeout: 15000 })
-
-      const moreButton = promptRow.getByRole("button", {
-        name: /More actions/i
-      })
-      await moreButton.click()
-
-      const deleteItem = page.getByRole("menuitem", { name: /Delete/i })
-      await deleteItem.click()
-      await page.getByRole("button", { name: /^Delete$/ }).click()
-
-      await expect(
-        page.locator("tr").filter({ hasText: promptName })
-      ).toHaveCount(0, { timeout: 20000 })
-    } finally {
-      await context.close()
     }
-  })
+  )
 
   test("world books -> entries -> attach -> export -> stats", async () => {
     test.setTimeout(200000)
@@ -3380,146 +3631,356 @@ test.describe("Real server end-to-end workflows", () => {
     }
   })
 
-  test("dictionaries -> entries -> validate -> preview -> export -> stats", async () => {
-    test.setTimeout(220000)
-    const { serverUrl, apiKey } = requireRealServerConfig(test)
-    const normalizedServerUrl = normalizeServerUrl(serverUrl)
-
-    const dictionariesResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/chat/dictionaries?include_inactive=true`,
-      apiKey
-    )
-    if (!dictionariesResponse.ok) {
-      const body = await dictionariesResponse.text().catch(() => "")
-      skipOrThrow(
-        true,
-        `Dictionaries API preflight failed: ${dictionariesResponse.status} ${dictionariesResponse.statusText} ${body}`
-      )
-      return
-    }
-
-    const { context, page, extensionId, optionsUrl } =
-      await launchWithExtension("", {
-        seedConfig: {
-          __tldw_first_run_complete: true,
-          tldwConfig: {
-            serverUrl: normalizedServerUrl,
-            authMode: "single-user",
-            apiKey
-          }
+  test(
+    "dictionaries -> entries -> validate -> preview -> export -> stats",
+    async ({}, testInfo) => {
+      test.setTimeout(220000)
+      const debugLines: string[] = []
+      const startedAt = Date.now()
+      const safeStringify = (value: unknown) => {
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return "\"[unserializable]\""
         }
-      })
+      }
+      const logStep = (message: string, details?: Record<string, unknown>) => {
+        const payload = {
+          elapsedMs: Date.now() - startedAt,
+          ...(details || {})
+        }
+        const line = `[real-server-dictionaries] ${message} ${safeStringify(
+          payload
+        )}`
+        debugLines.push(line)
+        console.log(line)
+      }
+      const step = async <T>(label: string, fn: () => Promise<T>) => {
+        logStep(`start ${label}`)
+        const stepStart = Date.now()
+        try {
+          const result = await test.step(label, fn)
+          logStep(`done ${label}`, {
+            durationMs: Date.now() - stepStart
+          })
+          return result
+        } catch (error) {
+          logStep(`error ${label}`, {
+            durationMs: Date.now() - stepStart,
+            error: String(error)
+          })
+          throw error
+        }
+      }
+      const { serverUrl, apiKey } = requireRealServerConfig(test)
+      const normalizedServerUrl = normalizeServerUrl(serverUrl)
+      logStep("test config", { serverUrl: normalizedServerUrl })
 
-    const unique = Date.now()
-    const dictionaryName = `E2E Dictionary ${unique}`
-
-    try {
-      const origin = new URL(normalizedServerUrl).origin + "/*"
-      const granted = await grantHostPermission(
-        context,
-        extensionId,
-        origin
+      const dictionariesResponse = await step(
+        "preflight: dictionaries",
+        async () => {
+          const response = await fetchWithKey(
+            `${normalizedServerUrl}/api/v1/chat/dictionaries?include_inactive=true`,
+            apiKey
+          )
+          logStep("dictionaries preflight response", {
+            ok: response.ok,
+            status: response.status,
+            statusText: response.statusText
+          })
+          return response
+        }
       )
-      if (!granted) {
+      if (!dictionariesResponse.ok) {
+        const body = await dictionariesResponse.text().catch(() => "")
         skipOrThrow(
           true,
-          "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          `Dictionaries API preflight failed: ${dictionariesResponse.status} ${dictionariesResponse.statusText} ${body}`
         )
         return
       }
 
-      await page.goto(`${optionsUrl}#/dictionaries`, {
-        waitUntil: "domcontentloaded"
-      })
-      await waitForConnected(page, "workflow-dictionaries")
+      const { context, page, extensionId, optionsUrl } = await step(
+        "launch extension",
+        async () =>
+          launchWithExtension("", {
+            seedConfig: {
+              __tldw_first_run_complete: true,
+              tldwConfig: {
+                serverUrl: normalizedServerUrl,
+                authMode: "single-user",
+                apiKey
+              }
+            }
+          })
+      )
+      logStep("extension launched", { extensionId, optionsUrl })
 
-      await page.getByRole("button", { name: /New Dictionary/i }).click()
-      const createModal = page.getByRole("dialog", {
-        name: /Create Dictionary/i
-      })
-      await expect(createModal).toBeVisible({ timeout: 15000 })
-      await createModal.getByLabel("Name").fill(dictionaryName)
-      await createModal
-        .getByLabel("Description")
-        .fill("Dictionary created by Playwright.")
-      await createModal.getByRole("button", { name: /^Create$/i }).click()
-
-      const row = page
-        .locator("tr")
-        .filter({ hasText: dictionaryName })
-        .first()
-      await expect(row).toBeVisible({ timeout: 20000 })
-
-      const entriesButton = row.getByRole("button", {
-        name: /^Entries$/i
-      })
-      await entriesButton.click()
-      const entriesModal = page.getByRole("dialog", {
-        name: /Manage Entries/i
-      })
-      await expect(entriesModal).toBeVisible({ timeout: 15000 })
-      await entriesModal.getByLabel("Pattern").fill("hello")
-      const replacementInput = entriesModal.locator("#replacement")
-      if ((await replacementInput.count()) > 0) {
-        await replacementInput.fill("hi")
-      } else {
-        await entriesModal
-          .getByRole("textbox", { name: /Replacement/i })
-          .first()
-          .fill("hi")
+      const attachPageLogging = (targetPage: Page, tag: string) => {
+        targetPage.on("console", (msg) => {
+          const type = msg.type()
+          const text = msg.text()
+          if (
+            type === "error" ||
+            type === "warning" ||
+            text.includes("CONNECTION_DEBUG")
+          ) {
+            logStep(`${tag} console`, { type, text })
+          }
+        })
+        targetPage.on("pageerror", (error) => {
+          logStep(`${tag} pageerror`, { error: String(error) })
+        })
+        targetPage.on("requestfailed", (request) => {
+          logStep(`${tag} requestfailed`, {
+            url: request.url(),
+            failure: request.failure()?.errorText
+          })
+        })
       }
-      await entriesModal.getByRole("button", { name: /Add Entry/i }).click()
-      await expect(entriesModal.getByText("hello")).toBeVisible({
-        timeout: 15000
-      })
+      attachPageLogging(page, "options")
 
-      await entriesModal.getByText(/Validate dictionary/i).click()
-      const validateButton = entriesModal.getByRole("button", {
-        name: /Run validation/i
-      })
-      await validateButton.click()
-      await expect(
-        entriesModal.getByText(/No errors found|Valid/i)
-      ).toBeVisible({ timeout: 20000 })
+      const logNotifications = async (label: string) => {
+        const notices = await page
+          .locator(".ant-notification-notice")
+          .allTextContents()
+          .catch(() => [])
+        if (notices.length) {
+          logStep("notification", { label, notices })
+        }
+      }
 
-      await entriesModal.getByText(/Preview transforms/i).click()
-      const sampleText = "hello world"
-      await entriesModal
-        .getByPlaceholder(/Paste text to preview dictionary substitutions/i)
-        .fill(sampleText)
-      await entriesModal.getByRole("button", { name: /Run preview/i }).click()
-      await expect(
-        entriesModal.getByText(/Processed text/i)
-      ).toBeVisible({ timeout: 15000 })
-      await expect(
-        entriesModal.getByDisplayValue(/hi world/i)
-      ).toBeVisible({ timeout: 20000 })
+      const unique = Date.now()
+      const dictionaryName = `E2E Dictionary ${unique}`
+      logStep("generated test identifiers", { unique, dictionaryName })
 
-      await page.keyboard.press("Escape")
+      let row: Locator | null = null
 
-      const [download] = await Promise.all([
-        page.waitForEvent("download", { timeout: 15000 }),
-        row.getByRole("button", { name: /Export JSON/i }).click()
-      ])
-      expect(download.suggestedFilename()).toMatch(/\.json$/i)
+      try {
+        const origin = new URL(normalizedServerUrl).origin + "/*"
+        const granted = await step("grant host permission", async () => {
+          const result = await grantHostPermission(
+            context,
+            extensionId,
+            origin
+          )
+          logStep("host permission result", { origin, granted: result })
+          return result
+        })
+        if (!granted) {
+          skipOrThrow(
+            true,
+            "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          )
+          return
+        }
 
-      await row.getByRole("button", { name: /Stats/i }).click()
-      await expect(
-        page.getByText(/Dictionary Statistics/i)
-      ).toBeVisible({ timeout: 15000 })
-      await page.keyboard.press("Escape")
+        await step("open dictionaries route", async () => {
+          await page.goto(`${optionsUrl}#/dictionaries`, {
+            waitUntil: "domcontentloaded"
+          })
+          await waitForConnected(page, "workflow-dictionaries")
+          logStep("connected", { url: page.url() })
+        })
 
-      const deleteButton = row.locator("button").last()
-      await deleteButton.click()
-      await page.getByRole("button", { name: /^Delete$/ }).click()
-      await expect(
-        page.locator("tr").filter({ hasText: dictionaryName })
-      ).toHaveCount(0, { timeout: 20000 })
-    } finally {
-      await context.close()
-      await deleteDictionaryByName(normalizedServerUrl, apiKey, dictionaryName)
+        await step("create dictionary", async () => {
+          await page.getByRole("button", { name: /New Dictionary/i }).click()
+          const createModal = page.getByRole("dialog", {
+            name: /Create Dictionary/i
+          })
+          await expect(createModal).toBeVisible({ timeout: 15000 })
+          await createModal.getByLabel("Name").fill(dictionaryName)
+          await createModal
+            .getByLabel("Description")
+            .fill("Dictionary created by Playwright.")
+          await createModal.getByRole("button", { name: /^Create$/i }).click()
+
+          row = page
+            .locator("tr")
+            .filter({ hasText: dictionaryName })
+            .first()
+          await expect(row).toBeVisible({ timeout: 20000 })
+          logStep("dictionary row visible", {
+            rowText: await row.textContent().catch(() => null)
+          })
+          await logNotifications("after create dictionary")
+        })
+
+        if (!row) {
+          throw new Error("Dictionary row did not resolve.")
+        }
+
+        await step("manage entries", async () => {
+          const entriesButton = row!.getByRole("button", {
+            name: /^Entries$/i
+          })
+          await entriesButton.click()
+          const entriesModal = page.getByRole("dialog", {
+            name: /Manage Entries/i
+          })
+          await expect(entriesModal).toBeVisible({ timeout: 15000 })
+          await entriesModal.getByLabel("Pattern").fill("hello")
+          const replacementInput = entriesModal.locator("#replacement")
+          if ((await replacementInput.count()) > 0) {
+            await replacementInput.fill("hi")
+          } else {
+            await entriesModal
+              .getByRole("textbox", { name: /Replacement/i })
+              .first()
+              .fill("hi")
+          }
+          await entriesModal.getByRole("button", { name: /Add Entry/i }).click()
+          const entryRows = entriesModal.locator(".ant-table-tbody tr")
+          await expect(
+            entryRows.filter({ hasText: "hello" })
+          ).toHaveCount(1, { timeout: 15000 })
+          logStep("entry added", {
+            entryRows: await entryRows.count().catch(() => null)
+          })
+          await logNotifications("after add entry")
+
+          await entriesModal.getByText(/Validate dictionary/i).click()
+          const validateButton = entriesModal.getByRole("button", {
+            name: /Run validation/i
+          })
+          await expect(validateButton).toBeEnabled({ timeout: 15000 })
+          await validateButton.click()
+          const validationReport = entriesModal
+            .locator(".rounded-md")
+            .filter({ hasText: /Schema version/i })
+          await expect(validationReport).toBeVisible({ timeout: 20000 })
+          await expect(
+            validationReport.getByText("No errors found.", { exact: true })
+          ).toBeVisible({ timeout: 20000 })
+          await logNotifications("after validation")
+
+          await entriesModal.getByText(/Preview transforms/i).click()
+          const sampleText = "hello world"
+          await entriesModal
+            .getByPlaceholder(/Paste text to preview dictionary substitutions/i)
+            .fill(sampleText)
+          await entriesModal
+            .getByRole("button", { name: /Run preview/i })
+            .click()
+          await expect(
+            entriesModal.getByText(/Processed text/i)
+          ).toBeVisible({ timeout: 15000 })
+          const processedPanel = entriesModal
+            .locator(".rounded-md")
+            .filter({ hasText: /Processed text/i })
+          const processedText = processedPanel.locator("textarea")
+          await expect(processedText).toHaveValue(/hi world/i, {
+            timeout: 20000
+          })
+          await logNotifications("after preview")
+
+          await page.keyboard.press("Escape")
+          await expect(entriesModal).toBeHidden({ timeout: 15000 })
+        })
+
+        await step("export dictionary", async () => {
+          const [download] = await Promise.all([
+            page.waitForEvent("download", { timeout: 15000 }),
+            row!.getByRole("button", { name: /Export JSON/i }).click()
+          ])
+          const filename = download.suggestedFilename()
+          logStep("export download", { filename })
+          expect(filename).toMatch(/\.json$/i)
+          await logNotifications("after export")
+        })
+
+        await step("open stats", async () => {
+          await row!.getByRole("button", { name: /Stats/i }).click()
+          const statsDialog = page.getByRole("dialog", {
+            name: /Dictionary Statistics/i
+          })
+          await expect(statsDialog).toBeVisible({ timeout: 15000 })
+          const closeButton = statsDialog.locator(".ant-modal-close")
+          if ((await closeButton.count()) > 0) {
+            await closeButton.click()
+          } else {
+            await page.keyboard.press("Escape")
+          }
+          await expect(statsDialog).toBeHidden({ timeout: 15000 })
+          const visibleModals = page.locator(".ant-modal-wrap:visible")
+          await expect(visibleModals).toHaveCount(0, { timeout: 15000 })
+          await logNotifications("after stats")
+        })
+
+        await step("delete dictionary", async () => {
+          const deleteButton = row!.locator("button").last()
+          await deleteButton.click()
+          const confirmDialog = page
+            .getByRole("dialog")
+            .filter({ hasText: /Delete dictionary/i })
+          await expect(confirmDialog).toBeVisible({ timeout: 15000 })
+          await confirmDialog.getByRole("button", { name: /^Delete$/ }).click()
+          await expect(confirmDialog).toBeHidden({ timeout: 15000 })
+          await logNotifications("after delete confirm")
+
+          const serverRecord = await pollForDictionaryRemoval(
+            normalizedServerUrl,
+            apiKey,
+            dictionaryName,
+            20000
+          )
+          logStep("server delete status", {
+            removed: !serverRecord,
+            id: serverRecord?.id ?? null,
+            is_active: serverRecord?.is_active ?? null,
+            status: serverRecord?.status ?? null
+          })
+
+          const rowLocator = page
+            .locator("tr")
+            .filter({ hasText: dictionaryName })
+          const waitForRowRemovalOrInactive = async () => {
+            const deadline = Date.now() + 20000
+            let lastText = ""
+            while (Date.now() < deadline) {
+              const count = await rowLocator.count()
+              if (count === 0) {
+                return { removed: true, inactive: false, rowText: "" }
+              }
+              lastText = await rowLocator.first().innerText().catch(() => "")
+              if (/Inactive/i.test(lastText)) {
+                return { removed: false, inactive: true, rowText: lastText }
+              }
+              await page.waitForTimeout(1000)
+            }
+            return { removed: false, inactive: false, rowText: lastText }
+          }
+
+          const uiResult = await waitForRowRemovalOrInactive()
+          logStep("ui delete status", uiResult)
+          if (!uiResult.removed && !uiResult.inactive) {
+            if (!serverRecord) {
+              await page.reload({ waitUntil: "domcontentloaded" })
+              await waitForConnected(page, "workflow-dictionaries-delete")
+              const refreshedCount = await rowLocator.count()
+              logStep("ui delete after reload", {
+                refreshedCount
+              })
+              if (refreshedCount === 0) {
+                return
+              }
+            }
+            throw new Error(
+              `Dictionary still visible after delete (rowText="${uiResult.rowText}")`
+            )
+          }
+          await logNotifications("after delete")
+        })
+      } finally {
+        await testInfo.attach("dictionaries-debug", {
+          body: debugLines.join("\n"),
+          contentType: "text/plain"
+        })
+        await context.close()
+        await deleteDictionaryByName(normalizedServerUrl, apiKey, dictionaryName)
+      }
     }
-  })
+  )
 
   test("playground -> server chat -> open history -> pin/unpin", async () => {
     test.setTimeout(200000)

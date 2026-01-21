@@ -135,6 +135,7 @@ export default defineBackground({
       transcribeAndSummarize: "transcribe-and-summarize-media-pa"
     }
     const saveToNotesMenuId = "save-to-notes-pa"
+    const narrateSelectionMenuId = "narrate-selection-pa"
     const getActionApi = () => {
       const anyBrowser = browser as any
       const anyChrome = (globalThis as any).chrome
@@ -152,6 +153,7 @@ export default defineBackground({
           storage,
           contextMenuId,
           saveToNotesMenuId,
+          narrateSelectionMenuId,
           transcribeMenuId,
           warmModels,
           capabilities: {
@@ -619,7 +621,9 @@ export default defineBackground({
           } = (() => {
             if (!defaults || typeof defaults !== 'object') return {}
             if (mediaType === 'audio') return { audio: defaults.audio }
-            if (mediaType === 'video') return { video: defaults.video }
+            if (mediaType === 'video') {
+              return { audio: defaults.audio, video: defaults.video }
+            }
             if (mediaType === 'document' || mediaType === 'pdf' || mediaType === 'ebook') {
               return { document: defaults.document }
             }
@@ -1041,6 +1045,41 @@ export default defineBackground({
                 browser.i18n.getMessage("contextSaveToNotesDeliveryFailed") ||
                 "Could not open the sidebar to save this note. Check that the tldw Assistant sidepanel is allowed on this site and try again."
               notify(title, failureMessage)
+            }
+          },
+          isCopilotRunning ? 0 : 5000
+        )
+      } else if (info.menuItemId === narrateSelectionMenuId) {
+        const selection = String(info.selectionText || "").trim()
+        if (!selection) {
+          notify(
+            browser.i18n.getMessage("contextNarrateSelection"),
+            browser.i18n.getMessage("contextNarrateSelectionNoSelection")
+          )
+          return
+        }
+        const title =
+          browser.i18n.getMessage("contextNarrateSelection") ||
+          "Narrate selection"
+        const openingMessage =
+          browser.i18n.getMessage("contextSidebarOpening") || "Opening sidebar..."
+        notify(title, openingMessage)
+        setTimeout(
+          async () => {
+            try {
+              await ensureSidepanelOpen(tab?.id)
+              await browser.runtime.sendMessage({
+                from: "background",
+                type: "narrate-selection",
+                text: selection,
+                payload: {
+                  selectionText: selection,
+                  pageUrl: info.pageUrl || (tab && tab.url) || "",
+                  pageTitle: tab?.title || ""
+                }
+              })
+            } catch (e) {
+              console.error("[tldw] narrate selection failed:", e)
             }
           },
           isCopilotRunning ? 0 : 5000

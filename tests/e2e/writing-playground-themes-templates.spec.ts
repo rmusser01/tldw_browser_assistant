@@ -8,13 +8,6 @@ import { waitForConnectionStore } from "./utils/connection"
 const normalizeServerUrl = (value: string) =>
   value.match(/^https?:\/\//) ? value.replace(/\/$/, "") : `http://${value}`
 
-const escapeRegExp = (value: string) =>
-  value.replace(/[.*+?^${}()|[\]\\]/g, \"\\$&\")
-
-
-const escapeRegex = (value: string) =>
-  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-
 const fetchWritingCapabilities = async (serverUrl: string, apiKey: string) => {
   const res = await fetch(
     `${serverUrl}/api/v1/writing/capabilities?include_providers=false`,
@@ -97,30 +90,32 @@ const fillLabeledField = async (
   await input.fill(value)
 }
 
-const openSelectOption = async (
+const getSelect = (page: Page, label: string) =>
+  page.getByText(label, { exact: true }).locator("..").locator(".ant-select")
+
+const ensureSelectOption = async (
   page: Page,
   label: string,
   optionName: string
 ) => {
-  const container = page.getByText(label, { exact: true }).locator("..")
-  const select = container.locator(".ant-select")
-  await select.click()
-  await page.getByRole("option", { name: optionName }).click()
+  const select = getSelect(page, label)
+  const current = (await select.textContent()) || ""
+  if (!current.includes(optionName)) {
+    await select.click()
+    const option = page.getByRole("option", { name: optionName })
+    await option.scrollIntoViewIfNeeded()
+    await option.click({ timeout: 15000 })
+  }
   await expect(select).toContainText(optionName)
 }
 
 const getSessionRow = (page: Page, name: string) =>
-  page.getByRole("button", { name: new RegExp(escapeRegex(name)) }).first()
+  page.locator(".ant-list-item").filter({ hasText: name }).first()
 
 const closeModal = async (modal: Locator) => {
   await modal.locator(".ant-modal-close").first().click()
   await expect(modal).toBeHidden()
 }
-
-const sessionRow = (page: Page, name: string) =>
-  page
-    .getByRole("button", { name: new RegExp(`^${escapeRegExp(name)}\b`) })
-    .first()
 
 const createSession = async (page: Page, name: string) => {
   await page.getByRole("button", { name: /New session/i }).click()
@@ -276,7 +271,7 @@ test.describe("Writing Playground themes + templates", () => {
       await expect(modal.getByText(templateName)).toBeVisible({ timeout: 15000 })
       await closeModal(modal)
 
-      await openSelectOption(page, "Template", templateName)
+      await ensureSelectOption(page, "Template", templateName)
 
       const editor = page.getByPlaceholder(/Start writing your prompt/i)
       await editor.fill("Hello")
@@ -288,7 +283,9 @@ test.describe("Writing Playground themes + templates", () => {
       })
 
       await page.getByRole("button", { name: /Insert/i }).click()
-      await page.getByRole("menuitem", { name: /^User$/ }).click()
+      const userMenuItem = page.getByRole("menuitem", { name: /^User$/ })
+      await expect(userMenuItem).toBeEnabled({ timeout: 15000 })
+      await userMenuItem.click()
 
       await expect.poll(async () => editor.inputValue(), { timeout: 5000 }).toContain(
         "User:"
@@ -365,15 +362,19 @@ test.describe("Writing Playground themes + templates", () => {
       await expect(modal.getByText(themeName)).toBeVisible({ timeout: 15000 })
       await closeModal(modal)
 
-      await openSelectOption(page, "Theme", themeName)
+      await ensureSelectOption(page, "Theme", themeName)
 
       const root = page.locator(".writing-playground")
       await expect(root).toHaveClass(new RegExp(themeClass))
-      await page.waitForFunction(() => {
+      await page.waitForFunction(
+        () => {
         const el = document.querySelector(".writing-playground")
         if (!el) return false
         return window.getComputedStyle(el).backgroundColor === "rgb(1, 2, 3)"
-      })
+        },
+        undefined,
+        { timeout: 15000 }
+      )
     } finally {
       await context.close()
     }

@@ -47,6 +47,12 @@
   "contextCustom": {
     "message": "Benutzerdefiniert"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "An tldw_server senden"
   },

@@ -3286,5 +3286,11 @@
   },
   "playground_composer_compareTokens": {
     "message": "Токени: {{count}}"
+  },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
   }
 }

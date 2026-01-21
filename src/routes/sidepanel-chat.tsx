@@ -22,6 +22,7 @@ import {
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
+import { useTTS } from "@/hooks/useTTS"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ServerChatMessage as ApiServerChatMessage } from "@/services/tldw/TldwApiClient"
@@ -296,6 +297,7 @@ const SidepanelChat = () => {
   const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   const notification = useAntdNotification()
+  const { cancel: cancelNarration, isSpeaking: isNarrating, speak } = useTTS()
   React.useEffect(() => {
     void tldwClient.initialize().catch(() => null)
   }, [])
@@ -1587,6 +1589,19 @@ const SidepanelChat = () => {
       return
     }
 
+    if (bgMsg.type === "narrate-selection") {
+      lastBgMsgRef.current = bgMsg
+      const selected = (bgMsg.text || bgMsg.payload?.selectionText || "").trim()
+      if (!selected) {
+        return
+      }
+      if (isNarrating) {
+        cancelNarration()
+      }
+      void speak({ utterance: selected })
+      return
+    }
+
     if (streaming) return
 
     lastBgMsgRef.current = bgMsg
@@ -1651,7 +1666,10 @@ const SidepanelChat = () => {
     setNoteSourceUrl,
     setNoteSaving,
     setNoteError,
-    setNoteModalOpen
+    setNoteModalOpen,
+    cancelNarration,
+    isNarrating,
+    speak
   ])
 
   const draftKey = activeTabId

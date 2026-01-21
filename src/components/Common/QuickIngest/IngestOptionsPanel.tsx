@@ -262,6 +262,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
     }
     return options
   }, [transcriptionModelOptions, transcriptionModelValue])
+  const hasTranscriptionItems = hasAudioItems || hasVideoItems
   return (
     <div className="rounded-md border border-border bg-surface p-3 space-y-3">
       <Typography.Title level={5} className="!mb-2">
@@ -336,10 +337,10 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
         </div>
       )}
 
-      <div className={`space-y-1 ${!hasAudioItems ? 'opacity-50' : ''}`}>
+      <div className={`space-y-1 ${!hasTranscriptionItems ? 'opacity-50' : ''}`}>
         <Typography.Title level={5} className="!mb-1">
           {t("quickIngest.audioOptions") || "Audio options"}
-          {!hasAudioItems && (
+          {!hasTranscriptionItems && (
             <span className="ml-2 text-xs font-normal text-text-muted">
               {qi("audioOptionsDisabled", "(add audio to enable)")}
             </span>
@@ -350,7 +351,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             placeholder={t("quickIngest.audioLanguage") || "Language (e.g., en)"}
             value={normalizedTypeDefaults.audio?.language || ""}
             onChange={handleAudioLanguageChange}
-            disabled={running || !hasAudioItems}
+            disabled={running || !hasTranscriptionItems}
             aria-label="Audio language"
             title="Audio language"
           />
@@ -370,7 +371,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                 value: true
               }
             ]}
-            disabled={running || !hasAudioItems}
+            disabled={running || !hasTranscriptionItems}
           />
         </Space>
         <div className="flex items-center gap-2">
@@ -387,10 +388,10 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             aria-label={qi("transcriptionModelLabel", "Transcription model")}
             onChange={(value) => onTranscriptionModelChange(value ?? undefined)}
             options={transcriptionOptions}
-            disabled={running || !hasAudioItems}
+            disabled={running || !hasTranscriptionItems}
           />
         </div>
-        {hasAudioItems && (
+        {hasTranscriptionItems && (
           <>
             <Typography.Text type="secondary" className="text-xs">
               {t("quickIngest.audioDiarizationHelp") ||

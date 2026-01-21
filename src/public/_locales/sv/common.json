@@ -851,6 +851,12 @@
   "contextCustom": {
     "message": "Anpassad"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "Skicka till tldw_server"
   },

@@ -504,6 +504,8 @@
   "contextRephrase": "Переформулювати",
   "contextTranslate": "Перекласти",
   "contextCustom": "Користувацьке",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "Надіслати в tldw_server",
   "contextProcessLocalTldw": "Обробити в tldw_server (без збереження)",
   "contextTranscribeMedia": "Транскрибувати відео/аудіо",

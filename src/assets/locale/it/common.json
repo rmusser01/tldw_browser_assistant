@@ -504,6 +504,8 @@
   "contextRephrase": "Riformula",
   "contextTranslate": "Traduci",
   "contextCustom": "Personalizzato",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "Invia a tldw_server",
   "contextProcessLocalTldw": "Elabora con tldw_server (non salvare)",
   "contextTranscribeMedia": "Trascrivi video/audio",

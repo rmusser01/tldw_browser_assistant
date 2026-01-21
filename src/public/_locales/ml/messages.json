@@ -35,6 +35,12 @@
   "contextCustom": {
     "message": "ഇഷ്ടാനുസൃതം"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "tldw_server-ലേക്ക് അയയ്ക്കുക"
   },

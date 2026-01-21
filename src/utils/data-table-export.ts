@@ -4,6 +4,7 @@
  */
 
 import type { DataTable, DataTableColumn, ExportFormat } from "@/types/data-tables"
+import { downloadBlob } from "@/utils/download-blob"
 
 /**
  * Export table data to CSV format
@@ -209,20 +210,6 @@ function formatCellValueForExcel(value: any, column: DataTableColumn): any {
     default:
       return value
   }
-}
-
-/**
- * Download a blob as a file
- */
-export function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement("a")
-  link.href = url
-  link.download = filename
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
 }
 
 /**

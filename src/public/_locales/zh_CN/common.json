@@ -851,6 +851,12 @@
   "contextCustom": {
     "message": "自定义"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "发送到 tldw_server"
   },

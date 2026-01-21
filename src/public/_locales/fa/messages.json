@@ -47,6 +47,12 @@
   "contextCustom": {
     "message": "سفارشی"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "ارسال به tldw_server"
   },
@@ -3279,19 +3285,19 @@
     "message": "تحلیل پرسش‌وپاسخ"
   },
   "playground_composer_compareFeatureToggle": {
-    "message": "فعال\u200cسازی حالت مقایسه"
+    "message": "فعال‌سازی حالت مقایسه"
   },
   "playground_composer_compareFeatureToggleHint": {
-    "message": "قابلیت\u200cهای آزمایشی مقایسه چندمدلی را فعال می\u200cکند."
+    "message": "قابلیت‌های آزمایشی مقایسه چندمدلی را فعال می‌کند."
   },
   "playground_composer_compareDisabled": {
     "message": "حالت مقایسه در تنظیمات غیرفعال است."
   },
   "playground_composer_compareChosenHint": {
-    "message": "با پاسخ انتخاب\u200cشده ادامه دهید یا دوباره مقایسه کنید."
+    "message": "با پاسخ انتخاب‌شده ادامه دهید یا دوباره مقایسه کنید."
   },
   "playground_composer_compareChosenLabel": {
-    "message": "انتخاب\u200cشده"
+    "message": "انتخاب‌شده"
   },
   "playground_composer_compareLatency": {
     "message": "تأخیر"
@@ -3303,16 +3309,16 @@
     "message": "(از مقایسه)"
   },
   "playground_composer_compareClusterLabel": {
-    "message": "پاسخ\u200cهای چندمدلی"
+    "message": "پاسخ‌های چندمدلی"
   },
   "playground_composer_compareClusterCount": {
     "message": "{{count}} مدل"
   },
   "playground_composer_compareBulkSplitHint": {
-    "message": "مدل\u200cهای انتخاب\u200cشده: {{count}}"
+    "message": "مدل‌های انتخاب‌شده: {{count}}"
   },
   "playground_composer_compareBulkSplit": {
-    "message": "هر پاسخ انتخاب\u200cشده را در یک گفت\u200cوگوی جدا باز کنید"
+    "message": "هر پاسخ انتخاب‌شده را در یک گفت‌وگوی جدا باز کنید"
   },
   "playground_composer_compareThreadLabel": {
     "message": "رشته برای هر مدل"
@@ -3321,22 +3327,22 @@
     "message": "شما"
   },
   "playground_composer_compareOpenFullChat": {
-    "message": "باز کردن به\u200cعنوان گفت\u200cوگوی کامل"
+    "message": "باز کردن به‌عنوان گفت‌وگوی کامل"
   },
   "playground_composer_compareSpawnedChat": {
-    "message": "باز کردن گفت\u200cوگوی جداشده"
+    "message": "باز کردن گفت‌وگوی جداشده"
   },
   "playground_composer_compareCanonicalOn": {
     "message": "قانونی"
   },
   "playground_composer_compareCanonicalOff": {
-    "message": "پین کردن به\u200cعنوان پاسخ قانونی"
+    "message": "پین کردن به‌عنوان پاسخ قانونی"
   },
   "playground_composer_compareCanonicalLabel": {
     "message": "پاسخ قانونی"
   },
   "playground_composer_compareFilterLabel": {
-    "message": "فیلتر مدل\u200cها"
+    "message": "فیلتر مدل‌ها"
   },
   "playground_composer_compareFilterClear": {
     "message": "نمایش همه"
@@ -3345,6 +3351,6 @@
     "message": "نمایش {{visible}} / {{total}}"
   },
   "playground_composer_compareTokens": {
-    "message": "توکن\u200cها: {{count}}"
+    "message": "توکن‌ها: {{count}}"
   }
 }

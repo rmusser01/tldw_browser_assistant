@@ -504,6 +504,8 @@
   "contextRephrase": "إعادة صياغة",
   "contextTranslate": "ترجمة",
   "contextCustom": "مخصص",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "إرسال إلى tldw_server",
   "contextProcessLocalTldw": "المعالجة باستخدام tldw_server (دون حفظ)",
   "contextTranscribeMedia": "تفريغ الفيديو/الصوت",

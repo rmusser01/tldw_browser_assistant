@@ -504,6 +504,8 @@
   "contextRephrase": "പുനഃരൂപീകരിക്കുക",
   "contextTranslate": "വിവർത്തനം ചെയ്യുക",
   "contextCustom": "ഇഷ്ടാനുസൃതം",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "tldw_server-ലേക്ക് അയയ്ക്കുക",
   "contextProcessLocalTldw": "tldw_server ഉപയോഗിച്ച് പ്രോസസ്സ് ചെയ്യുക (സംഭരിക്കരുത്)",
   "contextTranscribeMedia": "വീഡിയോ/ഓഡിയോ ട്രാൻസ്ക്രൈബ് ചെയ്യുക",

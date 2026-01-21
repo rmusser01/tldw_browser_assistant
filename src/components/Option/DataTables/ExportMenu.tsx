@@ -4,7 +4,7 @@ import type { MenuProps } from "antd"
 import { Download, FileJson, FileSpreadsheet, FileText } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
-import { downloadBlob } from "@/utils/data-table-export"
+import { downloadBlob } from "@/utils/download-blob"
 import type { ExportFormat } from "@/types/data-tables"
 
 interface ExportMenuProps {

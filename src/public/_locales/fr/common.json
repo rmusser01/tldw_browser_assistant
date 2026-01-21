@@ -851,6 +851,12 @@
   "contextCustom": {
     "message": "Personnalisé"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "Envoyer vers tldw_server"
   },

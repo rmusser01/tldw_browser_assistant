@@ -195,7 +195,7 @@
     "message": "Impostazioni modello"
   },
   "header_serverSettings": {
-    "message": "Server settings"
+    "message": "Impostazioni server"
   },
   "header_more": {
     "message": "Strumenti IA"
@@ -2016,160 +2016,160 @@
     "message": "In scadenza ora"
   },
   "header_writingPlayground": {
-    "message": "Writing Playground"
+    "message": "Laboratorio di scrittura"
   },
   "writingPlayground_title": {
-    "message": "Writing Playground"
+    "message": "Laboratorio di scrittura"
   },
   "writingPlayground_subtitle": {
-    "message": "Draft long-form prompts, manage sessions, and generate with your tldw server."
+    "message": "Bozza prompt lunghi, gestisci le sessioni e genera con il tuo server tldw."
   },
   "writingPlayground_offlineTitle": {
-    "message": "Server required"
+    "message": "Server richiesto"
   },
   "writingPlayground_offlineBody": {
-    "message": "Connect to your tldw server to load writing sessions and generate."
+    "message": "Connettiti al tuo server tldw per caricare le sessioni di scrittura e generare."
   },
   "writingPlayground_unavailableTitle": {
-    "message": "Playground unavailable"
+    "message": "Laboratorio non disponibile"
   },
   "writingPlayground_unavailableBody": {
-    "message": "This server does not advertise writing playground support yet."
+    "message": "Questo server non annuncia ancora il supporto per il laboratorio di scrittura."
   },
   "writingPlayground_emptyState": {
-    "message": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
+    "message": "L'infrastruttura è pronta. Editor, sessioni e strumenti arriveranno nella prossima fase."
   },
   "writingPlayground_sessionsTitle": {
-    "message": "Sessions"
+    "message": "Sessioni"
   },
   "writingPlayground_newSession": {
-    "message": "New session"
+    "message": "Nuova sessione"
   },
   "writingPlayground_sessionsError": {
-    "message": "Unable to load sessions."
+    "message": "Impossibile caricare le sessioni."
   },
   "writingPlayground_sessionsEmpty": {
-    "message": "Create your first session to start writing."
+    "message": "Crea la tua prima sessione per iniziare a scrivere."
   },
   "writingPlayground_active": {
-    "message": "Active"
+    "message": "Attiva"
   },
   "writingPlayground_sessionHint": {
-    "message": "Session is ready. Editor scaffolding arrives in the next stage."
+    "message": "La sessione è pronta. L'infrastruttura dell'editor arriverà nella prossima fase."
   },
   "writingPlayground_selectSession": {
-    "message": "Select a session to begin."
+    "message": "Seleziona una sessione per iniziare."
   },
   "writingPlayground_createSessionTitle": {
-    "message": "New session"
+    "message": "Nuova sessione"
   },
   "writingPlayground_createSessionLabel": {
-    "message": "Session name"
+    "message": "Nome della sessione"
   },
   "writingPlayground_createSessionPlaceholder": {
-    "message": "e.g. Draft ideas"
+    "message": "es. Idee di bozza"
   },
   "writingPlayground_createSuccess": {
-    "message": "Session created."
+    "message": "Sessione creata."
   },
   "writingPlayground_createError": {
-    "message": "Failed to create session: {{detail}}"
+    "message": "Creazione della sessione non riuscita: {{detail}}"
   },
   "writingPlayground_lastOpenedLabel": {
-    "message": "Last opened {{time}}"
+    "message": "Ultimo accesso {{time}}"
   },
   "writingPlayground_notOpened": {
-    "message": "Not opened yet"
+    "message": "Non ancora aperta"
   },
   "writingPlayground_renameSessionTitle": {
-    "message": "Rename session"
+    "message": "Rinomina sessione"
   },
   "writingPlayground_renameSessionLabel": {
-    "message": "Session name"
+    "message": "Nome della sessione"
   },
   "writingPlayground_renameSessionPlaceholder": {
-    "message": "e.g. Revised draft"
+    "message": "es. Bozza revisionata"
   },
   "writingPlayground_renameSuccess": {
-    "message": "Session renamed."
+    "message": "Sessione rinominata."
   },
   "writingPlayground_renameError": {
-    "message": "Failed to rename session: {{detail}}"
+    "message": "Rinomina della sessione non riuscita: {{detail}}"
   },
   "writingPlayground_deleteSessionTitle": {
-    "message": "Delete session?"
+    "message": "Eliminare la sessione?"
   },
   "writingPlayground_deleteSessionBody": {
-    "message": "This will permanently delete the session."
+    "message": "Questa operazione eliminerà definitivamente la sessione."
   },
   "writingPlayground_deleteSuccess": {
-    "message": "Session deleted."
+    "message": "Sessione eliminata."
   },
   "writingPlayground_deleteError": {
-    "message": "Failed to delete session: {{detail}}"
+    "message": "Eliminazione della sessione non riuscita: {{detail}}"
   },
   "writingPlayground_cloneSuccess": {
-    "message": "Session cloned."
+    "message": "Sessione clonata."
   },
   "writingPlayground_cloneError": {
-    "message": "Failed to clone session: {{detail}}"
+    "message": "Clonazione della sessione non riuscita: {{detail}}"
   },
   "writingPlayground_cloneSession": {
-    "message": "Clone session"
+    "message": "Clona sessione"
   },
   "writingPlayground_renameSession": {
-    "message": "Rename session"
+    "message": "Rinomina sessione"
   },
   "writingPlayground_deleteSession": {
-    "message": "Delete session"
+    "message": "Elimina sessione"
   },
   "writingPlayground_conflictError": {
-    "message": "Session changed on the server."
+    "message": "La sessione è cambiata sul server."
   },
   "writingPlayground_editorTitle": {
-    "message": "Prompt editor"
+    "message": "Editor di prompt"
   },
   "writingPlayground_editorPlaceholder": {
-    "message": "Start writing your prompt..."
+    "message": "Inizia a scrivere il tuo prompt..."
   },
   "writingPlayground_editorError": {
-    "message": "Unable to load this session."
+    "message": "Impossibile caricare questa sessione."
   },
   "writingPlayground_savingLabel": {
-    "message": "Saving..."
+    "message": "Salvataggio..."
   },
   "writingPlayground_savedLabel": {
-    "message": "Saved {{time}}"
+    "message": "Salvato {{time}}"
   },
   "writingPlayground_unsavedLabel": {
-    "message": "Unsaved changes"
+    "message": "Modifiche non salvate"
   },
   "writingPlayground_saveError": {
-    "message": "Failed to save session: {{detail}}"
+    "message": "Salvataggio della sessione non riuscito: {{detail}}"
   },
   "writingPlayground_editorModeEdit": {
-    "message": "Edit"
+    "message": "Modifica"
   },
   "writingPlayground_editorModePreview": {
-    "message": "Preview"
+    "message": "Anteprima"
   },
   "writingPlayground_editorModeSplit": {
-    "message": "Split"
+    "message": "Diviso"
   },
   "writingPlayground_editorEmptyPreview": {
-    "message": "Nothing to preview yet."
+    "message": "Niente da visualizzare in anteprima."
   },
   "writingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "Impostazioni"
   },
   "writingPlayground_settingsEmpty": {
-    "message": "Select a session to edit settings."
+    "message": "Seleziona una sessione per modificare le impostazioni."
   },
   "writingPlayground_settingsError": {
-    "message": "Unable to load session settings."
+    "message": "Impossibile caricare le impostazioni della sessione."
   },
   "writingPlayground_temperatureLabel": {
-    "message": "Temperature"
+    "message": "Temperatura"
   },
   "writingPlayground_topPLabel": {
     "message": "Top P"
@@ -2178,381 +2178,381 @@
     "message": "Top K"
   },
   "writingPlayground_maxTokensLabel": {
-    "message": "Max tokens"
+    "message": "Token massimi"
   },
   "writingPlayground_presencePenaltyLabel": {
-    "message": "Presence penalty"
+    "message": "Penalità di presenza"
   },
   "writingPlayground_frequencyPenaltyLabel": {
-    "message": "Frequency penalty"
+    "message": "Penalità di frequenza"
   },
   "writingPlayground_seedLabel": {
     "message": "Seed"
   },
   "writingPlayground_stopStringsLabel": {
-    "message": "Stop strings"
+    "message": "Stringhe di stop"
   },
   "writingPlayground_stopStringsPlaceholder": {
-    "message": "One per line"
+    "message": "Una per riga"
   },
   "writingPlayground_insertPredict": {
-    "message": "Insert {predict}"
+    "message": "Inserisci {predict}"
   },
   "writingPlayground_insertFill": {
-    "message": "Insert {fill}"
+    "message": "Inserisci {fill}"
   },
   "writingPlayground_searchReplace": {
-    "message": "Search & replace"
+    "message": "Cerca e sostituisci"
   },
   "writingPlayground_searchToggle": {
-    "message": "Find"
+    "message": "Trova"
   },
   "writingPlayground_searchClose": {
-    "message": "Close"
+    "message": "Chiudi"
   },
   "writingPlayground_searchPlaceholder": {
-    "message": "Find text"
+    "message": "Trova testo"
   },
   "writingPlayground_replacePlaceholder": {
-    "message": "Replace with"
+    "message": "Sostituisci con"
   },
   "writingPlayground_searchPrev": {
-    "message": "Prev"
+    "message": "Precedente"
   },
   "writingPlayground_searchNext": {
-    "message": "Next"
+    "message": "Successivo"
   },
   "writingPlayground_searchReplaceAction": {
-    "message": "Replace"
+    "message": "Sostituisci"
   },
   "writingPlayground_searchReplaceAll": {
-    "message": "Replace all"
+    "message": "Sostituisci tutto"
   },
   "writingPlayground_searchMatchCase": {
-    "message": "Match case"
+    "message": "Distingui maiuscole/minuscole"
   },
   "writingPlayground_searchRegex": {
     "message": "Regex"
   },
   "writingPlayground_searchRegexError": {
-    "message": "Invalid regex"
+    "message": "Regex non valida"
   },
   "writingPlayground_searchMatchCount": {
-    "message": "{{current}} of {{total}} matches"
+    "message": "{{current}} di {{total}} corrispondenze"
   },
   "writingPlayground_searchNoMatches": {
-    "message": "No matches"
+    "message": "Nessuna corrispondenza"
   },
   "writingPlayground_searchHint": {
-    "message": "Enter text to search"
+    "message": "Inserisci testo da cercare"
   },
   "writingPlayground_promptChunksTitle": {
-    "message": "Prompt chunks ({{count}})"
+    "message": "Segmenti di prompt ({{count}})"
   },
   "writingPlayground_promptChunksEmpty": {
-    "message": "No chunks yet."
+    "message": "Nessun segmento ancora."
   },
   "writingPlayground_promptChunksTruncated": {
-    "message": "Showing first {{count}} chunks."
+    "message": "Mostrando i primi {{count}} segmenti."
   },
   "writingPlayground_chunkPlaceholder": {
-    "message": "Placeholder"
+    "message": "Segnaposto"
   },
   "writingPlayground_chunkText": {
-    "message": "Text"
+    "message": "Testo"
   },
   "writingPlayground_generateAction": {
-    "message": "Generate"
+    "message": "Genera"
   },
   "writingPlayground_stopAction": {
     "message": "Stop"
   },
   "writingPlayground_undoGeneration": {
-    "message": "Undo"
+    "message": "Annulla"
   },
   "writingPlayground_redoGeneration": {
-    "message": "Redo"
+    "message": "Ripeti"
   },
   "writingPlayground_generatingLabel": {
-    "message": "Generating..."
+    "message": "Generazione..."
   },
   "writingPlayground_generateError": {
-    "message": "Generation failed: {{detail}}"
+    "message": "Generazione non riuscita: {{detail}}"
   },
   "writingPlayground_generateUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "Completamenti chat non disponibili."
   },
   "writingPlayground_modelMissing": {
-    "message": "Select a model in Settings to generate."
+    "message": "Seleziona un modello in Impostazioni per generare."
   },
   "writingPlayground_generationInProgress": {
-    "message": "Stop generation before switching sessions."
+    "message": "Interrompi la generazione prima di cambiare sessione."
   },
   "writingPlayground_generateShortcutTooltip": {
-    "message": "Ctrl/Cmd+Enter to generate"
+    "message": "Ctrl/Cmd+Invio per generare"
   },
   "writingPlayground_stopShortcutTooltip": {
-    "message": "Esc to stop"
+    "message": "Esc per interrompere"
   },
   "writingPlayground_shortcutsHint": {
-    "message": "Shortcuts: Ctrl/Cmd+Enter to generate, Esc to stop."
+    "message": "Scorciatoie: Ctrl/Cmd+Invio per generare, Esc per interrompere."
   },
   "writingPlayground_templateLabel": {
     "message": "Template"
   },
   "writingPlayground_templatePlaceholder": {
-    "message": "Server default"
+    "message": "Predefinito del server"
   },
   "writingPlayground_templateHint": {
-    "message": "Choose an instruct template for chat parsing and FIM."
+    "message": "Scegli un template instruct per il parsing della chat e il FIM."
   },
   "writingPlayground_templateUnavailable": {
-    "message": "Templates unavailable."
+    "message": "Template non disponibili."
   },
   "writingPlayground_templateError": {
-    "message": "Unable to load templates."
+    "message": "Impossibile caricare i template."
   },
   "writingPlayground_chatModeLabel": {
-    "message": "Chat mode"
+    "message": "Modalità chat"
   },
   "writingPlayground_chatModeHint": {
-    "message": "Parse prompt text into messages using the selected template."
+    "message": "Analizza il testo del prompt in messaggi usando il template selezionato."
   },
   "writingPlayground_fillFallbackNotice": {
-    "message": "Fill template missing; using a basic fill prompt."
+    "message": "Template fill mancante; uso un prompt fill di base."
   },
   "writingPlayground_templateCreateSuccess": {
-    "message": "Template created."
+    "message": "Template creato."
   },
   "writingPlayground_templateCreateError": {
-    "message": "Failed to create template: {{detail}}"
+    "message": "Creazione del template non riuscita: {{detail}}"
   },
   "writingPlayground_templateSaveSuccess": {
-    "message": "Template saved."
+    "message": "Template salvato."
   },
   "writingPlayground_templateSaveError": {
-    "message": "Failed to save template: {{detail}}"
+    "message": "Salvataggio del template non riuscito: {{detail}}"
   },
   "writingPlayground_templateDeleteSuccess": {
-    "message": "Template deleted."
+    "message": "Template eliminato."
   },
   "writingPlayground_templateDeleteError": {
-    "message": "Failed to delete template: {{detail}}"
+    "message": "Eliminazione del template non riuscita: {{detail}}"
   },
   "writingPlayground_templateNameRequired": {
-    "message": "Enter a template name."
+    "message": "Inserisci un nome del template."
   },
   "writingPlayground_templateDeleteTitle": {
-    "message": "Delete template?"
+    "message": "Eliminare il template?"
   },
   "writingPlayground_templateDeleteBody": {
-    "message": "This will permanently delete the template."
+    "message": "Questo eliminerà definitivamente il template."
   },
   "writingPlayground_templateImportInvalid": {
-    "message": "No templates found in file."
+    "message": "Nessun template trovato nel file."
   },
   "writingPlayground_templateImportSuccess": {
-    "message": "Templates imported."
+    "message": "Template importati."
   },
   "writingPlayground_templateImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Importazione non riuscita: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "Sistema"
   },
   "writingPlayground_templateInsertUser": {
-    "message": "User"
+    "message": "Utente"
   },
   "writingPlayground_templateInsertAssistant": {
-    "message": "Assistant"
+    "message": "Assistente"
   },
   "writingPlayground_templateInsertMissing": {
-    "message": "{{label}} markers missing in template."
+    "message": "Mancano i segnaposto {{label}} nel template."
   },
   "writingPlayground_templateInsertAction": {
-    "message": "Insert"
+    "message": "Inserisci"
   },
   "writingPlayground_manageTemplates": {
-    "message": "Manage templates"
+    "message": "Gestisci template"
   },
   "writingPlayground_templatesModalTitle": {
-    "message": "Manage templates"
+    "message": "Gestisci template"
   },
   "writingPlayground_templateImportHint": {
-    "message": "Import JSON to add or update templates."
+    "message": "Importa JSON per aggiungere o aggiornare i template."
   },
   "writingPlayground_templateNewAction": {
-    "message": "New"
+    "message": "Nuovo"
   },
   "writingPlayground_templateImportAction": {
-    "message": "Import"
+    "message": "Importa"
   },
   "writingPlayground_templateExportAction": {
-    "message": "Export"
+    "message": "Esporta"
   },
   "writingPlayground_templateListTitle": {
-    "message": "Templates"
+    "message": "Template"
   },
   "writingPlayground_templateListEmpty": {
-    "message": "No templates yet."
+    "message": "Nessun template ancora."
   },
   "writingPlayground_templateDefaultTag": {
-    "message": "Default"
+    "message": "Predefinito"
   },
   "writingPlayground_templateNameLabel": {
-    "message": "Template name"
+    "message": "Nome del template"
   },
   "writingPlayground_templateSystemPrefixLabel": {
-    "message": "System prefix"
+    "message": "Prefisso di sistema"
   },
   "writingPlayground_templateSystemSuffixLabel": {
-    "message": "System suffix"
+    "message": "Suffisso di sistema"
   },
   "writingPlayground_templateUserPrefixLabel": {
-    "message": "User prefix"
+    "message": "Prefisso utente"
   },
   "writingPlayground_templateUserSuffixLabel": {
-    "message": "User suffix"
+    "message": "Suffisso utente"
   },
   "writingPlayground_templateAssistantPrefixLabel": {
-    "message": "Assistant prefix"
+    "message": "Prefisso assistente"
   },
   "writingPlayground_templateAssistantSuffixLabel": {
-    "message": "Assistant suffix"
+    "message": "Suffisso assistente"
   },
   "writingPlayground_templateFimTemplateLabel": {
-    "message": "FIM template"
+    "message": "Template FIM"
   },
   "writingPlayground_templateFimTemplateHint": {
-    "message": "Use {{prefix}} and {{suffix}} placeholders."
+    "message": "Usa i segnaposto {{prefix}} e {{suffix}}."
   },
   "writingPlayground_templateDefaultLabel": {
-    "message": "Default template"
+    "message": "Template predefinito"
   },
   "writingPlayground_templateCreateAction": {
-    "message": "Create"
+    "message": "Crea"
   },
   "writingPlayground_themeLabel": {
-    "message": "Theme"
+    "message": "Tema"
   },
   "writingPlayground_themePlaceholder": {
-    "message": "Server default"
+    "message": "Predefinito del server"
   },
   "writingPlayground_themeHint": {
-    "message": "Apply a theme to style the editor."
+    "message": "Applica un tema per lo stile dell'editor."
   },
   "writingPlayground_themeUnavailable": {
-    "message": "Themes unavailable."
+    "message": "Temi non disponibili."
   },
   "writingPlayground_themeError": {
-    "message": "Unable to load themes."
+    "message": "Impossibile caricare i temi."
   },
   "writingPlayground_manageThemes": {
-    "message": "Manage themes"
+    "message": "Gestisci temi"
   },
   "writingPlayground_themesModalTitle": {
-    "message": "Manage themes"
+    "message": "Gestisci temi"
   },
   "writingPlayground_themeImportHint": {
-    "message": "Import JSON to add or update themes."
+    "message": "Importa JSON per aggiungere o aggiornare i temi."
   },
   "writingPlayground_themeNewAction": {
-    "message": "New"
+    "message": "Nuovo"
   },
   "writingPlayground_themeImportAction": {
-    "message": "Import"
+    "message": "Importa"
   },
   "writingPlayground_themeExportAction": {
-    "message": "Export"
+    "message": "Esporta"
   },
   "writingPlayground_themeListTitle": {
-    "message": "Themes"
+    "message": "Temi"
   },
   "writingPlayground_themeListEmpty": {
-    "message": "No themes yet."
+    "message": "Nessun tema ancora."
   },
   "writingPlayground_themeDefaultTag": {
-    "message": "Default"
+    "message": "Predefinito"
   },
   "writingPlayground_themeNameLabel": {
-    "message": "Theme name"
+    "message": "Nome del tema"
   },
   "writingPlayground_themeClassLabel": {
-    "message": "Theme class"
+    "message": "Classe del tema"
   },
   "writingPlayground_themeClassPlaceholder": {
-    "message": "e.g. miku-dream"
+    "message": "es. miku-dream"
   },
   "writingPlayground_themeCssLabel": {
-    "message": "Theme CSS"
+    "message": "CSS del tema"
   },
   "writingPlayground_themeCssHint": {
-    "message": "CSS is scoped to .writing-playground; @import and url() are stripped."
+    "message": "Il CSS è limitato a .writing-playground; @import e url() vengono rimossi."
   },
   "writingPlayground_themeOrderLabel": {
-    "message": "Order"
+    "message": "Ordine"
   },
   "writingPlayground_themeDefaultLabel": {
-    "message": "Default theme"
+    "message": "Tema predefinito"
   },
   "writingPlayground_themeCreateAction": {
-    "message": "Create"
+    "message": "Crea"
   },
   "writingPlayground_themeCreateSuccess": {
-    "message": "Theme created."
+    "message": "Tema creato."
   },
   "writingPlayground_themeCreateError": {
-    "message": "Failed to create theme: {{detail}}"
+    "message": "Creazione del tema non riuscita: {{detail}}"
   },
   "writingPlayground_themeSaveSuccess": {
-    "message": "Theme saved."
+    "message": "Tema salvato."
   },
   "writingPlayground_themeSaveError": {
-    "message": "Failed to save theme: {{detail}}"
+    "message": "Salvataggio del tema non riuscito: {{detail}}"
   },
   "writingPlayground_themeDeleteSuccess": {
-    "message": "Theme deleted."
+    "message": "Tema eliminato."
   },
   "writingPlayground_themeDeleteError": {
-    "message": "Failed to delete theme: {{detail}}"
+    "message": "Eliminazione del tema non riuscita: {{detail}}"
   },
   "writingPlayground_themeNameRequired": {
-    "message": "Enter a theme name."
+    "message": "Inserisci il nome del tema."
   },
   "writingPlayground_themeDeleteTitle": {
-    "message": "Delete theme?"
+    "message": "Eliminare il tema?"
   },
   "writingPlayground_themeDeleteBody": {
-    "message": "This will permanently delete the theme."
+    "message": "Questo eliminerà definitivamente il tema."
   },
   "writingPlayground_themeImportInvalid": {
-    "message": "No themes found in file."
+    "message": "Nessun tema trovato nel file."
   },
   "writingPlayground_themeImportSuccess": {
-    "message": "Themes imported."
+    "message": "Temi importati."
   },
   "writingPlayground_themeImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Importazione non riuscita: {{detail}}"
   },
   "writingPlayground_importSession": {
-    "message": "Import"
+    "message": "Importa"
   },
   "writingPlayground_exportSession": {
-    "message": "Export session"
+    "message": "Esporta sessione"
   },
   "writingPlayground_sessionImportInvalid": {
-    "message": "No sessions found in file."
+    "message": "Nessuna sessione trovata nel file."
   },
   "writingPlayground_sessionImportSuccess": {
-    "message": "Sessions imported."
+    "message": "Sessioni importate."
   },
   "writingPlayground_sessionImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Importazione non riuscita: {{detail}}"
   },
   "writingPlayground_sessionExportSuccess": {
-    "message": "Session exported."
+    "message": "Sessione esportata."
   },
   "writingPlayground_sessionExportError": {
-    "message": "Failed to export session: {{detail}}"
+    "message": "Esportazione della sessione non riuscita: {{detail}}"
   }
 }

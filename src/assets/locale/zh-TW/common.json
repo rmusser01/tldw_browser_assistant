@@ -504,6 +504,8 @@
   "contextRephrase": "改寫",
   "contextTranslate": "翻譯",
   "contextCustom": "自訂",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "傳送到 tldw_server",
   "contextProcessLocalTldw": "使用 tldw_server 處理 (不儲存)",
   "contextTranscribeMedia": "轉錄影片/音訊",

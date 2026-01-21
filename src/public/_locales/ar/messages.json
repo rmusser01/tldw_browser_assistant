@@ -38,6 +38,12 @@
   "contextCustom": {
     "message": "مخصص"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "إرسال إلى tldw_server"
   },

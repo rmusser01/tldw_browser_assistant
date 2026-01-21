@@ -13,6 +13,7 @@ export type BackgroundInitOptions = {
   storage: Storage
   contextMenuId: { webui: string; sidePanel: string }
   saveToNotesMenuId: string
+  narrateSelectionMenuId: string
   transcribeMenuId: { transcribe: string; transcribeAndSummarize: string }
   warmModels: (force?: boolean, throwOnError?: boolean) => Promise<any[] | null>
   capabilities: BackgroundCapabilities
@@ -130,6 +131,7 @@ export const initBackground = async (
     storage,
     contextMenuId,
     saveToNotesMenuId,
+    narrateSelectionMenuId,
     transcribeMenuId,
     warmModels,
     capabilities,
@@ -215,6 +217,11 @@ export const initBackground = async (
   browser.contextMenus.create({
     id: "custom-pg",
     title: browser.i18n.getMessage("contextCustom"),
+    contexts: ["selection"]
+  })
+  browser.contextMenus.create({
+    id: narrateSelectionMenuId,
+    title: browser.i18n.getMessage("contextNarrateSelection"),
     contexts: ["selection"]
   })
   browser.contextMenus.create({

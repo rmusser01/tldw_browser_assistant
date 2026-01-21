@@ -851,6 +851,12 @@
   "contextCustom": {
     "message": "Пользовательский"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "Отправить в tldw_server"
   },

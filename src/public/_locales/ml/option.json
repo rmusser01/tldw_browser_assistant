@@ -1995,136 +1995,136 @@
     "message": "സ്കാഫോൾഡിംഗ് തയ്യാറാണ്. എഡിറ്റർ, സെഷനുകൾ, ടൂളുകൾ എന്നിവ അടുത്ത ഘട്ടത്തിൽ ലഭ്യമാകും."
   },
   "writingPlayground_sessionsTitle": {
-    "message": "Sessions"
+    "message": "സെഷനുകൾ"
   },
   "writingPlayground_newSession": {
-    "message": "New session"
+    "message": "പുതിയ സെഷൻ"
   },
   "writingPlayground_sessionsError": {
-    "message": "Unable to load sessions."
+    "message": "സെഷനുകൾ ലോഡ് ചെയ്യാനായില്ല."
   },
   "writingPlayground_sessionsEmpty": {
-    "message": "Create your first session to start writing."
+    "message": "എഴുതൽ ആരംഭിക്കാൻ നിങ്ങളുടെ ആദ്യ സെഷൻ സൃഷ്ടിക്കുക."
   },
   "writingPlayground_active": {
-    "message": "Active"
+    "message": "സജീവം"
   },
   "writingPlayground_sessionHint": {
-    "message": "Session is ready. Editor scaffolding arrives in the next stage."
+    "message": "സെഷൻ തയ്യാറാണ്. എഡിറ്റർ സ്കാഫോൾഡിംഗ് അടുത്ത ഘട്ടത്തിൽ ലഭ്യമാകും."
   },
   "writingPlayground_selectSession": {
-    "message": "Select a session to begin."
+    "message": "ആരംഭിക്കാൻ ഒരു സെഷൻ തിരഞ്ഞെടുക്കുക."
   },
   "writingPlayground_createSessionTitle": {
-    "message": "New session"
+    "message": "പുതിയ സെഷൻ"
   },
   "writingPlayground_createSessionLabel": {
-    "message": "Session name"
+    "message": "സെഷന്റെ പേര്"
   },
   "writingPlayground_createSessionPlaceholder": {
-    "message": "e.g. Draft ideas"
+    "message": "ഉദാ: ഡ്രാഫ്റ്റ് ആശയങ്ങൾ"
   },
   "writingPlayground_createSuccess": {
-    "message": "Session created."
+    "message": "സെഷൻ സൃഷ്ടിച്ചു."
   },
   "writingPlayground_createError": {
-    "message": "Failed to create session: {{detail}}"
+    "message": "സെഷൻ സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_lastOpenedLabel": {
-    "message": "Last opened {{time}}"
+    "message": "അവസാനം തുറന്നത് {{time}}"
   },
   "writingPlayground_notOpened": {
-    "message": "Not opened yet"
+    "message": "ഇതുവരെ തുറന്നിട്ടില്ല"
   },
   "writingPlayground_renameSessionTitle": {
-    "message": "Rename session"
+    "message": "സെഷൻ പുനർനാമകരണം"
   },
   "writingPlayground_renameSessionLabel": {
-    "message": "Session name"
+    "message": "സെഷന്റെ പേര്"
   },
   "writingPlayground_renameSessionPlaceholder": {
-    "message": "e.g. Revised draft"
+    "message": "ഉദാ: പുതുക്കിയ ഡ്രാഫ്റ്റ്"
   },
   "writingPlayground_renameSuccess": {
-    "message": "Session renamed."
+    "message": "സെഷന്റെ പേര് മാറ്റി."
   },
   "writingPlayground_renameError": {
-    "message": "Failed to rename session: {{detail}}"
+    "message": "സെഷൻ പുനർനാമകരണം ചെയ്യാനായില്ല: {{detail}}"
   },
   "writingPlayground_deleteSessionTitle": {
-    "message": "Delete session?"
+    "message": "സെഷൻ ഇല്ലാതാക്കണോ?"
   },
   "writingPlayground_deleteSessionBody": {
-    "message": "This will permanently delete the session."
+    "message": "ഇത് സെഷൻ സ്ഥിരമായി ഇല്ലാതാക്കും."
   },
   "writingPlayground_deleteSuccess": {
-    "message": "Session deleted."
+    "message": "സെഷൻ ഇല്ലാതാക്കി."
   },
   "writingPlayground_deleteError": {
-    "message": "Failed to delete session: {{detail}}"
+    "message": "സെഷൻ ഇല്ലാതാക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_cloneSuccess": {
-    "message": "Session cloned."
+    "message": "സെഷൻ ക്ലോൺ ചെയ്തു."
   },
   "writingPlayground_cloneError": {
-    "message": "Failed to clone session: {{detail}}"
+    "message": "സെഷൻ ക്ലോൺ ചെയ്യാനായില്ല: {{detail}}"
   },
   "writingPlayground_cloneSession": {
-    "message": "Clone session"
+    "message": "സെഷൻ ക്ലോൺ ചെയ്യുക"
   },
   "writingPlayground_renameSession": {
-    "message": "Rename session"
+    "message": "സെഷൻ പുനർനാമകരണം"
   },
   "writingPlayground_deleteSession": {
-    "message": "Delete session"
+    "message": "സെഷൻ ഇല്ലാതാക്കുക"
   },
   "writingPlayground_conflictError": {
-    "message": "Session changed on the server."
+    "message": "സെർവറിൽ സെഷൻ മാറിയിട്ടുണ്ട്."
   },
   "writingPlayground_editorTitle": {
-    "message": "Prompt editor"
+    "message": "പ്രോംപ്റ്റ് എഡിറ്റർ"
   },
   "writingPlayground_editorPlaceholder": {
-    "message": "Start writing your prompt..."
+    "message": "നിങ്ങളുടെ പ്രോംപ്റ്റ് എഴുതാൻ തുടങ്ങൂ..."
   },
   "writingPlayground_editorError": {
-    "message": "Unable to load this session."
+    "message": "ഈ സെഷൻ ലോഡ് ചെയ്യാനായില്ല."
   },
   "writingPlayground_savingLabel": {
-    "message": "Saving..."
+    "message": "സേവ് ചെയ്യുന്നു..."
   },
   "writingPlayground_savedLabel": {
-    "message": "Saved {{time}}"
+    "message": "സേവ് ചെയ്തു {{time}}"
   },
   "writingPlayground_unsavedLabel": {
-    "message": "Unsaved changes"
+    "message": "സേവ് ചെയ്യാത്ത മാറ്റങ്ങൾ"
   },
   "writingPlayground_saveError": {
-    "message": "Failed to save session: {{detail}}"
+    "message": "സെഷൻ സേവ് ചെയ്യാനായില്ല: {{detail}}"
   },
   "writingPlayground_editorModeEdit": {
-    "message": "Edit"
+    "message": "എഡിറ്റ്"
   },
   "writingPlayground_editorModePreview": {
-    "message": "Preview"
+    "message": "പ്രിവ്യൂ"
   },
   "writingPlayground_editorModeSplit": {
-    "message": "Split"
+    "message": "സ്പ്ലിറ്റ്"
   },
   "writingPlayground_editorEmptyPreview": {
-    "message": "Nothing to preview yet."
+    "message": "ഇനിയും പ്രിവ്യൂ ചെയ്യാൻ ഒന്നുമില്ല."
   },
   "writingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "സെറ്റിംഗ്സ്"
   },
   "writingPlayground_settingsEmpty": {
-    "message": "Select a session to edit settings."
+    "message": "സെറ്റിംഗ്സ് എഡിറ്റ് ചെയ്യാൻ ഒരു സെഷൻ തിരഞ്ഞെടുക്കുക."
   },
   "writingPlayground_settingsError": {
-    "message": "Unable to load session settings."
+    "message": "സെഷൻ സെറ്റിംഗ്സ് ലോഡ് ചെയ്യാനായില്ല."
   },
   "writingPlayground_temperatureLabel": {
-    "message": "Temperature"
+    "message": "താപനില"
   },
   "writingPlayground_topPLabel": {
     "message": "Top P"
@@ -2133,381 +2133,381 @@
     "message": "Top K"
   },
   "writingPlayground_maxTokensLabel": {
-    "message": "Max tokens"
+    "message": "പരമാവധി ടോക്കണുകൾ"
   },
   "writingPlayground_presencePenaltyLabel": {
-    "message": "Presence penalty"
+    "message": "സാന്നിധ്യ പിഴ"
   },
   "writingPlayground_frequencyPenaltyLabel": {
-    "message": "Frequency penalty"
+    "message": "ആവൃത്തി പിഴ"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "സീഡ്"
   },
   "writingPlayground_stopStringsLabel": {
-    "message": "Stop strings"
+    "message": "സ്റ്റോപ്പ് സ്ട്രിംഗുകൾ"
   },
   "writingPlayground_stopStringsPlaceholder": {
-    "message": "One per line"
+    "message": "ഓരോ വരിയിലും ഒന്ന്"
   },
   "writingPlayground_insertPredict": {
-    "message": "Insert {predict}"
+    "message": "{predict} ചേർക്കുക"
   },
   "writingPlayground_insertFill": {
-    "message": "Insert {fill}"
+    "message": "{fill} ചേർക്കുക"
   },
   "writingPlayground_searchReplace": {
-    "message": "Search & replace"
+    "message": "തിരയൽ & മാറ്റിസ്ഥാപിക്കൽ"
   },
   "writingPlayground_searchToggle": {
-    "message": "Find"
+    "message": "തിരയുക"
   },
   "writingPlayground_searchClose": {
-    "message": "Close"
+    "message": "അടയ്ക്കുക"
   },
   "writingPlayground_searchPlaceholder": {
-    "message": "Find text"
+    "message": "വാചകം കണ്ടെത്തുക"
   },
   "writingPlayground_replacePlaceholder": {
-    "message": "Replace with"
+    "message": "പകരം വെക്കുക"
   },
   "writingPlayground_searchPrev": {
-    "message": "Prev"
+    "message": "മുമ്പത്തെത്"
   },
   "writingPlayground_searchNext": {
-    "message": "Next"
+    "message": "അടുത്തത്"
   },
   "writingPlayground_searchReplaceAction": {
-    "message": "Replace"
+    "message": "മാറ്റിസ്ഥാപിക്കുക"
   },
   "writingPlayground_searchReplaceAll": {
-    "message": "Replace all"
+    "message": "എല്ലാം മാറ്റിസ്ഥാപിക്കുക"
   },
   "writingPlayground_searchMatchCase": {
-    "message": "Match case"
+    "message": "കേസ് പൊരുത്തപ്പെടുത്തുക"
   },
   "writingPlayground_searchRegex": {
-    "message": "Regex"
+    "message": "റെഗെക്സ്"
   },
   "writingPlayground_searchRegexError": {
-    "message": "Invalid regex"
+    "message": "അസാധുവായ റെഗെക്സ്"
   },
   "writingPlayground_searchMatchCount": {
-    "message": "{{current}} of {{total}} matches"
+    "message": "{{current}} ൽ നിന്ന് {{total}} പൊരുത്തങ്ങൾ"
   },
   "writingPlayground_searchNoMatches": {
-    "message": "No matches"
+    "message": "പൊരുത്തങ്ങൾ ഇല്ല"
   },
   "writingPlayground_searchHint": {
-    "message": "Enter text to search"
+    "message": "തിരയാൻ വാചകം നൽകുക"
   },
   "writingPlayground_promptChunksTitle": {
-    "message": "Prompt chunks ({{count}})"
+    "message": "പ്രോംപ്റ്റ് ഭാഗങ്ങൾ ({{count}})"
   },
   "writingPlayground_promptChunksEmpty": {
-    "message": "No chunks yet."
+    "message": "ഇനിയും ഭാഗങ്ങൾ ഇല്ല."
   },
   "writingPlayground_promptChunksTruncated": {
-    "message": "Showing first {{count}} chunks."
+    "message": "ആദ്യത്തെ {{count}} ഭാഗങ്ങൾ മാത്രം കാണിക്കുന്നു."
   },
   "writingPlayground_chunkPlaceholder": {
-    "message": "Placeholder"
+    "message": "പ്ലേസ്ഹോൾഡർ"
   },
   "writingPlayground_chunkText": {
-    "message": "Text"
+    "message": "വാചകം"
   },
   "writingPlayground_generateAction": {
-    "message": "Generate"
+    "message": "ജനറേറ്റ്"
   },
   "writingPlayground_stopAction": {
-    "message": "Stop"
+    "message": "നിർത്തുക"
   },
   "writingPlayground_undoGeneration": {
-    "message": "Undo"
+    "message": "അൺഡു"
   },
   "writingPlayground_redoGeneration": {
-    "message": "Redo"
+    "message": "റീഡോ"
   },
   "writingPlayground_generatingLabel": {
-    "message": "Generating..."
+    "message": "ജനറേറ്റ് ചെയ്യുന്നു..."
   },
   "writingPlayground_generateError": {
-    "message": "Generation failed: {{detail}}"
+    "message": "ജനറേഷൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_generateUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "ചാറ്റ് കംപ്ലീഷനുകൾ ലഭ്യമല്ല."
   },
   "writingPlayground_modelMissing": {
-    "message": "Select a model in Settings to generate."
+    "message": "ജനറേറ്റ് ചെയ്യാൻ സെറ്റിംഗ്സിൽ ഒരു മോഡൽ തിരഞ്ഞെടുക്കുക."
   },
   "writingPlayground_generationInProgress": {
-    "message": "Stop generation before switching sessions."
+    "message": "സെഷൻ മാറ്റുന്നതിനുമുമ്പ് ജനറേഷൻ നിർത്തുക."
   },
   "writingPlayground_generateShortcutTooltip": {
-    "message": "Ctrl/Cmd+Enter to generate"
+    "message": "ജനറേറ്റ് ചെയ്യാൻ Ctrl/Cmd+Enter"
   },
   "writingPlayground_stopShortcutTooltip": {
-    "message": "Esc to stop"
+    "message": "നിർത്താൻ Esc"
   },
   "writingPlayground_shortcutsHint": {
-    "message": "Shortcuts: Ctrl/Cmd+Enter to generate, Esc to stop."
+    "message": "ഷോർട്ട്കട്ടുകൾ: ജനറേറ്റ് ചെയ്യാൻ Ctrl/Cmd+Enter, നിർത്താൻ Esc."
   },
   "writingPlayground_templateLabel": {
-    "message": "Template"
+    "message": "ടെംപ്ലേറ്റ്"
   },
   "writingPlayground_templatePlaceholder": {
-    "message": "Server default"
+    "message": "സെർവർ ഡിഫാൾട്ട്"
   },
   "writingPlayground_templateHint": {
-    "message": "Choose an instruct template for chat parsing and FIM."
+    "message": "ചാറ്റ് പാർസിംഗിനും FIM-നും ഒരു ഇൻസ്ട്രക്റ്റ് ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക."
   },
   "writingPlayground_templateUnavailable": {
-    "message": "Templates unavailable."
+    "message": "ടെംപ്ലേറ്റുകൾ ലഭ്യമല്ല."
   },
   "writingPlayground_templateError": {
-    "message": "Unable to load templates."
+    "message": "ടെംപ്ലേറ്റുകൾ ലോഡ് ചെയ്യാനായില്ല."
   },
   "writingPlayground_chatModeLabel": {
-    "message": "Chat mode"
+    "message": "ചാറ്റ് മോഡ്"
   },
   "writingPlayground_chatModeHint": {
-    "message": "Parse prompt text into messages using the selected template."
+    "message": "തിരഞ്ഞെടുക്കപ്പെട്ട ടെംപ്ലേറ്റ് ഉപയോഗിച്ച് പ്രോംപ്റ്റ് ടെക്സ്റ്റ് സന്ദേശങ്ങളാക്കുക."
   },
   "writingPlayground_fillFallbackNotice": {
-    "message": "Fill template missing; using a basic fill prompt."
+    "message": "ഫിൽ ടെംപ്ലേറ്റ് ലഭ്യമല്ല; ഒരു അടിസ്ഥാന ഫിൽ പ്രോംപ്റ്റ് ഉപയോഗിക്കുന്നു."
   },
   "writingPlayground_templateCreateSuccess": {
-    "message": "Template created."
+    "message": "ടെംപ്ലേറ്റ് സൃഷ്ടിച്ചു."
   },
   "writingPlayground_templateCreateError": {
-    "message": "Failed to create template: {{detail}}"
+    "message": "ടെംപ്ലേറ്റ് സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_templateSaveSuccess": {
-    "message": "Template saved."
+    "message": "ടെംപ്ലേറ്റ് സേവ് ചെയ്തു."
   },
   "writingPlayground_templateSaveError": {
-    "message": "Failed to save template: {{detail}}"
+    "message": "ടെംപ്ലേറ്റ് സേവ് ചെയ്യാനായില്ല: {{detail}}"
   },
   "writingPlayground_templateDeleteSuccess": {
-    "message": "Template deleted."
+    "message": "ടെംപ്ലേറ്റ് ഇല്ലാതാക്കി."
   },
   "writingPlayground_templateDeleteError": {
-    "message": "Failed to delete template: {{detail}}"
+    "message": "ടെംപ്ലേറ്റ് ഇല്ലാതാക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_templateNameRequired": {
-    "message": "Enter a template name."
+    "message": "ടെംപ്ലേറ്റിന് പേര് നൽകുക."
   },
   "writingPlayground_templateDeleteTitle": {
-    "message": "Delete template?"
+    "message": "ടെംപ്ലേറ്റ് ഇല്ലാതാക്കണോ?"
   },
   "writingPlayground_templateDeleteBody": {
-    "message": "This will permanently delete the template."
+    "message": "ഇത് ടെംപ്ലേറ്റ് സ്ഥിരമായി ഇല്ലാതാക്കും."
   },
   "writingPlayground_templateImportInvalid": {
-    "message": "No templates found in file."
+    "message": "ഫയലിൽ ടെംപ്ലേറ്റുകൾ കണ്ടെത്തിയില്ല."
   },
   "writingPlayground_templateImportSuccess": {
-    "message": "Templates imported."
+    "message": "ടെംപ്ലേറ്റുകൾ ഇമ്പോർട്ട് ചെയ്തു."
   },
   "writingPlayground_templateImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "ഇമ്പോർട്ട് പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "സിസ്റ്റം"
   },
   "writingPlayground_templateInsertUser": {
-    "message": "User"
+    "message": "ഉപയോക്താവ്"
   },
   "writingPlayground_templateInsertAssistant": {
-    "message": "Assistant"
+    "message": "അസിസ്റ്റന്റ്"
   },
   "writingPlayground_templateInsertMissing": {
-    "message": "{{label}} markers missing in template."
+    "message": "ടെംപ്ലേറ്റിൽ {{label}} മാർക്കറുകൾ ഇല്ല."
   },
   "writingPlayground_templateInsertAction": {
-    "message": "Insert"
+    "message": "ചേർക്കുക"
   },
   "writingPlayground_manageTemplates": {
-    "message": "Manage templates"
+    "message": "ടെംപ്ലേറ്റുകൾ നിയന്ത്രിക്കുക"
   },
   "writingPlayground_templatesModalTitle": {
-    "message": "Manage templates"
+    "message": "ടെംപ്ലേറ്റുകൾ നിയന്ത്രിക്കുക"
   },
   "writingPlayground_templateImportHint": {
-    "message": "Import JSON to add or update templates."
+    "message": "ടെംപ്ലേറ്റുകൾ ചേർക്കാനോ അപ്‌ഡേറ്റ് ചെയ്യാനോ JSON ഇമ്പോർട്ട് ചെയ്യുക."
   },
   "writingPlayground_templateNewAction": {
-    "message": "New"
+    "message": "പുതിയത്"
   },
   "writingPlayground_templateImportAction": {
-    "message": "Import"
+    "message": "ഇമ്പോർട്ട്"
   },
   "writingPlayground_templateExportAction": {
-    "message": "Export"
+    "message": "എക്സ്പോർട്ട്"
   },
   "writingPlayground_templateListTitle": {
-    "message": "Templates"
+    "message": "ടെംപ്ലേറ്റുകൾ"
   },
   "writingPlayground_templateListEmpty": {
-    "message": "No templates yet."
+    "message": "ഇനിയും ടെംപ്ലേറ്റുകൾ ഇല്ല."
   },
   "writingPlayground_templateDefaultTag": {
-    "message": "Default"
+    "message": "ഡിഫാൾട്ട്"
   },
   "writingPlayground_templateNameLabel": {
-    "message": "Template name"
+    "message": "ടെംപ്ലേറ്റ് പേര്"
   },
   "writingPlayground_templateSystemPrefixLabel": {
-    "message": "System prefix"
+    "message": "സിസ്റ്റം പ്രിഫിക്‌സ്"
   },
   "writingPlayground_templateSystemSuffixLabel": {
-    "message": "System suffix"
+    "message": "സിസ്റ്റം സഫിക്‌സ്"
   },
   "writingPlayground_templateUserPrefixLabel": {
-    "message": "User prefix"
+    "message": "ഉപയോക്തൃ പ്രിഫിക്‌സ്"
   },
   "writingPlayground_templateUserSuffixLabel": {
-    "message": "User suffix"
+    "message": "ഉപയോക്തൃ സഫിക്‌സ്"
   },
   "writingPlayground_templateAssistantPrefixLabel": {
-    "message": "Assistant prefix"
+    "message": "അസിസ്റ്റന്റ് പ്രിഫിക്‌സ്"
   },
   "writingPlayground_templateAssistantSuffixLabel": {
-    "message": "Assistant suffix"
+    "message": "അസിസ്റ്റന്റ് സഫിക്‌സ്"
   },
   "writingPlayground_templateFimTemplateLabel": {
-    "message": "FIM template"
+    "message": "FIM ടെംപ്ലേറ്റ്"
   },
   "writingPlayground_templateFimTemplateHint": {
-    "message": "Use {{prefix}} and {{suffix}} placeholders."
+    "message": "{{prefix}}യും {{suffix}}യും പ്ലേസ്ഹോൾഡറുകൾ ഉപയോഗിക്കുക."
   },
   "writingPlayground_templateDefaultLabel": {
-    "message": "Default template"
+    "message": "ഡിഫാൾട്ട് ടെംപ്ലേറ്റ്"
   },
   "writingPlayground_templateCreateAction": {
-    "message": "Create"
+    "message": "സൃഷ്ടിക്കുക"
   },
   "writingPlayground_themeLabel": {
-    "message": "Theme"
+    "message": "തീം"
   },
   "writingPlayground_themePlaceholder": {
-    "message": "Server default"
+    "message": "സെർവർ ഡിഫാൾട്ട്"
   },
   "writingPlayground_themeHint": {
-    "message": "Apply a theme to style the editor."
+    "message": "എഡിറ്റർ സ്റ്റൈൽ ചെയ്യാൻ ഒരു തീം പ്രയോഗിക്കുക."
   },
   "writingPlayground_themeUnavailable": {
-    "message": "Themes unavailable."
+    "message": "തീമുകൾ ലഭ്യമല്ല."
   },
   "writingPlayground_themeError": {
-    "message": "Unable to load themes."
+    "message": "തീമുകൾ ലോഡ് ചെയ്യാനായില്ല."
   },
   "writingPlayground_manageThemes": {
-    "message": "Manage themes"
+    "message": "തീമുകൾ നിയന്ത്രിക്കുക"
   },
   "writingPlayground_themesModalTitle": {
-    "message": "Manage themes"
+    "message": "തീമുകൾ നിയന്ത്രിക്കുക"
   },
   "writingPlayground_themeImportHint": {
-    "message": "Import JSON to add or update themes."
+    "message": "തീമുകൾ ചേർക്കാനോ അപ്‌ഡേറ്റ് ചെയ്യാനോ JSON ഇമ്പോർട്ട് ചെയ്യുക."
   },
   "writingPlayground_themeNewAction": {
-    "message": "New"
+    "message": "പുതിയത്"
   },
   "writingPlayground_themeImportAction": {
-    "message": "Import"
+    "message": "ഇമ്പോർട്ട്"
   },
   "writingPlayground_themeExportAction": {
-    "message": "Export"
+    "message": "എക്സ്പോർട്ട്"
   },
   "writingPlayground_themeListTitle": {
-    "message": "Themes"
+    "message": "തീമുകൾ"
   },
   "writingPlayground_themeListEmpty": {
-    "message": "No themes yet."
+    "message": "ഇനിയും തീമുകൾ ഇല്ല."
   },
   "writingPlayground_themeDefaultTag": {
-    "message": "Default"
+    "message": "ഡിഫാൾട്ട്"
   },
   "writingPlayground_themeNameLabel": {
-    "message": "Theme name"
+    "message": "തീം പേര്"
   },
   "writingPlayground_themeClassLabel": {
-    "message": "Theme class"
+    "message": "തീം ക്ലാസ്"
   },
   "writingPlayground_themeClassPlaceholder": {
-    "message": "e.g. miku-dream"
+    "message": "ഉദാ: miku-dream"
   },
   "writingPlayground_themeCssLabel": {
-    "message": "Theme CSS"
+    "message": "തീം CSS"
   },
   "writingPlayground_themeCssHint": {
-    "message": "CSS is scoped to .writing-playground; @import and url() are stripped."
+    "message": "CSS .writing-playground-ലേക്ക് മാത്രം; @importയും url()വും നീക്കം ചെയ്യും."
   },
   "writingPlayground_themeOrderLabel": {
-    "message": "Order"
+    "message": "ക്രമം"
   },
   "writingPlayground_themeDefaultLabel": {
-    "message": "Default theme"
+    "message": "ഡിഫാൾട്ട് തീം"
   },
   "writingPlayground_themeCreateAction": {
-    "message": "Create"
+    "message": "സൃഷ്ടിക്കുക"
   },
   "writingPlayground_themeCreateSuccess": {
-    "message": "Theme created."
+    "message": "തീം സൃഷ്ടിച്ചു."
   },
   "writingPlayground_themeCreateError": {
-    "message": "Failed to create theme: {{detail}}"
+    "message": "തീം സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_themeSaveSuccess": {
-    "message": "Theme saved."
+    "message": "തീം സേവ് ചെയ്തു."
   },
   "writingPlayground_themeSaveError": {
-    "message": "Failed to save theme: {{detail}}"
+    "message": "തീം സേവ് ചെയ്യാനായില്ല: {{detail}}"
   },
   "writingPlayground_themeDeleteSuccess": {
-    "message": "Theme deleted."
+    "message": "തീം ഇല്ലാതാക്കി."
   },
   "writingPlayground_themeDeleteError": {
-    "message": "Failed to delete theme: {{detail}}"
+    "message": "തീം ഇല്ലാതാക്കാൻ പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_themeNameRequired": {
-    "message": "Enter a theme name."
+    "message": "തീമിന് പേര് നൽകുക."
   },
   "writingPlayground_themeDeleteTitle": {
-    "message": "Delete theme?"
+    "message": "തീം ഇല്ലാതാക്കണോ?"
   },
   "writingPlayground_themeDeleteBody": {
-    "message": "This will permanently delete the theme."
+    "message": "ഇത് തീം സ്ഥിരമായി ഇല്ലാതാക്കും."
   },
   "writingPlayground_themeImportInvalid": {
-    "message": "No themes found in file."
+    "message": "ഫയലിൽ തീമുകൾ കണ്ടെത്തിയില്ല."
   },
   "writingPlayground_themeImportSuccess": {
-    "message": "Themes imported."
+    "message": "തീമുകൾ ഇമ്പോർട്ട് ചെയ്തു."
   },
   "writingPlayground_themeImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "ഇമ്പോർട്ട് പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_importSession": {
-    "message": "Import"
+    "message": "ഇമ്പോർട്ട്"
   },
   "writingPlayground_exportSession": {
-    "message": "Export session"
+    "message": "സെഷൻ എക്സ്പോർട്ട്"
   },
   "writingPlayground_sessionImportInvalid": {
-    "message": "No sessions found in file."
+    "message": "ഫയലിൽ സെഷനുകൾ കണ്ടെത്തിയില്ല."
   },
   "writingPlayground_sessionImportSuccess": {
-    "message": "Sessions imported."
+    "message": "സെഷനുകൾ ഇമ്പോർട്ട് ചെയ്തു."
   },
   "writingPlayground_sessionImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "ഇമ്പോർട്ട് പരാജയപ്പെട്ടു: {{detail}}"
   },
   "writingPlayground_sessionExportSuccess": {
-    "message": "Session exported."
+    "message": "സെഷൻ എക്സ്പോർട്ട് ചെയ്തു."
   },
   "writingPlayground_sessionExportError": {
-    "message": "Failed to export session: {{detail}}"
+    "message": "സെഷൻ എക്സ്പോർട്ട് ചെയ്യാനായില്ല: {{detail}}"
   }
 }

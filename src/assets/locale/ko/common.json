@@ -504,6 +504,8 @@
   "contextRephrase": "다르게 표현",
   "contextTranslate": "번역",
   "contextCustom": "사용자 정의",
+  "contextNarrateSelection": "Narrate selection",
+  "contextNarrateSelectionNoSelection": "Select text first to narrate.",
   "contextSendToTldw": "tldw_server로 보내기",
   "contextProcessLocalTldw": "tldw_server로 처리 (저장하지 않음)",
   "contextTranscribeMedia": "동영상/오디오 전사",

@@ -10,10 +10,9 @@ export const DISCONNECTED_POLL_INTERVAL_MS = 2_000
 // NOTE: If you change this value, keep CONNECTED_THROTTLE_MS slightly
 // lower so throttling in the connection store does not skip scheduled
 // polls from useServerOnline.
-export const CONNECTED_POLL_INTERVAL_MS = 30_000
+export const CONNECTED_POLL_INTERVAL_MS = 5_000
 
 // When already connected, throttle background health checks triggered
 // from the connection store so we do not spam the server. This should
 // remain slightly lower than CONNECTED_POLL_INTERVAL_MS.
-export const CONNECTED_THROTTLE_MS = 25_000
-
+export const CONNECTED_THROTTLE_MS = 4_500

@@ -38,6 +38,12 @@
   "contextCustom": {
     "message": "사용자 정의"
   },
+  "contextNarrateSelection": {
+    "message": "Narrate selection"
+  },
+  "contextNarrateSelectionNoSelection": {
+    "message": "Select text first to narrate."
+  },
   "contextSendToTldw": {
     "message": "tldw_server로 보내기"
   },
