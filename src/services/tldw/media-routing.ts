@@ -37,23 +37,6 @@ const DOCUMENT_EXTENSIONS = [
 const isSubdomainOf = (host: string, domain: string): boolean =>
   host === domain || host.endsWith(`.${domain}`)
 
-const getYouTubePlaylistId = (url: URL): string | null => {
-  const listId = url.searchParams.get("list")
-  return listId ? listId.trim() : null
-}
-
-const isYouTubePlaylist = (url: URL): boolean => {
-  const host = url.hostname.toLowerCase()
-  if (
-    !isSubdomainOf(host, "youtube.com") &&
-    !isSubdomainOf(host, "youtube-nocookie.com") &&
-    !isSubdomainOf(host, "youtu.be")
-  ) {
-    return false
-  }
-  return Boolean(getYouTubePlaylistId(url))
-}
-
 const isYouTubeVideoUrl = (url: URL): boolean => {
   const host = url.hostname.toLowerCase()
   if (isSubdomainOf(host, "youtu.be")) {
@@ -94,36 +77,10 @@ const inferMediaTypeFromPath = (
 export const inferMediaTypeFromUrl = (raw: string): DetectedMediaType => {
   try {
     const parsed = new URL(raw)
-    if (isYouTubePlaylist(parsed)) return "video"
     if (isYouTubeVideoUrl(parsed)) return "video"
     return inferMediaTypeFromPath(parsed.pathname, "html")
   } catch {
     return inferMediaTypeFromPath(String(raw || ""), "html")
-  }
-}
-
-export const extractYouTubePlaylistId = (raw: string): string | null => {
-  try {
-    const parsed = new URL(raw)
-    if (!isYouTubePlaylist(parsed)) return null
-    return getYouTubePlaylistId(parsed)
-  } catch {
-    return null
-  }
-}
-
-export const buildYouTubeWatchUrl = (videoId: string): string =>
-  `https://www.youtube.com/watch?v=${videoId}`
-
-export const stripYouTubePlaylistParams = (raw: string): string => {
-  try {
-    const parsed = new URL(raw)
-    if (!isYouTubePlaylist(parsed)) return raw
-    parsed.searchParams.delete("list")
-    parsed.searchParams.delete("index")
-    return parsed.toString()
-  } catch {
-    return raw
   }
 }
 

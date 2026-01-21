@@ -40,7 +40,6 @@ import {
 } from "@/components/Common/QuickIngest/advanced-field-options"
 import {
   coerceDraftMediaType,
-  extractYouTubePlaylistId,
   inferIngestTypeFromUrl,
   inferUploadMediaTypeFromFile
 } from "@/services/tldw/media-routing"
@@ -265,8 +264,6 @@ const DEFAULT_TYPE_DEFAULTS: TypeDefaults = {
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
 const MAX_RECOMMENDED_FIELDS = 12
-const PLAYLIST_EXPAND_DEBOUNCE_MS = 500
-const PLAYLIST_CACHE_TTL_MS = 60 * 60 * 1000
 
 const RESULT_FILTERS = {
   ALL: "all",
@@ -638,12 +635,6 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [showInspectorIntro, setShowInspectorIntro] = React.useState<boolean>(true)
   const [inspectorIntroDismissed, setInspectorIntroDismissed] = useStorage<boolean>('quickIngestInspectorIntroDismissed', false)
   const [onboardingDismissed, setOnboardingDismissed] = useStorage<boolean>('quickIngestOnboardingDismissed', false)
-  const playlistExpandTimersRef = React.useRef<Map<string, number>>(new Map())
-  const playlistExpandInFlightRef = React.useRef<Set<string>>(new Set())
-  const playlistCacheRef = React.useRef<Map<string, { urls: string[]; cachedAt: number }>>(
-    new Map()
-  )
-  const selectedRowIdRef = React.useRef<string | null>(null)
   const reattachInputRef = React.useRef<HTMLInputElement | null>(null)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
@@ -746,21 +737,6 @@ export const QuickIngestModal: React.FC<Props> = ({
   React.useEffect(() => {
     return () => {
       unmountedRef.current = true
-    }
-  }, [])
-
-  React.useEffect(() => {
-    selectedRowIdRef.current = selectedRowId
-  }, [selectedRowId])
-
-  React.useEffect(() => {
-    return () => {
-      const timers = playlistExpandTimersRef.current
-      for (const timerId of timers.values()) {
-        window.clearTimeout(timerId)
-      }
-      timers.clear()
-      playlistExpandInFlightRef.current.clear()
     }
   }, [])
 
@@ -1395,35 +1371,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }, [qi])
 
-  const fetchPlaylistUrls = React.useCallback(async (url: string): Promise<string[] | null> => {
-    const trimmed = (url || "").trim()
-    if (!trimmed) return null
-    const playlistId = extractYouTubePlaylistId(trimmed)
-    if (!playlistId) return null
-    const cached = playlistCacheRef.current.get(playlistId)
-    if (cached && Date.now() - cached.cachedAt < PLAYLIST_CACHE_TTL_MS) {
-      return cached.urls
-    }
-    try {
-      const resp = (await browser.runtime.sendMessage({
-        type: "tldw:quick-ingest-expand-playlist",
-        payload: { url: trimmed }
-      })) as { ok: boolean; urls?: string[] } | undefined
-      if (!resp?.ok) return []
-      const urls = Array.isArray(resp?.urls) ? resp?.urls : []
-      if (urls.length > 0) {
-        playlistCacheRef.current.set(playlistId, {
-          urls,
-          cachedAt: Date.now()
-        })
-      }
-      return urls
-    } catch (error) {
-      console.debug("[quick-ingest] playlist expansion failed", error)
-      return []
-    }
-  }, [])
-
   const addUrlsFromInput = React.useCallback(
     async (text: string) => {
       if (ingestBlocked) {
@@ -1437,20 +1384,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         .map((s) => s.trim())
         .filter(Boolean)
       if (parts.length === 0) return
-      const expanded: string[] = []
-      for (const raw of parts) {
-        const trimmed = raw.trim()
-        if (!trimmed) continue
-        if (isLikelyUrl(trimmed)) {
-          const playlistUrls = await fetchPlaylistUrls(trimmed)
-          if (playlistUrls && playlistUrls.length > 0) {
-            expanded.push(...playlistUrls)
-            continue
-          }
-        }
-        expanded.push(trimmed)
-      }
-      const entries = expanded.map((u) =>
+      const entries = parts.map((u) =>
         buildRowEntry(u, inferIngestTypeFromUrl(u) as Entry['type'])
       )
       setRows((prev) => [...prev, ...entries])
@@ -1463,7 +1397,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         })
       )
     },
-    [buildRowEntry, fetchPlaylistUrls, ingestBlocked, messageApi, qi]
+    [buildRowEntry, ingestBlocked, messageApi, qi]
   )
 
   const clearAllQueues = React.useCallback(() => {
@@ -1499,85 +1433,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     [setSpecPrefs]
   )
 
-  const expandPlaylistRow = React.useCallback(
-    async (rowId: string, urlSnapshot: string) => {
-      if (running || !open) return
-      const trimmedUrl = String(urlSnapshot || "").trim()
-      if (!trimmedUrl || !isLikelyUrl(trimmedUrl)) return
-      if (playlistExpandInFlightRef.current.has(rowId)) return
-      if (!extractYouTubePlaylistId(trimmedUrl)) return
-
-      playlistExpandInFlightRef.current.add(rowId)
-      try {
-        const urls = await fetchPlaylistUrls(trimmedUrl)
-        if (!urls || urls.length === 0) return
-
-        const shouldSelectReplacement = selectedRowIdRef.current === rowId
-        let nextSelectedId: string | null = null
-
-        setRows((prev) => {
-          const idx = prev.findIndex((row) => row.id === rowId)
-          if (idx === -1) return prev
-          const existing = prev[idx]
-          const existingTrimmed = String(existing.url || "").trim()
-          if (!existingTrimmed || existingTrimmed !== trimmedUrl) {
-            return prev
-          }
-          const mapped = urls.map((playlistUrl, index) => {
-            const id = crypto.randomUUID()
-            if (index === 0 && shouldSelectReplacement) {
-              nextSelectedId = id
-            }
-            return {
-              ...existing,
-              id,
-              url: playlistUrl
-            }
-          })
-          return [...prev.slice(0, idx), ...mapped, ...prev.slice(idx + 1)]
-        })
-
-        if (shouldSelectReplacement && nextSelectedId) {
-          setSelectedRowId(nextSelectedId)
-        }
-      } finally {
-        playlistExpandInFlightRef.current.delete(rowId)
-      }
-    },
-    [fetchPlaylistUrls, open, running, setRows]
-  )
-
-  const schedulePlaylistExpansion = React.useCallback(
-    (rowId: string, url: string) => {
-      if (!open || running) return
-      const trimmed = (url || "").trim()
-      if (!trimmed) return
-      if (!isLikelyUrl(trimmed)) return
-      if (!extractYouTubePlaylistId(trimmed)) return
-      if (playlistExpandInFlightRef.current.has(rowId)) return
-      const timers = playlistExpandTimersRef.current
-      const existing = timers.get(rowId)
-      if (existing) {
-        window.clearTimeout(existing)
-      }
-      const timeoutId = window.setTimeout(() => {
-        timers.delete(rowId)
-        void expandPlaylistRow(rowId, trimmed)
-      }, PLAYLIST_EXPAND_DEBOUNCE_MS)
-      timers.set(rowId, timeoutId)
-    },
-    [expandPlaylistRow, open, running]
-  )
-
-  React.useEffect(() => {
-    if (!open || running) return
-    for (const row of rows) {
-      const url = String(row?.url || "").trim()
-      if (!url) continue
-      schedulePlaylistExpansion(row.id, url)
-    }
-  }, [open, rows, running, schedulePlaylistExpansion])
-
   const addRow = () => setRows((r) => [...r, buildRowEntry()])
   const removeRow = (id: string) => {
     setRows((r) => r.filter((x) => x.id !== id))
@@ -1588,11 +1443,8 @@ export const QuickIngestModal: React.FC<Props> = ({
   const updateRow = React.useCallback(
     (id: string, patch: Partial<Entry>) => {
       setRows((r) => r.map((x) => (x.id === id ? { ...x, ...patch } : x)))
-      if (typeof patch.url === "string") {
-        schedulePlaylistExpansion(id, patch.url)
-      }
     },
-    [schedulePlaylistExpansion, setRows]
+    [setRows]
   )
 
   // Resolve current RAG embedding model for display in Advanced section

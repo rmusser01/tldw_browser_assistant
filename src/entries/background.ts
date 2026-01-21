@@ -7,8 +7,6 @@ import { tldwModels } from "@/services/tldw"
 import { apiSend } from "@/services/api-send"
 import { tldwRequest } from "@/services/tldw/request-core"
 import {
-  buildYouTubeWatchUrl,
-  extractYouTubePlaylistId,
   getProcessPathForType,
   getProcessPathForUrl,
   inferMediaTypeFromUrl,
@@ -65,142 +63,6 @@ const backgroundDiagnostics: BackgroundDiagnostics = {
 
 const logBackgroundError = (label: string, error: unknown) => {
   console.debug(`[tldw] background ${label} failed`, error)
-}
-
-const YOUTUBE_PLAYLIST_MAX_ITEMS = 200
-const YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS = 15000
-const YOUTUBE_PLAYLIST_FEED_ID_RE = /<yt:videoId>([^<]+)<\/yt:videoId>/g
-const YOUTUBE_PLAYLIST_VIDEO_RE =
-  /"playlistVideoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/g
-const YOUTUBE_VIDEO_ID_RE = /"videoId":"([a-zA-Z0-9_-]{11})"/g
-
-const extractYouTubeVideoIdsFromFeed = (xml: string, limit: number): string[] => {
-  const ids: string[] = []
-  const seen = new Set<string>()
-  for (const match of xml.matchAll(YOUTUBE_PLAYLIST_FEED_ID_RE)) {
-    const id = match[1]
-    if (!id || seen.has(id)) continue
-    seen.add(id)
-    ids.push(id)
-    if (ids.length >= limit) break
-  }
-  return ids
-}
-
-const extractYouTubeVideoIdsFromHtml = (html: string, limit: number): string[] => {
-  const collect = (regex: RegExp) => {
-    const ids: string[] = []
-    const seen = new Set<string>()
-    for (const match of html.matchAll(regex)) {
-      const id = match[1]
-      if (!id || seen.has(id)) continue
-      seen.add(id)
-      ids.push(id)
-      if (ids.length >= limit) break
-    }
-    return ids
-  }
-
-  const playlistIds = collect(YOUTUBE_PLAYLIST_VIDEO_RE)
-  return playlistIds.length > 0 ? playlistIds : collect(YOUTUBE_VIDEO_ID_RE)
-}
-
-const fetchYouTubePlaylistFeedIds = async (
-  playlistId: string,
-  timeoutMs: number
-): Promise<string[]> => {
-  const controller = new AbortController()
-  const timeoutId = globalThis.setTimeout(() => controller.abort(), timeoutMs)
-  try {
-    const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${encodeURIComponent(
-      playlistId
-    )}`
-    const resp = await fetch(url, {
-      method: "GET",
-      headers: { accept: "application/atom+xml" },
-      signal: controller.signal
-    })
-    if (!resp.ok) return []
-    const xml = await resp.text()
-    return extractYouTubeVideoIdsFromFeed(xml, YOUTUBE_PLAYLIST_MAX_ITEMS)
-  } catch {
-    return []
-  } finally {
-    globalThis.clearTimeout(timeoutId)
-  }
-}
-
-const fetchYouTubePlaylistVideoIds = async (
-  playlistId: string,
-  timeoutMs: number
-): Promise<string[]> => {
-  const feedIds = await fetchYouTubePlaylistFeedIds(playlistId, timeoutMs)
-  if (feedIds.length > 0) return feedIds
-  const controller = new AbortController()
-  const timeoutId = globalThis.setTimeout(() => controller.abort(), timeoutMs)
-  try {
-    const url = `https://www.youtube.com/playlist?list=${encodeURIComponent(
-      playlistId
-    )}&hl=en`
-    const resp = await fetch(url, {
-      method: "GET",
-      headers: { accept: "text/html" },
-      signal: controller.signal
-    })
-    if (!resp.ok) {
-      throw new Error(`Playlist fetch failed (${resp.status})`)
-    }
-    const html = await resp.text()
-    return extractYouTubeVideoIdsFromHtml(html, YOUTUBE_PLAYLIST_MAX_ITEMS)
-  } finally {
-    globalThis.clearTimeout(timeoutId)
-  }
-}
-
-const expandYouTubePlaylistUrl = async (
-  url: string,
-  timeoutMs: number
-): Promise<string[] | null> => {
-  const playlistId = extractYouTubePlaylistId(url)
-  if (!playlistId) return null
-  const effectiveTimeout = Math.min(timeoutMs, YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS)
-  const videoIds = await fetchYouTubePlaylistVideoIds(playlistId, effectiveTimeout)
-  if (videoIds.length === 0) return []
-  return videoIds.map((videoId) => buildYouTubeWatchUrl(videoId))
-}
-
-const expandYouTubePlaylistEntries = async (
-  entries: any[],
-  timeoutMs: number
-): Promise<any[]> => {
-  if (!Array.isArray(entries) || entries.length === 0) return entries
-  const expanded: any[] = []
-  for (const entry of entries) {
-    const url = String(entry?.url || "").trim()
-    if (!url) continue
-    try {
-      const urls = await expandYouTubePlaylistUrl(url, timeoutMs)
-      if (!urls) {
-        expanded.push(entry)
-        continue
-      }
-      if (urls.length === 0) {
-        expanded.push(entry)
-        continue
-      }
-      for (const expandedUrl of urls) {
-        expanded.push({
-          ...entry,
-          id: crypto.randomUUID(),
-          url: expandedUrl
-        })
-      }
-    } catch (error) {
-      logBackgroundError("youtube playlist expansion", error)
-      expanded.push(entry)
-    }
-  }
-  return expanded
 }
 
 const warmModels = async (
@@ -729,24 +591,6 @@ export default defineBackground({
         const tabId = sender?.tab?.id ?? null
         return { ok: tabId != null, tabId }
       }
-      if (message.type === 'tldw:quick-ingest-expand-playlist') {
-        const url = String(message?.payload?.url || "").trim()
-        if (!url) {
-          return { ok: false, error: "Missing playlist URL" }
-        }
-        try {
-          const urls = await expandYouTubePlaylistUrl(
-            url,
-            YOUTUBE_PLAYLIST_FETCH_TIMEOUT_MS
-          )
-          return { ok: true, urls: urls || [] }
-        } catch (e: any) {
-          return {
-            ok: false,
-            error: e?.message || "Playlist expansion failed"
-          }
-        }
-      }
       if (message.type === 'tldw:quick-ingest-batch') {
         const payload = message.payload || {}
         const entries = Array.isArray(payload.entries) ? payload.entries : []
@@ -769,11 +613,7 @@ export default defineBackground({
           Number(cfg?.requestTimeoutMs) || 0,
           5 * 60 * 1000
         )
-        const expandedEntries = await expandYouTubePlaylistEntries(
-          entries,
-          ingestTimeoutMs
-        )
-        const totalCount = expandedEntries.length + files.length
+        const totalCount = entries.length + files.length
         let processedCount = 0
 
         const assignPath = (obj: any, path: string[], val: any) => {
@@ -950,18 +790,8 @@ export default defineBackground({
           }
         }
 
-        // Update UI with expanded total before processing starts.
-        try {
-          void browser.runtime.sendMessage({
-            type: "tldw:quick-ingest-progress",
-            payload: { processedCount, totalCount }
-          })
-        } catch (error) {
-          logBackgroundError("quick ingest progress message", error)
-        }
-
         // Process URL entries
-        for (const r of expandedEntries) {
+        for (const r of entries) {
           const url = String(r?.url || '').trim()
           if (!url) continue
           const explicitType = r?.type && typeof r.type === 'string' ? r.type : 'auto'
