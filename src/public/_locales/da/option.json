@@ -1560,7 +1560,7 @@
     "message": "Indsætter Markdown‑overskrifter for at gruppere emner uden at fjerne indhold."
   },
   "contentReview_metadataLabel": {
-    "message": "Metadata"
+    "message": "Metadatafelter"
   },
   "contentReview_mediaType": {
     "message": "Medietype"
@@ -1650,7 +1650,7 @@
     "message": "Kladder ryddet."
   },
   "contentReview_originalLabel": {
-    "message": "Original"
+    "message": "Originaltekst"
   },
   "contentReview_editedLabel": {
     "message": "Redigeret"
@@ -1686,7 +1686,7 @@
     "message": "Stil et hurtigt spørgsmål..."
   },
   "quickChatHelper_sendButton": {
-    "message": "Send"
+    "message": "Afsend"
   },
   "quickChatHelper_emptyState": {
     "message": "Start en hurtig sidechat, så din hovedsamtale forbliver ryddelig."
@@ -1986,7 +1986,7 @@
     "message": "Slet kort"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "Grundlæggende"
   },
   "flashcards_modelTypeBasicReverse": {
     "message": "Vendbar"
@@ -2034,7 +2034,7 @@
     "message": "Vis genveje"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "Globalt"
   },
   "flashcards_reverseCard": {
     "message": "omvendt"
@@ -2202,10 +2202,10 @@
     "message": "Temperatur"
   },
   "writingPlayground_topPLabel": {
-    "message": "Top P"
+    "message": "Top P (øverste P)"
   },
   "writingPlayground_topKLabel": {
-    "message": "Top K"
+    "message": "Top K (øverste K)"
   },
   "writingPlayground_maxTokensLabel": {
     "message": "Maks. tokens"
@@ -2217,7 +2217,7 @@
     "message": "Frekvensstraf"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "Frø"
   },
   "writingPlayground_stopStringsLabel": {
     "message": "Stopstrenge"
@@ -2235,7 +2235,7 @@
     "message": "Søg og erstat"
   },
   "writingPlayground_searchToggle": {
-    "message": "Find"
+    "message": "Søg"
   },
   "writingPlayground_searchClose": {
     "message": "Luk"
@@ -2262,7 +2262,7 @@
     "message": "Skeln mellem store/små"
   },
   "writingPlayground_searchRegex": {
-    "message": "Regex"
+    "message": "Regulære udtryk"
   },
   "writingPlayground_searchRegexError": {
     "message": "Ugyldig regex"
@@ -2295,7 +2295,7 @@
     "message": "Generér"
   },
   "writingPlayground_stopAction": {
-    "message": "Stop"
+    "message": "Stands"
   },
   "writingPlayground_undoGeneration": {
     "message": "Fortryd"
@@ -2388,7 +2388,7 @@
     "message": "Import mislykkedes: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
-    "message": "System"
+    "message": "Systemmeddelelse"
   },
   "writingPlayground_templateInsertUser": {
     "message": "Bruger"

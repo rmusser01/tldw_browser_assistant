@@ -1764,16 +1764,16 @@
     "message": "Altro"
   },
   "characters_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Crea un nuovo personaggio+"
   },
   "characters_importCharacter": {
-    "message": "Import Character"
+    "message": "Importa personaggio"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "Scarica JSON per {{name}}"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "Seleziona file"
   },
   "flashcards_cards": {
     "message": "Carte"
@@ -1956,7 +1956,7 @@
     "message": "Elimina la carta"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "Base"
   },
   "flashcards_modelTypeBasicReverse": {
     "message": "Reversibile"
@@ -2172,10 +2172,10 @@
     "message": "Temperatura"
   },
   "writingPlayground_topPLabel": {
-    "message": "Top P"
+    "message": "Top P (P più probabili)"
   },
   "writingPlayground_topKLabel": {
-    "message": "Top K"
+    "message": "Top K (K più probabili)"
   },
   "writingPlayground_maxTokensLabel": {
     "message": "Token massimi"
@@ -2187,7 +2187,7 @@
     "message": "Penalità di frequenza"
   },
   "writingPlayground_seedLabel": {
-    "message": "Seed"
+    "message": "Seme"
   },
   "writingPlayground_stopStringsLabel": {
     "message": "Stringhe di stop"
@@ -2265,7 +2265,7 @@
     "message": "Genera"
   },
   "writingPlayground_stopAction": {
-    "message": "Stop"
+    "message": "Ferma"
   },
   "writingPlayground_undoGeneration": {
     "message": "Annulla"
@@ -2298,7 +2298,7 @@
     "message": "Scorciatoie: Ctrl/Cmd+Invio per generare, Esc per interrompere."
   },
   "writingPlayground_templateLabel": {
-    "message": "Template"
+    "message": "Modello"
   },
   "writingPlayground_templatePlaceholder": {
     "message": "Predefinito del server"
