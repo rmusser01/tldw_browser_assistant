@@ -28,6 +28,7 @@
     "none": "None",
     "fluxKlein": "Flux-Klein",
     "zTurbo": "ZTurbo",
+    "menuLabel": "Default image provider",
     "badge": "Image: {{backend}}",
     "noneBadge": "Image: none",
     "tooltip": "Default image provider for /generate-image."

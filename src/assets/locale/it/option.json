@@ -913,5 +913,10 @@
     "favorites": "Preferiti",
     "system": "Prompt di sistema",
     "quick": "Prompt rapidi"
+  },
+  "moderationPlayground": {
+    "nav": "Playground di moderazione",
+    "title": "Playground di moderazione",
+    "subtitle": "Controlli di sicurezza familiare e barriere di sicurezza del server in un unico posto."
   }
 }

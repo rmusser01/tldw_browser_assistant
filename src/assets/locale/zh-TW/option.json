@@ -913,5 +913,10 @@
     "favorites": "收藏",
     "system": "系統提示詞",
     "quick": "快速提示詞"
+  },
+  "moderationPlayground": {
+    "nav": "審核演練場",
+    "title": "審核演練場",
+    "subtitle": "家庭安全控制與伺服器防護欄集中於一處。"
   }
 }

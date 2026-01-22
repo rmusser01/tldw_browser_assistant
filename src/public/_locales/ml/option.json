@@ -2524,5 +2524,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "മോഡറേഷൻ പ്ലേഗ്രൗണ്ട്"
+  },
+  "moderationPlayground_title": {
+    "message": "മോഡറേഷൻ പ്ലേഗ്രൗണ്ട്"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "കുടുംബ സുരക്ഷ നിയന്ത്രണങ്ങളും സർവർ ഗാർഡ്റെയിലുകളും ഒരിടത്ത്."
   }
 }

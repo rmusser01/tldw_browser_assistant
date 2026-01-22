@@ -2602,5 +2602,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Schlagwörter für dieses Element"
+  },
+  "moderationPlayground_nav": {
+    "message": "Moderations-Playground"
+  },
+  "moderationPlayground_title": {
+    "message": "Moderations-Playground"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Familiensicherheit und Schutzmechanismen des Servers an einem Ort."
   }
 }

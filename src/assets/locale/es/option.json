@@ -924,5 +924,10 @@
     "favorites": "Favoritos",
     "system": "Prompts del sistema",
     "quick": "Prompts rápidos"
+  },
+  "moderationPlayground": {
+    "nav": "Playground de moderación",
+    "title": "Playground de moderación",
+    "subtitle": "Controles de seguridad familiar y protecciones del servidor en un solo lugar."
   }
 }

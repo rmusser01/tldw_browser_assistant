@@ -2581,5 +2581,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "الكلمات المفتاحية لهذا العنصر"
+  },
+  "moderationPlayground_nav": {
+    "message": "ساحة الإشراف على المحتوى"
+  },
+  "moderationPlayground_title": {
+    "message": "ساحة الإشراف على المحتوى"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "ضوابط أمان الأسرة وحواجز حماية الخادم في مكان واحد."
   }
 }

@@ -2569,5 +2569,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "审核演练场"
+  },
+  "moderationPlayground_title": {
+    "message": "审核演练场"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "家庭安全控制与服务器防护栏集中于一处。"
   }
 }

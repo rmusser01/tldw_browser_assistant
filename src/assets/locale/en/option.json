@@ -1231,5 +1231,10 @@
     "favorites": "Favorites",
     "system": "System prompts",
     "quick": "Quick prompts"
+  },
+  "moderationPlayground": {
+    "nav": "Moderation Playground",
+    "title": "Moderation Playground",
+    "subtitle": "Family safety controls and server guardrails in one place."
   }
 }

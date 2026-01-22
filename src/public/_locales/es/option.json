@@ -2602,5 +2602,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Palabras clave para este elemento"
+  },
+  "moderationPlayground_nav": {
+    "message": "Playground de moderación"
+  },
+  "moderationPlayground_title": {
+    "message": "Playground de moderación"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Controles de seguridad familiar y protecciones del servidor en un solo lugar."
   }
 }

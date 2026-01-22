@@ -2614,5 +2614,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "Площадка модерации"
+  },
+  "moderationPlayground_title": {
+    "message": "Площадка модерации"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Семейные настройки безопасности и защитные барьеры сервера в одном месте."
   }
 }

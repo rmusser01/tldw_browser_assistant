@@ -2581,5 +2581,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "Майданчик модерації"
+  },
+  "moderationPlayground_title": {
+    "message": "Майданчик модерації"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Сімейні налаштування безпеки та захисні бар’єри сервера в одному місці."
   }
 }

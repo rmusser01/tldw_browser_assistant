@@ -1579,5 +1579,8 @@
   },
   "composer_slashGenerateImageDescDefault": {
     "message": "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override."
+  },
+  "imageBackend_menuLabel": {
+    "message": "Default image provider"
   }
 }

@@ -924,5 +924,10 @@
     "favorites": "즐겨찾기",
     "system": "시스템 프롬프트",
     "quick": "빠른 프롬프트"
+  },
+  "moderationPlayground": {
+    "nav": "모더레이션 플레이그라운드",
+    "title": "모더레이션 플레이그라운드",
+    "subtitle": "가족 안전 제어와 서버 가드레일을 한곳에서."
   }
 }

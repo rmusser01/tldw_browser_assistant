@@ -2599,5 +2599,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Nøgleord for dette element"
+  },
+  "moderationPlayground_nav": {
+    "message": "Moderations-playground"
+  },
+  "moderationPlayground_title": {
+    "message": "Moderations-playground"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Familiesikkerhed og serverværn på ét sted."
   }
 }

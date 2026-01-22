@@ -924,5 +924,10 @@
     "favorites": "Favoriten",
     "system": "System-Prompts",
     "quick": "Schnell-Prompts"
+  },
+  "moderationPlayground": {
+    "nav": "Moderations-Playground",
+    "title": "Moderations-Playground",
+    "subtitle": "Familiensicherheit und Schutzmechanismen des Servers an einem Ort."
   }
 }

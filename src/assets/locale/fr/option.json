@@ -924,5 +924,10 @@
     "favorites": "Favoris",
     "system": "Prompts système",
     "quick": "Prompts rapides"
+  },
+  "moderationPlayground": {
+    "nav": "Aire de modération",
+    "title": "Aire de modération",
+    "subtitle": "Contrôles de sécurité familiale et garde-fous du serveur au même endroit."
   }
 }

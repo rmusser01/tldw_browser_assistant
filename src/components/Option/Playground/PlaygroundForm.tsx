@@ -19,6 +19,7 @@ import { Image } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
+  ChevronRight,
   EraserIcon,
   BookPlus,
   GitBranch,
@@ -1074,36 +1075,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       })
     : t("playground:imageBackend.noneBadge", "Image: none")
 
-  const imageProviderBadge = (
-    <Dropdown
-      menu={{
-        items: imageBackendMenuItems,
-        activeKey: imageBackendActiveKey
-      }}
-      trigger={["click"]}
-      placement="bottomLeft"
-    >
-      <button
-        type="button"
-        title={t(
-          "playground:imageBackend.tooltip",
-          "Default image provider for /generate-image."
-        )}
-        aria-label={imageBackendBadgeLabel}
-        className={`inline-flex items-center gap-2 rounded-full border border-border text-[11px] font-medium transition hover:bg-surface2 ${
-          isProMode ? "px-2 py-1 text-text" : "h-9 w-9 justify-center text-text-muted"
-        }`}
-      >
-        <ImageIcon className={isProMode ? "h-3 w-3" : "h-4 w-4"} />
-        {isProMode ? (
-          <span className="truncate max-w-[140px]">{imageBackendBadgeLabel}</span>
-        ) : (
-          <span className="sr-only">{imageBackendBadgeLabel}</span>
-        )}
-      </button>
-    </Dropdown>
-  )
-
   const showModelLabel = !isProMode
   const modelUsageBadge = (
     <div className="inline-flex items-center gap-2">
@@ -1151,8 +1122,8 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         items: imageBackendMenuItems,
         activeKey: imageBackendActiveKey
       }}
-      trigger={["click"]}
-      placement="topLeft"
+      trigger={["hover", "click"]}
+      placement="rightTop"
     >
       <button
         type="button"
@@ -1163,8 +1134,20 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         aria-label={imageBackendBadgeLabel}
         className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
       >
-        <span className="truncate">{imageBackendBadgeLabel}</span>
-        <ImageIcon className="h-4 w-4 text-text-subtle" />
+        <span className="flex min-w-0 items-center gap-2">
+          <ImageIcon className="h-4 w-4 text-text-subtle" />
+          <span className="truncate">
+            {t("playground:imageBackend.menuLabel", "Default image provider")}
+          </span>
+        </span>
+        <span className="flex min-w-0 items-center gap-1 text-xs text-text-muted">
+          <span className="truncate max-w-[140px]">
+            {imageBackendDefaultTrimmed
+              ? imageBackendLabel
+              : t("playground:imageBackend.none", "None")}
+          </span>
+          <ChevronRight className="h-3.5 w-3.5" />
+        </span>
       </button>
     </Dropdown>
   )
@@ -4552,7 +4535,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                                 </>
                               )}
                               {modelUsageBadge}
-                              {imageProviderBadge}
                               <Tooltip
                                 title={
                                   t(
@@ -4736,7 +4718,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             </Tooltip>
                           )}
                           {modelUsageBadge}
-                          {imageProviderBadge}
                           <Tooltip
                             title={
                               t(

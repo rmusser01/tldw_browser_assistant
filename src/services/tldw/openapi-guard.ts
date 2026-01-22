@@ -162,6 +162,18 @@ export type ClientPath =
   | "/api/v1/chunking/chunk_text"
   | "/api/v1/chunking/chunk_file"
   | "/api/v1/chunking/capabilities"
+  | "/api/v1/moderation/settings"
+  | "/api/v1/moderation/policy/effective"
+  | "/api/v1/moderation/reload"
+  | "/api/v1/moderation/users"
+  | "/api/v1/moderation/users/{user_id}"
+  | "/api/v1/moderation/blocklist"
+  | "/api/v1/moderation/blocklist/managed"
+  | "/api/v1/moderation/blocklist/append"
+  | "/api/v1/moderation/blocklist/{item_id}"
+  | "/api/v1/moderation/blocklist/lint"
+  | "/api/v1/moderation/test"
+
 
 type ReplacePathParams<Path extends string> =
   Path extends `${infer Head}{${string}}${infer Tail}`

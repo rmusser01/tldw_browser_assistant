@@ -2272,5 +2272,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "کلیدواژه‌ها برای این مورد"
+  },
+  "moderationPlayground_nav": {
+    "message": "محیط آزمایشی اعتدال محتوا"
+  },
+  "moderationPlayground_title": {
+    "message": "محیط آزمایشی اعتدال محتوا"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "کنترل‌های ایمنی خانواده و محافظ‌های سرور در یکجا."
   }
 }

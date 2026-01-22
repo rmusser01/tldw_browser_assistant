@@ -26,6 +26,7 @@ import {
   Trash2,
   Table2,
   Library,
+  ShieldCheck,
   Headphones,
   SquarePen,
   ImageIcon
@@ -158,6 +159,7 @@ const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground
 const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
 const OptionWritingPlayground = lazy(() => import("./option-writing-playground"))
+const OptionModerationPlayground = lazy(() => import("./option-moderation-playground"))
 const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
 const OptionWatchlists = lazy(() => import("./option-watchlists"))
 const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
@@ -543,6 +545,18 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       icon: GitBranch,
       order: 11,
       beta: true
+    }
+  },
+  {
+    kind: "options",
+    path: "/moderation-playground",
+    element: <OptionModerationPlayground />,
+    targets: ALL_TARGETS,
+    nav: {
+      group: "server",
+      labelToken: "option:moderationPlayground.nav",
+      icon: ShieldCheck,
+      order: 10
     }
   },
   {

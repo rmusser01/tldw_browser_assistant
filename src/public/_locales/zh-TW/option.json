@@ -2569,5 +2569,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "審核演練場"
+  },
+  "moderationPlayground_title": {
+    "message": "審核演練場"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "家庭安全控制與伺服器防護欄集中於一處。"
   }
 }

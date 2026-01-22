@@ -2602,5 +2602,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "모더레이션 플레이그라운드"
+  },
+  "moderationPlayground_title": {
+    "message": "모더레이션 플레이그라운드"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "가족 안전 제어와 서버 가드레일을 한곳에서."
   }
 }

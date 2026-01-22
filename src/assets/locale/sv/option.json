@@ -913,5 +913,10 @@
     "favorites": "Favoriter",
     "system": "Systemfrågor",
     "quick": "Snabbfrågor"
+  },
+  "moderationPlayground": {
+    "nav": "Moderations-playground",
+    "title": "Moderations-playground",
+    "subtitle": "Familjesäkerhet och serverns skyddsräcken på ett ställe."
   }
 }

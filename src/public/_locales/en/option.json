@@ -3505,5 +3505,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "Moderation Playground"
+  },
+  "moderationPlayground_title": {
+    "message": "Moderation Playground"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Family safety controls and server guardrails in one place."
   }
 }

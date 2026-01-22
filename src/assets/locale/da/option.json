@@ -923,5 +923,10 @@
     "favorites": "Favoritter",
     "system": "Systemprompts",
     "quick": "Hurtige prompts"
+  },
+  "moderationPlayground": {
+    "nav": "Moderations-playground",
+    "title": "Moderations-playground",
+    "subtitle": "Familiesikkerhed og serverværn på ét sted."
   }
 }

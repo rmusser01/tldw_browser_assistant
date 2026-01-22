@@ -2569,5 +2569,14 @@
   },
   "quickIngest_keywordsAria": {
     "message": "Keywords for this item"
+  },
+  "moderationPlayground_nav": {
+    "message": "Modererings-playground"
+  },
+  "moderationPlayground_title": {
+    "message": "Modererings-playground"
+  },
+  "moderationPlayground_subtitle": {
+    "message": "Familiesikkerhet og serverens sikkerhetsrekkverk på ett sted."
   }
 }

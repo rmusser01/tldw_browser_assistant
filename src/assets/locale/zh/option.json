@@ -913,5 +913,10 @@
     "favorites": "收藏",
     "system": "系统提示词",
     "quick": "快捷提示词"
+  },
+  "moderationPlayground": {
+    "nav": "审核演练场",
+    "title": "审核演练场",
+    "subtitle": "家庭安全控制与服务器防护栏集中于一处。"
   }
 }

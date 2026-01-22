@@ -913,5 +913,10 @@
     "favorites": "Favoritter",
     "system": "Systemprompter",
     "quick": "Hurtigprompter"
+  },
+  "moderationPlayground": {
+    "nav": "Modererings-playground",
+    "title": "Modererings-playground",
+    "subtitle": "Familiesikkerhet og serverens sikkerhetsrekkverk på ett sted."
   }
 }
