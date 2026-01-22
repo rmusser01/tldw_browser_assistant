@@ -852,10 +852,10 @@
     "message": "Personalizado"
   },
   "contextNarrateSelection": {
-    "message": "Narrate selection"
+    "message": "Narrar selección"
   },
   "contextNarrateSelectionNoSelection": {
-    "message": "Select text first to narrate."
+    "message": "Selecciona texto primero para narrar."
   },
   "contextSendToTldw": {
     "message": "Enviar a tldw_server"

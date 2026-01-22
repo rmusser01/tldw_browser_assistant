@@ -32,11 +32,16 @@ export interface TldwModel {
   name: string
   provider: string
   description?: string
-  capabilities?: string[]
+  capabilities?: string[] | Record<string, unknown>
   context_length?: number
   vision?: boolean
   function_calling?: boolean
   json_output?: boolean
+  type?: string
+  modalities?: {
+    input?: string[]
+    output?: string[]
+  }
 }
 
 export type ChatCompletionContentPartText = {
@@ -165,6 +170,47 @@ type PromptPayload = {
   keywords?: string[]
   content?: string
   is_system?: boolean
+}
+
+export type FileArtifactExport = {
+  status?: "none" | "ready" | "pending"
+  format?: "ics" | "md" | "html" | "xlsx" | "csv" | "json" | "png" | "jpg" | "webp"
+  url?: string | null
+  content_type?: string | null
+  bytes?: number | null
+  job_id?: string | null
+  content_b64?: string | null
+  expires_at?: string | null
+}
+
+export type FileArtifact = {
+  file_id: number
+  file_type: string
+  title: string
+  structured?: Record<string, unknown>
+  export?: FileArtifactExport
+  created_at?: string
+  updated_at?: string
+}
+
+export type FileCreateResponse = {
+  artifact: FileArtifact
+}
+
+export type ImageArtifactRequest = {
+  backend: string
+  prompt: string
+  negativePrompt?: string
+  width?: number
+  height?: number
+  steps?: number
+  cfgScale?: number
+  seed?: number
+  sampler?: string
+  model?: string
+  extraParams?: Record<string, unknown>
+  format?: "png" | "jpg" | "webp"
+  title?: string
 }
 
 export interface TldwEmbeddingModel {
@@ -622,7 +668,9 @@ export class TldwApiClient {
         ? m.capabilities
         : Array.isArray(m.features)
           ? m.features
-          : undefined,
+          : typeof m.capabilities === "object"
+            ? m.capabilities
+            : undefined,
       context_length:
         typeof m.context_length === "number"
           ? m.context_length
@@ -641,7 +689,34 @@ export class TldwApiClient {
       ),
       json_output: Boolean(
         (m.capabilities && m.capabilities.json_mode) ?? m.json_output
-      )
+      ),
+      type: typeof m.type === "string" ? m.type : undefined,
+      modalities:
+        m.modalities && typeof m.modalities === "object"
+          ? {
+              input: Array.isArray(m.modalities.input)
+                ? m.modalities.input.map((v: any) => String(v))
+                : undefined,
+              output: Array.isArray(m.modalities.output)
+                ? m.modalities.output.map((v: any) => String(v))
+                : undefined
+            }
+          : {
+              input: Array.isArray(m.input_modality)
+                ? m.input_modality.map((v: any) => String(v))
+                : Array.isArray(m.input_modalities)
+                  ? m.input_modalities.map((v: any) => String(v))
+                  : typeof m.input_modality === "string"
+                    ? [String(m.input_modality)]
+                    : undefined,
+              output: Array.isArray(m.output_modality)
+                ? m.output_modality.map((v: any) => String(v))
+                : Array.isArray(m.output_modalities)
+                  ? m.output_modalities.map((v: any) => String(v))
+                  : typeof m.output_modality === "string"
+                    ? [String(m.output_modality)]
+                    : undefined
+            }
     }))
   }
 
@@ -2148,6 +2223,23 @@ export class TldwApiClient {
     if (options?.model) body.model = options.model
     if (options?.responseFormat) body.response_format = options.responseFormat
     if (options?.speed != null) body.speed = options.speed
+    const accept = (() => {
+      switch ((options?.responseFormat || "").trim().toLowerCase()) {
+        case "wav":
+          return "audio/wav"
+        case "opus":
+          return "audio/opus"
+        case "aac":
+          return "audio/aac"
+        case "flac":
+          return "audio/flac"
+        case "pcm":
+          return "audio/L16; rate=24000; channels=1"
+        case "mp3":
+        default:
+          return "audio/mpeg"
+      }
+    })()
     const response = await this.request<{
       ok: boolean
       status: number
@@ -2156,7 +2248,7 @@ export class TldwApiClient {
     }>({
       path: "/api/v1/audio/speech",
       method: "POST",
-      headers: { Accept: "audio/mpeg" },
+      headers: { Accept: accept },
       body,
       responseType: "arrayBuffer",
       returnResponse: true
@@ -2332,6 +2424,12 @@ export class TldwApiClient {
         return undefined
       }
     }
+    const bytesToArrayBuffer = (bytes: Uint8Array): ArrayBuffer => {
+      if (bytes.buffer instanceof ArrayBuffer) {
+        return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)
+      }
+      return new Uint8Array(bytes).buffer as ArrayBuffer
+    }
     const requestWithAuth = async (
       path: PathOrUrl,
       options?: {
@@ -2365,7 +2463,7 @@ export class TldwApiClient {
       if (response.data instanceof ArrayBuffer) {
         body = response.data
       } else if (response.data instanceof Uint8Array) {
-        body = response.data
+        body = bytesToArrayBuffer(response.data)
       } else if (response.data instanceof Blob) {
         body = response.data
       } else if (typeof response.data === "string") {
@@ -2475,6 +2573,48 @@ export class TldwApiClient {
     }
 
     return await readBlobResponse(res)
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // File Artifacts
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  async createImageArtifact(request: ImageArtifactRequest): Promise<FileCreateResponse> {
+    const payload: Record<string, unknown> = {
+      backend: request.backend,
+      prompt: request.prompt
+    }
+    if (request.negativePrompt) payload.negative_prompt = request.negativePrompt
+    if (typeof request.width === "number") payload.width = request.width
+    if (typeof request.height === "number") payload.height = request.height
+    if (typeof request.steps === "number") payload.steps = request.steps
+    if (typeof request.cfgScale === "number") payload.cfg_scale = request.cfgScale
+    if (typeof request.seed === "number") payload.seed = request.seed
+    if (request.sampler) payload.sampler = request.sampler
+    if (request.model) payload.model = request.model
+    if (request.extraParams) payload.extra_params = request.extraParams
+
+    const body: Record<string, unknown> = {
+      file_type: "image",
+      payload,
+      export: {
+        format: request.format || "png",
+        mode: "inline",
+        async_mode: "sync"
+      },
+      options: {
+        persist: true
+      }
+    }
+    if (request.title) {
+      body.title = request.title
+    }
+
+    return await this.request<FileCreateResponse>({
+      path: "/api/v1/files/create",
+      method: "POST",
+      body
+    })
   }
 
   // ─────────────────────────────────────────────────────────────────────────────

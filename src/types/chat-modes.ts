@@ -25,6 +25,7 @@ export interface SaveMessageData extends SaveMessageBase {
   message: string
   fullText: string
   source: unknown[]
+  assistantImages?: string[]
   generationInfo?: Record<string, unknown>
   reasoning_time_taken: number
   prompt_content?: string

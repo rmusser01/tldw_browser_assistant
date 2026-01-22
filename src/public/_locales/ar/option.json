@@ -2568,18 +2568,18 @@
     "message": "فشل تصدير الجلسة: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "تمت المعالجة"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "تمت الإضافة"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "تم التجاهل"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "الكلمات المفتاحية (مفصولة بفواصل)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "الكلمات المفتاحية لهذا العنصر"
   }
 }

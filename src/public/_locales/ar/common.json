@@ -852,10 +852,10 @@
     "message": "مخصص"
   },
   "contextNarrateSelection": {
-    "message": "Narrate selection"
+    "message": "سرد التحديد"
   },
   "contextNarrateSelectionNoSelection": {
-    "message": "Select text first to narrate."
+    "message": "حدد نصًا أولاً للسرد."
   },
   "contextSendToTldw": {
     "message": "إرسال إلى tldw_server"

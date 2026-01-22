@@ -35,7 +35,7 @@
     "indicatorAria": "Midlertidig chat"
   },
   "header": {
-    "ingest": "Ingestion",
+    "ingest": "Indlæsning",
     "saveCurrent": "Gem den aktuelle side på serveren",
     "processLocal": "Behandl den aktuelle side lokalt",
     "viewProcessed": "Vis behandlede",
@@ -45,7 +45,7 @@
     "showDebug": "Vis stream-debug",
     "hideDebug": "Skjul stream-debug",
     "moreOptionsAria": "Flere muligheder",
-    "moreOptionsTitle": "Ingestion og mere",
+    "moreOptionsTitle": "Indlæsning og mere",
     "openWebuiAria": "Åbn Web UI",
     "newChatAria": "Ny chat",
     "tempChatAria": "Skift midlertidig chat",
@@ -58,9 +58,9 @@
     "modePlayground": "Samtale",
     "modeReview": "Gennemgang",
     "modeMedia": "Medier",
-    "modeKnowledge": "Knowledge QA-område",
+    "modeKnowledge": "Viden-QA-område",
     "modeNotes": "Noter",
-    "modePrompts": "Prompts-oversigt",
+    "modePrompts": "Prompt-oversigt",
     "modeFlashcards": "Huskekort"
   },
   "controlRow": {

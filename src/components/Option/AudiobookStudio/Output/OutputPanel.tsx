@@ -111,11 +111,20 @@ export const OutputPanel: React.FC = () => {
   const handleDownloadCombined = useCallback(() => {
     if (!combinedAudioBlob) return
 
-    const extension = combinedAudioBlob.type.includes("wav")
+    const blobType = combinedAudioBlob.type.toLowerCase()
+    const extension = blobType.includes("wav")
       ? "wav"
-      : combinedAudioBlob.type.includes("ogg")
-        ? "ogg"
-        : "mp3"
+      : blobType.includes("opus")
+        ? "opus"
+        : blobType.includes("aac")
+          ? "aac"
+          : blobType.includes("flac")
+            ? "flac"
+            : blobType.includes("pcm") || blobType.includes("l16")
+              ? "pcm"
+              : blobType.includes("ogg")
+                ? "ogg"
+                : "mp3"
     const filename = `${projectTitle.replace(/[^a-zA-Z0-9]/g, "_")}_complete.${extension}`
     downloadBlob(combinedAudioBlob, filename)
   }, [combinedAudioBlob, projectTitle])

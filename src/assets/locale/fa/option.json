@@ -408,7 +408,7 @@
     "or": "یا",
     "remove": "حذف",
     "add": "افزودن URL",
-    "addFiles": "Browse files",
+    "addFiles": "انتخاب فایل‌ها",
     "commonOptions": "گزینه‌های درون‌ریزی",
     "audioOptions": "گزینه‌های صوتی",
     "audioLanguage": "زبان (مثلاً en)",
@@ -434,11 +434,11 @@
     "specReloadedToast": "مشخصات پیشرفته از سرور دوباره بارگذاری شد",
     "specReloadedToastDiff": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})",
     "specFallbackWarning": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید.",
-    "resultStatusProcessed": "Processed",
-    "resultStatusIngested": "Ingested",
-    "resultStatusSkipped": "Skipped",
-    "keywordsPlaceholder": "Keywords (comma-separated)",
-    "keywordsAria": "Keywords for this item"
+    "resultStatusProcessed": "پردازش شده",
+    "resultStatusIngested": "واردسازی شده",
+    "resultStatusSkipped": "رد شده",
+    "keywordsPlaceholder": "کلیدواژه‌ها (جداشده با ویرگول)",
+    "keywordsAria": "کلیدواژه‌ها برای این مورد"
   },
   "notesSearch": {
     "placeholder": "جستجوی عنوان‌ها و محتوا",

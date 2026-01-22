@@ -1186,5 +1186,17 @@
   },
   "documentCard_removeAria": {
     "message": "Remove {{name}}"
+  },
+  "error_imageArtifactsUnsupportedSummary": {
+    "message": "Your tldw server doesn't support image generation yet."
+  },
+  "error_imageArtifactsUnsupportedHint": {
+    "message": "Update to a tldw_server2 build with file artifacts enabled, then try again."
+  },
+  "error_imageBackendUnavailableSummary": {
+    "message": "Image generation isn't available on your server."
+  },
+  "error_imageBackendUnavailableHint": {
+    "message": "Enable an image backend (e.g., Flux-Klein or ZTurbo) in your tldw server config, then try again."
   }
 }

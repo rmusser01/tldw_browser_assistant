@@ -852,10 +852,10 @@
     "message": "Tilpasset"
   },
   "contextNarrateSelection": {
-    "message": "Narrate selection"
+    "message": "Læs markeringen op"
   },
   "contextNarrateSelectionNoSelection": {
-    "message": "Select text first to narrate."
+    "message": "Vælg tekst først for at få den læst op."
   },
   "contextSendToTldw": {
     "message": "Send til tldw_server"

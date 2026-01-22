@@ -464,8 +464,11 @@ export const STEP_REGISTRY: Record<WorkflowStepType, StepTypeMetadata> = {
         default: "mp3",
         options: [
           { value: "mp3", label: "MP3" },
+          { value: "opus", label: "OPUS" },
+          { value: "aac", label: "AAC" },
+          { value: "flac", label: "FLAC" },
           { value: "wav", label: "WAV" },
-          { value: "ogg", label: "OGG" }
+          { value: "pcm", label: "PCM (raw)" }
         ]
       }
     ]

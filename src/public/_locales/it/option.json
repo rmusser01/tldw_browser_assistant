@@ -1764,7 +1764,7 @@
     "message": "Altro"
   },
   "characters_createNewCharacter": {
-    "message": "Crea un nuovo personaggio+"
+    "message": "Crea un nuovo personaggio"
   },
   "characters_importCharacter": {
     "message": "Importa personaggio"
@@ -2556,18 +2556,18 @@
     "message": "Esportazione della sessione non riuscita: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "Processato"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "Ingestito"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "Saltato"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "Parole chiave (separate da virgola)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "Parole chiave per questo elemento"
   }
 }

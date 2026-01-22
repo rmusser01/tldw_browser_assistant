@@ -746,11 +746,11 @@
     "specReloadedToast": "Erweiterte Spezifikation vom Server neu geladen",
     "specReloadedToastDiff": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})",
     "specFallbackWarning": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen.",
-    "resultStatusProcessed": "Processed",
-    "resultStatusIngested": "Ingested",
-    "resultStatusSkipped": "Skipped",
-    "keywordsPlaceholder": "Keywords (comma-separated)",
-    "keywordsAria": "Keywords for this item"
+    "resultStatusProcessed": "Verarbeitet",
+    "resultStatusIngested": "Ingestiert",
+    "resultStatusSkipped": "Übersprungen",
+    "keywordsPlaceholder": "Schlagwörter (durch Kommas getrennt)",
+    "keywordsAria": "Schlagwörter für dieses Element"
   },
   "notesSearch": {
     "placeholder": "Titel und Inhalte durchsuchen",

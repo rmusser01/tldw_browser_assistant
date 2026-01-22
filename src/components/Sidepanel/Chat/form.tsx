@@ -108,6 +108,7 @@ export const SidepanelForm = ({
     "chatWithWebsiteEmbedding",
     false
   )
+  const [imageBackendDefault] = useStorage("imageBackendDefault", "")
   const [storedCharacter] = useSelectedCharacter<Character | null>(null)
   const [contextFileMaxSizeMb] = useSetting(CONTEXT_FILE_SIZE_MB_SETTING)
   const maxContextFileSizeBytes = React.useMemo(
@@ -117,6 +118,10 @@ export const SidepanelForm = ({
   const maxContextFileSizeLabel = React.useMemo(
     () => formatFileSize(maxContextFileSizeBytes),
     [maxContextFileSizeBytes]
+  )
+  const imageBackendDefaultTrimmed = React.useMemo(
+    () => (imageBackendDefault || "").trim(),
+    [imageBackendDefault]
   )
   // STT settings consolidated into a single hook
   const sttSettings = useSttSettings()
@@ -905,19 +910,105 @@ export const SidepanelForm = ({
     [ragPinnedResults]
   )
 
+  const parseImageSlashCommand = React.useCallback(
+    (text: string) => {
+      const trimmed = text.trim()
+      if (!trimmed.toLowerCase().startsWith("/generate-image")) return null
+      const remainder = trimmed.slice("/generate-image".length)
+      const colonMatch = remainder.match(
+        /^\s*:\s*([^\s]+)(?:\s+([\s\S]*))?$/i
+      )
+      if (colonMatch) {
+        const provider = colonMatch[1]?.trim() || ""
+        const prompt = (colonMatch[2] || "").trim()
+        const missingProvider = provider.length === 0
+        return {
+          provider,
+          prompt,
+          invalid: missingProvider,
+          missingProvider
+        }
+      }
+
+      const prompt = remainder.trim()
+      if (imageBackendDefaultTrimmed) {
+        return {
+          provider: imageBackendDefaultTrimmed,
+          prompt,
+          invalid: false,
+          missingProvider: false
+        }
+      }
+
+      return {
+        provider: "",
+        prompt,
+        invalid: true,
+        missingProvider: true
+      }
+    },
+    [imageBackendDefaultTrimmed]
+  )
+
+  const resolveSubmissionIntent = React.useCallback(
+    (rawMessage: string, options?: { ignorePinnedResults?: boolean }) => {
+      const imageCommand = parseImageSlashCommand(rawMessage)
+      if (imageCommand) {
+        return {
+          handled: true,
+          message: imageCommand.prompt,
+          imageBackendOverride: imageCommand.provider,
+          isImageCommand: true,
+          invalidImageCommand: imageCommand.invalid,
+          imageCommandMissingProvider: Boolean(imageCommand.missingProvider),
+          combinedMessage: imageCommand.prompt
+        }
+      }
+      const slashResult = applySlashCommand(rawMessage)
+      if (slashResult.handled) {
+        form.setFieldValue("message", slashResult.message)
+      }
+      const nextMessage = slashResult.handled
+        ? slashResult.message
+        : rawMessage
+      const combinedMessage = buildPinnedMessage(nextMessage, options)
+      return {
+        handled: slashResult.handled,
+        message: nextMessage,
+        imageBackendOverride: undefined,
+        isImageCommand: false,
+        invalidImageCommand: false,
+        imageCommandMissingProvider: false,
+        combinedMessage
+      }
+    },
+    [applySlashCommand, buildPinnedMessage, form, parseImageSlashCommand]
+  )
+
   async function sendCurrentFormMessage(
     rawMessage: string,
     image: string,
     options?: { ignorePinnedResults?: boolean }
   ): Promise<void> {
-    const slashResult = applySlashCommand(rawMessage)
-    if (slashResult.handled) {
-      form.setFieldValue("message", slashResult.message)
+    const intent = resolveSubmissionIntent(rawMessage, options)
+    if (intent.invalidImageCommand) {
+      notification.error({
+        message: t("error", { defaultValue: "Error" }),
+        description: intent.imageCommandMissingProvider
+          ? t(
+              "imageCommand.missingProvider",
+              "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>."
+            )
+          : t(
+              "imageCommand.invalidUsage",
+              "Use /generate-image:<provider> <prompt>."
+            )
+      })
+      return
     }
-    const nextMessage = slashResult.handled ? slashResult.message : rawMessage
-    const withPins = buildPinnedMessage(nextMessage, options)
-    const trimmed = withPins.trim()
+    const trimmed = intent.combinedMessage.trim()
     if (
+      !intent.isImageCommand &&
       trimmed.length === 0 &&
       image.length === 0 &&
       selectedDocuments.length === 0 &&
@@ -925,28 +1016,47 @@ export const SidepanelForm = ({
     ) {
       return
     }
-    await stopListening()
-    if (!selectedModel || selectedModel.length === 0) {
-      form.setFieldError("message", t("formError.noModel"))
+    if (intent.isImageCommand && trimmed.length === 0) {
+      notification.error({
+        message: t("error", { defaultValue: "Error" }),
+        description: t(
+          "imageCommand.missingPrompt",
+          "Image prompt is required."
+        )
+      })
       return
     }
-    const hasEmbedding = await ensureEmbeddingModelAvailable()
-    if (!hasEmbedding) {
-      return
+    await stopListening()
+    if (!intent.isImageCommand) {
+      if (!selectedModel || selectedModel.length === 0) {
+        form.setFieldError("message", t("formError.noModel"))
+        return
+      }
+    }
+    if (!intent.isImageCommand) {
+      const hasEmbedding = await ensureEmbeddingModelAvailable()
+      if (!hasEmbedding) {
+        return
+      }
     }
     form.reset()
     textAreaFocus()
     await sendMessage({
-      image,
+      image: intent.isImageCommand ? "" : image,
       message: trimmed,
-      docs: selectedDocuments.map((doc) => ({
-        type: "tab",
-        tabId: doc.id,
-        title: doc.title,
-        url: doc.url,
-        favIconUrl: doc.favIconUrl
-      })),
-      uploadedFiles: contextFiles
+      docs: intent.isImageCommand
+        ? []
+        : selectedDocuments.map((doc) => ({
+            type: "tab",
+            tabId: doc.id,
+            title: doc.title,
+            url: doc.url,
+            favIconUrl: doc.favIconUrl
+          })),
+      uploadedFiles: intent.isImageCommand ? [] : contextFiles,
+      imageBackendOverride: intent.isImageCommand
+        ? intent.imageBackendOverride
+        : undefined
     })
     clearSelectedDocuments()
     setContextFiles([])

@@ -2589,18 +2589,18 @@
     "message": "Sitzung konnte nicht exportiert werden: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "Verarbeitet"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "Ingestiert"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "Übersprungen"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "Schlagwörter (durch Kommas getrennt)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "Schlagwörter für dieses Element"
   }
 }

@@ -8,6 +8,13 @@ import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getSearchSettings } from "@/services/search"
+import { resolveImageBackendCandidates } from "@/utils/image-backends"
+import {
+  getImageBackendConfigs,
+  normalizeImageBackendConfig,
+  parseExtraParams,
+  resolveImageBackendConfig
+} from "@/services/image-generation"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import {
   runChatPipeline,
@@ -26,6 +33,7 @@ type NormalChatModeParams = {
   useOCR: boolean
   selectedSystemPrompt: string
   currentChatModelSettings: any
+  imageBackendOverride?: string
   toolChoice?: ToolChoice
   setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
   saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
@@ -50,6 +58,20 @@ type NormalChatModeParams = {
   assistantParentMessageId?: string | null
   historyForModel?: ChatHistory
   regenerateFromMessage?: Message
+}
+
+const isBackendUnavailableError = (error: unknown): boolean => {
+  if (!error) return false
+  const message = error instanceof Error ? error.message : String(error)
+  return message.toLowerCase().includes("image_backend_unavailable")
+}
+
+const normalizeImageBackendOverride = (
+  value?: string | null
+): string | null => {
+  if (!value) return null
+  const trimmed = value.trim()
+  return trimmed || null
 }
 
 const normalChatModeDefinition: ChatModeDefinition<NormalChatModeParams> = {
@@ -91,6 +113,82 @@ const normalChatModeDefinition: ChatModeDefinition<NormalChatModeParams> = {
     parentMessageId: ctx.resolvedAssistantParentMessageId ?? null
   }),
   preflight: async (ctx) => {
+    const overrideBackend = normalizeImageBackendOverride(
+      ctx.imageBackendOverride
+    )
+    const overrideCandidates = overrideBackend
+      ? [overrideBackend, ...resolveImageBackendCandidates(overrideBackend)]
+      : []
+    let imageBackendCandidates =
+      overrideCandidates.length > 0
+        ? Array.from(new Set(overrideCandidates))
+        : resolveImageBackendCandidates(
+            ctx.currentChatModelSettings?.apiProvider,
+            ctx.selectedModel
+          )
+    if (imageBackendCandidates.length > 0) {
+      const prompt = ctx.message.trim()
+      ctx.setIsProcessing(true)
+      let lastError: unknown = null
+
+      const backendConfigs = await getImageBackendConfigs().catch(() => ({}))
+
+      await tldwClient.initialize()
+      for (const backend of imageBackendCandidates) {
+        try {
+          if (!prompt) {
+            throw new Error("Image prompt is required.")
+          }
+          const rawConfig = resolveImageBackendConfig(backend, backendConfigs)
+          const config = normalizeImageBackendConfig(rawConfig)
+          const extraParams = parseExtraParams(config.extraParams)
+          const format = config.format || "png"
+          const response = await tldwClient.createImageArtifact({
+            backend,
+            prompt,
+            format,
+            negativePrompt: config.negativePrompt,
+            width: config.width,
+            height: config.height,
+            steps: config.steps,
+            cfgScale: config.cfgScale,
+            seed: config.seed,
+            sampler: config.sampler,
+            model: config.model,
+            extraParams
+          })
+          const exportInfo = response?.artifact?.export
+          const contentB64 = exportInfo?.content_b64
+          const contentType = exportInfo?.content_type || "image/png"
+          if (!contentB64) {
+            throw new Error("Image generation returned no data.")
+          }
+          const imageUrl = `data:${contentType};base64,${contentB64}`
+          return {
+            handled: true,
+            fullText: "",
+            images: [imageUrl],
+            generationInfo: {
+              file_id: response?.artifact?.file_id,
+              content_type: contentType,
+              bytes: exportInfo?.bytes,
+              format: exportInfo?.format
+            }
+          }
+        } catch (error) {
+          if (isBackendUnavailableError(error)) {
+            lastError = error
+            continue
+          }
+          throw error
+        }
+      }
+
+      if (lastError) {
+        throw lastError
+      }
+      return null
+    }
     if (!ctx.webSearch) {
       return null
     }

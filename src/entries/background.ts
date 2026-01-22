@@ -440,6 +440,12 @@ export default defineBackground({
       const { path, method = 'POST', fields = {}, file, fileFieldName } = payload || {}
       const cfg = await storage.get<any>('tldwConfig')
       const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
+      const toArrayBuffer = (bytes: Uint8Array): ArrayBuffer => {
+        if (bytes.buffer instanceof ArrayBuffer) {
+          return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)
+        }
+        return new Uint8Array(bytes).buffer as ArrayBuffer
+      }
       if (!cfg?.serverUrl && !isAbsolute) {
         return { ok: false, status: 400, error: 'tldw server not configured' }
       }
@@ -460,7 +466,7 @@ export default defineBackground({
           if (!bytes || bytes.byteLength === 0) {
             return { ok: false, status: 400, error: 'File data missing or unreadable. Please re-select the file and try again.' }
           }
-          const blob = new Blob([bytes], {
+          const blob = new Blob([toArrayBuffer(bytes)], {
             type: file.type || 'application/octet-stream'
           })
           const filename = file.name || 'file'

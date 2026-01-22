@@ -36,6 +36,16 @@ export const useAudiobookGeneration = () => {
     (s) => s.setGenerationQueue
   )
   const getGenerationQueue = () => useAudiobookStudioStore.getState().generationQueue
+  const resolveAudioExtension = (type: string) => {
+    const normalized = type.toLowerCase()
+    if (normalized.includes("wav")) return "wav"
+    if (normalized.includes("opus")) return "opus"
+    if (normalized.includes("aac")) return "aac"
+    if (normalized.includes("flac")) return "flac"
+    if (normalized.includes("pcm") || normalized.includes("l16")) return "pcm"
+    if (normalized.includes("ogg")) return "ogg"
+    return "mp3"
+  }
 
   const generateChapterAudio = useCallback(
     async ({
@@ -271,11 +281,7 @@ export const useAudiobookGeneration = () => {
         return
       }
 
-      const extension = chapter.audioBlob.type.includes("wav")
-        ? "wav"
-        : chapter.audioBlob.type.includes("ogg")
-          ? "ogg"
-          : "mp3"
+      const extension = resolveAudioExtension(chapter.audioBlob.type)
       const name =
         filename ||
         `${chapter.title.replace(/[^a-zA-Z0-9]/g, "_")}.${extension}`
@@ -310,11 +316,7 @@ export const useAudiobookGeneration = () => {
       const prefix = projectTitle?.replace(/[^a-zA-Z0-9]/g, "_") || "audiobook"
 
       completedChapters.forEach((chapter, idx) => {
-        const extension = chapter.audioBlob?.type.includes("wav")
-          ? "wav"
-          : chapter.audioBlob?.type.includes("ogg")
-            ? "ogg"
-            : "mp3"
+        const extension = resolveAudioExtension(chapter.audioBlob?.type || "")
         const name = `${prefix}_${String(idx + 1).padStart(2, "0")}_${chapter.title.replace(/[^a-zA-Z0-9]/g, "_")}.${extension}`
         downloadChapter(chapter, name)
       })

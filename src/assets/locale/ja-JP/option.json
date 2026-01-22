@@ -703,7 +703,7 @@
     "or": "または",
     "remove": "削除",
     "add": "URL を追加",
-    "addFiles": "Browse files",
+    "addFiles": "ファイルを選択",
     "commonOptions": "取り込みオプション",
     "audioOptions": "音声オプション",
     "audioLanguage": "言語（例: en）",
@@ -746,11 +746,11 @@
     "reviewDraftsStoreWithoutReview": "レビューせずに保存",
     "reviewNavigationFailed": "コンテンツレビューを開けませんでした。もう一度お試しください。",
     "reviewNavigationRetry": "コンテンツレビューを再度開く",
-    "resultStatusProcessed": "Processed",
-    "resultStatusIngested": "Ingested",
-    "resultStatusSkipped": "Skipped",
-    "keywordsPlaceholder": "Keywords (comma-separated)",
-    "keywordsAria": "Keywords for this item"
+    "resultStatusProcessed": "処理済み",
+    "resultStatusIngested": "取り込み済み",
+    "resultStatusSkipped": "スキップ",
+    "keywordsPlaceholder": "キーワード（カンマ区切り）",
+    "keywordsAria": "この項目のキーワード"
   },
   "notesSearch": {
     "placeholder": "タイトルと内容を検索",

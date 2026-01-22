@@ -15,21 +15,33 @@ import {
 
 const DEFAULT_TTS_PROVIDER: TtsProviderValue = "browser"
 
-export const SUPPORTED_TLDW_TTS_FORMATS = ["mp3", "ogg", "wav"] as const
+export const SUPPORTED_TLDW_TTS_FORMATS = [
+  "mp3",
+  "opus",
+  "aac",
+  "flac",
+  "wav",
+  "pcm"
+] as const
 type SupportedTldwTtsFormat = (typeof SUPPORTED_TLDW_TTS_FORMATS)[number]
 const SUPPORTED_TLDW_TTS_FORMAT_SET = new Set(SUPPORTED_TLDW_TTS_FORMATS)
+
+const normalizeTldwTtsFormatInput = (format?: string | null): string => {
+  const normalized = (format || "").trim().toLowerCase()
+  return normalized === "ogg" ? "opus" : normalized
+}
 
 export const isSupportedTldwTtsResponseFormat = (
   format?: string | null
 ): format is SupportedTldwTtsFormat => {
-  const normalized = (format || "").trim().toLowerCase()
+  const normalized = normalizeTldwTtsFormatInput(format)
   return SUPPORTED_TLDW_TTS_FORMAT_SET.has(normalized as SupportedTldwTtsFormat)
 }
 
 export const normalizeTldwTtsResponseFormat = (
   format?: string | null
 ): SupportedTldwTtsFormat => {
-  const normalized = (format || "").trim().toLowerCase()
+  const normalized = normalizeTldwTtsFormatInput(format)
   return SUPPORTED_TLDW_TTS_FORMAT_SET.has(normalized as SupportedTldwTtsFormat)
     ? (normalized as SupportedTldwTtsFormat)
     : "mp3"

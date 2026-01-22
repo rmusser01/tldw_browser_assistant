@@ -17,6 +17,7 @@
   "chatSettingsNav": "Chat",
   "quickIngestSettingsNav": "Quick Ingest",
   "speechSettingsNav": "Speech",
+  "imageGenerationSettingsNav": "Image Generation",
   "admin": {
     "adminGuardForbiddenTitle": "Admin access required for these controls",
     "adminGuardNotFoundTitle": "Admin APIs are not available on this server",
@@ -165,6 +166,42 @@
   "speechSettings": {
     "title": "Speech settings",
     "subtitle": "Manage Speech-to-Text and Text-to-Speech defaults for dictation and playback."
+  },
+  "imageGenerationSettings": {
+    "title": "Image generation",
+    "subtitle": "Configure image generation defaults for each backend and set your slash-command default.",
+    "noneOption": "None",
+    "defaultBackendLabel": "Default image backend",
+    "defaultBackendHint": "Used when you run /generate-image without a provider override.",
+    "defaultBackendPlaceholder": "Select a backend",
+    "backendSectionTitle": "Backend presets",
+    "backendSectionHint": "These settings are sent with your prompt. Leave fields blank to use server defaults.",
+    "noBackends": "No image backends detected from the server yet.",
+    "formatLabel": "Output format",
+    "formatHint": "PNG is safest for most models.",
+    "format": {
+      "png": "PNG",
+      "jpg": "JPEG",
+      "webp": "WebP"
+    },
+    "negativePromptLabel": "Negative prompt",
+    "negativePromptHint": "Optional text to steer the model away from elements.",
+    "negativePromptPlaceholder": "e.g., blurry, low-res",
+    "widthLabel": "Width",
+    "heightLabel": "Height",
+    "stepsLabel": "Steps",
+    "cfgScaleLabel": "CFG scale",
+    "seedLabel": "Seed",
+    "seedHint": "Set to -1 or leave blank for random.",
+    "samplerLabel": "Sampler",
+    "samplerPlaceholder": "e.g., euler_a",
+    "modelLabel": "Model override",
+    "modelHint": "Optional model identifier/path supported by the backend.",
+    "modelPlaceholder": "Leave blank to use server default",
+    "extraParamsLabel": "Extra params (JSON)",
+    "extraParamsHint": "Optional backend-specific parameters. Invalid JSON will be ignored; keys must be allowlisted on the server.",
+    "resetBackend": "Reset backend defaults",
+    "resetBackendHint": "Clear all saved defaults for this backend."
   },
   "quickIngestSettings": {
     "title": "Quick Ingest settings",

@@ -50,6 +50,13 @@ export const deriveRequestTimeout = (
         ? Number(cfg.requestTimeoutMs)
         : 10000
   }
+  if (p.includes("/api/v1/files/")) {
+    return Number(cfg?.mediaRequestTimeoutMs) > 0
+      ? Number(cfg.mediaRequestTimeoutMs)
+      : Number(cfg?.requestTimeoutMs) > 0
+        ? Number(cfg.requestTimeoutMs)
+        : 10000
+  }
   return Number(cfg?.requestTimeoutMs) > 0
     ? Number(cfg.requestTimeoutMs)
     : 10000

@@ -602,8 +602,11 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
                 options={[
                   { label: "mp3", value: "mp3" },
-                  { label: "ogg", value: "ogg" },
-                  { label: "wav", value: "wav" }
+                  { label: "opus", value: "opus" },
+                  { label: "aac", value: "aac" },
+                  { label: "flac", value: "flac" },
+                  { label: "wav", value: "wav" },
+                  { label: "pcm (raw)", value: "pcm" }
                 ]}
                 {...form.getInputProps("tldwTtsResponseFormat")}
               />

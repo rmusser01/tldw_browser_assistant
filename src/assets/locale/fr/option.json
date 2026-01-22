@@ -746,11 +746,11 @@
     "specReloadedToast": "Spécification avancée rechargée depuis le serveur",
     "specReloadedToastDiff": "Spécification avancée rechargée depuis le serveur (champs ajoutés : {{added}}, supprimés : {{removed}})",
     "specFallbackWarning": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes.",
-    "resultStatusProcessed": "Processed",
-    "resultStatusIngested": "Ingested",
-    "resultStatusSkipped": "Skipped",
-    "keywordsPlaceholder": "Keywords (comma-separated)",
-    "keywordsAria": "Keywords for this item"
+    "resultStatusProcessed": "Traité",
+    "resultStatusIngested": "Ingesté",
+    "resultStatusSkipped": "Ignoré",
+    "keywordsPlaceholder": "Mots-clés (séparés par des virgules)",
+    "keywordsAria": "Mots-clés pour cet élément"
   },
   "notesSearch": {
     "placeholder": "Rechercher dans les titres et contenus",

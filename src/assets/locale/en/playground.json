@@ -19,6 +19,19 @@
     "noModel": "Please select a model",
     "noEmbeddingModel": "Please set an embedding model on the Settings > Knowledge page"
   },
+  "imageCommand": {
+    "invalidUsage": "Use /generate-image:<provider> <prompt>.",
+    "missingProvider": "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>.",
+    "missingPrompt": "Image prompt is required."
+  },
+  "imageBackend": {
+    "none": "None",
+    "fluxKlein": "Flux-Klein",
+    "zTurbo": "ZTurbo",
+    "badge": "Image: {{backend}}",
+    "noneBadge": "Image: none",
+    "tooltip": "Default image provider for /generate-image."
+  },
   "form": {
     "textarea": {
       "placeholder": "Ask anything..."
@@ -251,6 +264,9 @@
     "mcpToolsUnhealthy": "MCP tools are offline",
     "mcpToolsEmpty": "No MCP tools available",
     "slashVisionDesc": "Attach an image for vision",
+    "slashGenerateImage": "Generate image",
+    "slashGenerateImageDesc": "Generate an image. Use /generate-image:<provider> <prompt>.",
+    "slashGenerateImageDescDefault": "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override.",
     "captureTools": "Capture and assist tools",
     "actions": "Send options",
     "moreTools": "More tools",

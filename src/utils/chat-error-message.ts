@@ -50,6 +50,30 @@ export const buildFriendlyErrorMessage = (rawError: unknown): string => {
       "common:error.friendlyApiKeyHint",
       "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again."
     )
+  } else if (
+    lower.includes("/api/v1/files/create") &&
+    (lower.includes("body.file_type") ||
+      lower.includes("file_type") ||
+      lower.includes("unsupported_file_type") ||
+      lower.includes("unsupported_export_format"))
+  ) {
+    summary = i18n.t(
+      "common:error.imageArtifactsUnsupportedSummary",
+      "Your tldw server doesn't support image generation yet."
+    )
+    hint = i18n.t(
+      "common:error.imageArtifactsUnsupportedHint",
+      "Update to a tldw_server2 build with file artifacts enabled, then try again."
+    )
+  } else if (lower.includes("image_backend_unavailable")) {
+    summary = i18n.t(
+      "common:error.imageBackendUnavailableSummary",
+      "Image generation isn't available on your server."
+    )
+    hint = i18n.t(
+      "common:error.imageBackendUnavailableHint",
+      "Enable an image backend (e.g., Flux-Klein or ZTurbo) in your tldw server config, then try again."
+    )
   } else if (lower.includes("stream timeout: no updates received")) {
     summary = i18n.t(
       "common:error.friendlyTimeoutSummary",

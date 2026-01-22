@@ -10,10 +10,14 @@ export interface ModelInfo {
   id: string
   name: string
   provider: string
-  type: 'chat' | 'embedding' | 'other'
+  type: 'chat' | 'embedding' | 'image' | 'other'
   capabilities?: string[]
   contextLength?: number
   description?: string
+  modalities?: {
+    input?: string[]
+    output?: string[]
+  }
 }
 
 export class TldwModelsService {
@@ -111,6 +115,14 @@ export class TldwModelsService {
   }
 
   /**
+   * Get image models only
+   */
+  async getImageModels(forceRefresh: boolean = false): Promise<ModelInfo[]> {
+    const models = await this.getModels(forceRefresh)
+    return models.filter(m => m.type === 'image')
+  }
+
+  /**
    * Get a specific model by ID
    */
   async getModel(modelId: string): Promise<ModelInfo | null> {
@@ -148,25 +160,22 @@ export class TldwModelsService {
    * Transform tldw model to our format
    */
   private transformModel(tldwModel: TldwModel): ModelInfo {
-    // Determine model type based on name or capabilities
-    let type: 'chat' | 'embedding' | 'other' = 'chat'
-    
     const nameLower = tldwModel.name.toLowerCase()
-    if (nameLower.includes('embed') || nameLower.includes('embedding')) {
-      type = 'embedding'
-    } else if (tldwModel.capabilities?.includes('embedding')) {
-      type = 'embedding'
-    }
-
-    // Extract provider from model ID or name if not provided
-    const inferred =
-      inferProviderFromModel(tldwModel.id, "llm") ||
-      inferProviderFromModel(tldwModel.name, "llm")
-    const provider = tldwModel.provider || inferred || "unknown"
+    const declaredType = (tldwModel.type || "").trim().toLowerCase()
+    const normalizeMods = (mods?: string[]) =>
+      Array.isArray(mods)
+        ? mods.map((v) => String(v).trim().toLowerCase()).filter(Boolean)
+        : []
+    const inputMods = normalizeMods(tldwModel.modalities?.input)
+    const outputMods = normalizeMods(tldwModel.modalities?.output)
 
     const caps: string[] = []
     if (Array.isArray(tldwModel.capabilities)) {
       caps.push(...tldwModel.capabilities)
+    } else if (tldwModel.capabilities && typeof tldwModel.capabilities === "object") {
+      Object.entries(tldwModel.capabilities).forEach(([key, value]) => {
+        if (value) caps.push(key)
+      })
     }
     if (tldwModel.vision) caps.push('vision')
     if (tldwModel.function_calling) caps.push('tools')
@@ -179,6 +188,29 @@ export class TldwModelsService {
     ) {
       caps.push('fast')
     }
+    const capsNormalized = caps.map((cap) => cap.toLowerCase())
+
+    // Determine model type based on declared metadata, modalities, or heuristics.
+    let type: 'chat' | 'embedding' | 'image' | 'other' = 'chat'
+    if (declaredType === 'image') {
+      type = 'image'
+    } else if (declaredType === 'embedding') {
+      type = 'embedding'
+    } else if (outputMods.includes('image')) {
+      type = 'image'
+    } else if (outputMods.includes('embedding')) {
+      type = 'embedding'
+    } else if (capsNormalized.includes('image') || capsNormalized.includes('image_generation')) {
+      type = 'image'
+    } else if (nameLower.includes('embed') || nameLower.includes('embedding')) {
+      type = 'embedding'
+    }
+
+    // Extract provider from model ID or name if not provided
+    const inferred =
+      inferProviderFromModel(tldwModel.id, "llm") ||
+      inferProviderFromModel(tldwModel.name, "llm")
+    const provider = tldwModel.provider || inferred || "unknown"
 
     return {
       id: tldwModel.id,
@@ -187,7 +219,8 @@ export class TldwModelsService {
       type: type,
       capabilities: caps.length ? Array.from(new Set(caps)) : undefined,
       contextLength: tldwModel.context_length,
-      description: tldwModel.description
+      description: tldwModel.description,
+      modalities: tldwModel.modalities
     }
   }
 

@@ -41,6 +41,7 @@ import {
   normalizeMessageVariants,
   updateActiveVariant
 } from "@/utils/message-variants"
+import { resolveImageBackendCandidates } from "@/utils/image-backends"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import { updatePageTitle } from "@/utils/update-page-title"
@@ -1047,7 +1048,8 @@ export const useChatActions = ({
     controller,
     isContinue,
     docs,
-    regenerateFromMessage
+    regenerateFromMessage,
+    imageBackendOverride
   }: {
     message: string
     image: string
@@ -1058,8 +1060,13 @@ export const useChatActions = ({
     controller?: AbortController
     docs?: ChatDocuments
     regenerateFromMessage?: Message
+    imageBackendOverride?: string
   }) => {
     setStreaming(true)
+    const trimmedImageBackendOverride =
+      typeof imageBackendOverride === "string"
+        ? imageBackendOverride.trim()
+        : ""
     let signal: AbortSignal
     if (!controller) {
       const newController = new AbortController()
@@ -1106,6 +1113,42 @@ export const useChatActions = ({
           memory || history,
           signal,
           chatModeParams
+        )
+        return
+      }
+
+      const hasExplicitImageBackend = trimmedImageBackendOverride.length > 0
+      const imageBackendCandidates = hasExplicitImageBackend
+        ? [trimmedImageBackendOverride]
+        : resolveImageBackendCandidates(
+            currentChatModelSettings?.apiProvider,
+            selectedModel
+          )
+      if (hasExplicitImageBackend || imageBackendCandidates.length > 0) {
+        const resolvedImageModelLabel = hasExplicitImageBackend
+          ? trimmedImageBackendOverride ||
+            (selectedModel || "").trim() ||
+            currentChatModelSettings?.apiProvider ||
+            "image-generation"
+          : (selectedModel || "").trim() ||
+            currentChatModelSettings?.apiProvider ||
+            "image-generation"
+        const enhancedChatModeParams = {
+          ...chatModeParamsWithRegen,
+          selectedModel: resolvedImageModelLabel,
+          uploadedFiles: hasExplicitImageBackend ? [] : uploadedFiles,
+          imageBackendOverride: hasExplicitImageBackend
+            ? trimmedImageBackendOverride
+            : undefined
+        }
+        await normalChatMode(
+          message,
+          image,
+          isRegenerate,
+          baseMessages,
+          baseHistory,
+          signal,
+          enhancedChatModeParams
         )
         return
       }

@@ -1543,5 +1543,41 @@
   },
   "actor_resetConfirmBody": {
     "message": "This will clear all configured aspects, notes, and placement settings for this chat. This action cannot be undone."
+  },
+  "imageCommand_invalidUsage": {
+    "message": "Use /generate-image:<provider> <prompt>."
+  },
+  "imageCommand_missingPrompt": {
+    "message": "Image prompt is required."
+  },
+  "imageCommand_missingProvider": {
+    "message": "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>."
+  },
+  "imageBackend_none": {
+    "message": "None"
+  },
+  "imageBackend_fluxKlein": {
+    "message": "Flux-Klein"
+  },
+  "imageBackend_zTurbo": {
+    "message": "ZTurbo"
+  },
+  "imageBackend_badge": {
+    "message": "Image: {{backend}}"
+  },
+  "imageBackend_noneBadge": {
+    "message": "Image: none"
+  },
+  "imageBackend_tooltip": {
+    "message": "Default image provider for /generate-image."
+  },
+  "composer_slashGenerateImage": {
+    "message": "Generate image"
+  },
+  "composer_slashGenerateImageDesc": {
+    "message": "Generate an image. Use /generate-image:<provider> <prompt>."
+  },
+  "composer_slashGenerateImageDescDefault": {
+    "message": "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override."
   }
 }

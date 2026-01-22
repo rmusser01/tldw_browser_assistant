@@ -1476,7 +1476,7 @@
     "message": "Download JSON for {{name}}"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "انتخاب فایل‌ها"
   },
   "flashcards_cards": {
     "message": "کارت‌ها"
@@ -2259,18 +2259,18 @@
     "message": "خروجی گرفتن از جلسه ناموفق بود: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "پردازش شده"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "واردسازی شده"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "رد شده"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "کلیدواژه‌ها (جداشده با ویرگول)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "کلیدواژه‌ها برای این مورد"
   }
 }

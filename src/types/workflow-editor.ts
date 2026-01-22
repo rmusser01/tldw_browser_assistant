@@ -190,7 +190,7 @@ export interface TtsStepData extends BaseStepData {
   config: {
     voice?: string
     speed?: number
-    format?: "mp3" | "wav" | "ogg"
+    format?: "mp3" | "opus" | "aac" | "flac" | "wav" | "pcm"
   }
 }
 

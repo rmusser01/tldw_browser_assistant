@@ -68,8 +68,14 @@ const formatToMimeType = (format: string): string => {
   switch (format) {
     case "wav":
       return "audio/wav"
-    case "ogg":
-      return "audio/ogg"
+    case "opus":
+      return "audio/opus"
+    case "aac":
+      return "audio/aac"
+    case "flac":
+      return "audio/flac"
+    case "pcm":
+      return "audio/L16; rate=24000; channels=1"
     case "mp3":
     default:
       return "audio/mpeg"
@@ -172,9 +178,12 @@ export const resolveTtsProviderContext = async (
   const rawResponseFormat =
     overrides?.tldwResponseFormat || (await getTldwTTSResponseFormat())
   const responseFormat = normalizeTldwTtsResponseFormat(rawResponseFormat)
-  const speed = overrides?.tldwSpeed ?? (await getTldwTTSSpeed())
   const model = overrides?.tldwModel || baseModel
   const voice = overrides?.tldwVoice || baseVoice
+  let speed = overrides?.tldwSpeed ?? (await getTldwTTSSpeed())
+  if (inferTldwProviderFromModel(model) === "kokoro" && Number.isFinite(speed)) {
+    speed = Math.min(2, Math.max(0.5, speed))
+  }
   const mimeType = formatToMimeType(responseFormat)
   const formatInfo: TtsFormatInfo = {
     requested: rawResponseFormat,

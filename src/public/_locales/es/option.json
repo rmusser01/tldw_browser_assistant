@@ -2589,18 +2589,18 @@
     "message": "No se pudo exportar la sesión: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "Procesado"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "Incorporado"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "Omitido"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "Palabras clave (separadas por comas)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "Palabras clave para este elemento"
   }
 }

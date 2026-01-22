@@ -52,6 +52,7 @@ export type ClientPath =
   | "/api/v1/data-tables/{table_uuid}/regenerate"
   | "/api/v1/data-tables/{table_uuid}/export"
   | "/api/v1/data-tables/jobs/{job_id}"
+  | "/api/v1/files/create"
   | "/api/v1/files/{file_id}"
   | "/api/v1/files/{file_id}/export"
   | "/api/v1/notes"

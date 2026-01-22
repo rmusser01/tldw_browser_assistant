@@ -61,6 +61,24 @@ export const isTldwServerRunning = async () => {
   }
 }
 
+const mapTldwModelToUi = (model: any) => ({
+  name: `tldw:${model.id}`,
+  model: `tldw:${model.id}`,
+  provider: String(model.provider || "unknown").toLowerCase(),
+  nickname: model.name || model.id,
+  context_length: model.contextLength,
+  avatar: undefined,
+  modified_at: new Date().toISOString(),
+  size: 0,
+  digest: "",
+  details: {
+    provider: model.provider,
+    capabilities: model.capabilities,
+    type: model.type,
+    modalities: model.modalities
+  }
+})
+
 export const getAllModels = async ({ returnEmpty = false }: { returnEmpty?: boolean }) => {
   try {
     // If no config, avoid network calls when returnEmpty requested
@@ -74,21 +92,7 @@ export const getAllModels = async ({ returnEmpty = false }: { returnEmpty?: bool
     }
     // Use the richer tldwModels API (backed by /api/v1/llm/models/metadata)
     const models = await tldwModels.getModels(true)
-    return models.map(model => ({
-      name: `tldw:${model.id}`,
-      model: `tldw:${model.id}`,
-      provider: String(model.provider || 'unknown').toLowerCase(),
-      nickname: model.name || model.id,
-      context_length: model.contextLength,
-      avatar: undefined,
-      modified_at: new Date().toISOString(),
-      size: 0,
-      digest: "",
-      details: {
-        provider: model.provider,
-        capabilities: model.capabilities
-      }
-    }))
+    return models.map(mapTldwModelToUi)
   } catch (e) {
     if (!returnEmpty) console.error("Failed to fetch tldw models:", e)
     if (returnEmpty) return []
@@ -99,7 +103,8 @@ export const getAllModels = async ({ returnEmpty = false }: { returnEmpty?: bool
 export const fetchChatModels = async ({ returnEmpty = false }: { returnEmpty?: boolean }) => {
   try {
     // Primary: tldw_server aggregated models
-    const tldw = await getAllModels({ returnEmpty })
+    const chatModels = await tldwModels.getChatModels(true)
+    const tldw = chatModels.map(mapTldwModelToUi)
 
     // Only tldw_server models are exposed as chat models
     const combined = [...tldw]
@@ -183,6 +188,20 @@ export const fetchChatModels = async ({ returnEmpty = false }: { returnEmpty?: b
     console.error("Failed to fetch chat models:", e)
     if (returnEmpty) return []
     throw e
+  }
+}
+
+export const fetchImageModels = async ({
+  returnEmpty = false
+}: { returnEmpty?: boolean } = {}) => {
+  try {
+    const models = await tldwModels.getImageModels(true)
+    return models
+  } catch (e) {
+    if (!returnEmpty) {
+      console.error("Failed to fetch image models:", e)
+    }
+    return []
   }
 }
 

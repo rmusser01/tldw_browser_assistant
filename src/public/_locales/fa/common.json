@@ -852,10 +852,10 @@
     "message": "سفارشی"
   },
   "contextNarrateSelection": {
-    "message": "Narrate selection"
+    "message": "خواندن انتخاب‌شده"
   },
   "contextNarrateSelectionNoSelection": {
-    "message": "Select text first to narrate."
+    "message": "ابتدا متنی را برای خواندن انتخاب کنید."
   },
   "contextSendToTldw": {
     "message": "ارسال به tldw_server"

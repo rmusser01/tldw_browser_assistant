@@ -27,7 +27,8 @@ import {
   Table2,
   Library,
   Headphones,
-  SquarePen
+  SquarePen,
+  ImageIcon
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -130,6 +131,10 @@ const OptionSettingsEvaluations = createSettingsRoute(
 const OptionSpeechSettings = createSettingsRoute(
   () => import("@/components/Option/Settings/SpeechSettings"),
   "SpeechSettings"
+)
+const OptionImageGenerationSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/ImageGenerationSettings"),
+  "ImageGenerationSettings"
 )
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = createSettingsRoute(
@@ -260,6 +265,17 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:speechSettingsNav",
       icon: MicIcon,
       order: 5
+    }
+  },
+  {
+    kind: "options",
+    path: "/settings/image-generation",
+    element: <OptionImageGenerationSettings />,
+    nav: {
+      group: "server",
+      labelToken: "settings:imageGenerationSettingsNav",
+      icon: ImageIcon,
+      order: 7
     }
   },
   {

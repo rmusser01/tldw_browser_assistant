@@ -49,6 +49,7 @@ import {
   normalizeMessageVariants,
   updateActiveVariant
 } from "@/utils/message-variants"
+import { resolveImageBackendCandidates } from "@/utils/image-backends"
 import { normalChatMode } from "./chat-modes/normalChatMode"
 import { tabChatMode } from "./chat-modes/tabChatMode"
 import { documentChatMode } from "./chat-modes/documentChatMode"
@@ -1631,7 +1632,8 @@ export const useMessage = () => {
     messageType,
     regenerateFromMessage,
     docs,
-    uploadedFiles
+    uploadedFiles,
+    imageBackendOverride
   }: {
     message: string
     image: string
@@ -1643,12 +1645,24 @@ export const useMessage = () => {
     regenerateFromMessage?: Message
     docs?: ChatDocuments
     uploadedFiles?: UploadedFile[]
+    imageBackendOverride?: string
   }) => {
-    if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
-      return
+    const trimmedImageBackendOverride =
+      typeof imageBackendOverride === "string"
+        ? imageBackendOverride.trim()
+        : ""
+    const hasExplicitImageBackend = trimmedImageBackendOverride.length > 0
+    if (!hasExplicitImageBackend) {
+      if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
+        return
+      }
     }
 
-    const model = selectedModel.trim()
+    const model =
+      (hasExplicitImageBackend
+        ? trimmedImageBackendOverride || selectedModel
+        : selectedModel
+      ).trim() || "image-generation"
     let signal: AbortSignal
     if (!controller) {
       const newController = new AbortController()
@@ -1678,6 +1692,49 @@ export const useMessage = () => {
       : {}
 
     try {
+      const imageBackendCandidates = hasExplicitImageBackend
+        ? [trimmedImageBackendOverride]
+        : resolveImageBackendCandidates(
+            currentChatModelSettings?.apiProvider,
+            model
+          )
+      if (hasExplicitImageBackend || imageBackendCandidates.length > 0) {
+        await normalChatMode(
+          message,
+          image,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          {
+            selectedModel: model,
+            useOCR,
+            selectedSystemPrompt: selectedSystemPrompt ?? "",
+            currentChatModelSettings,
+            setMessages,
+            saveMessageOnSuccess,
+            saveMessageOnError,
+            setHistory,
+            setIsProcessing,
+            setStreaming,
+            setAbortController,
+            historyId,
+            setHistoryId: setHistoryId as (
+              id: string,
+              options?: { preserveServerChatId?: boolean }
+            ) => void,
+            webSearch,
+            setIsSearchingInternet,
+            uploadedFiles: hasExplicitImageBackend ? [] : uploadedFiles,
+            imageBackendOverride: hasExplicitImageBackend
+              ? trimmedImageBackendOverride
+              : undefined,
+            regenerateFromMessage,
+            ...replyOverrides
+          }
+        )
+        return
+      }
       if (uploadedFiles && uploadedFiles.length > 0) {
         await documentChatMode(
           message,

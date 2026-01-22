@@ -739,11 +739,11 @@
     "specReloadedToast": "تمت إعادة تحميل المواصفات المتقدمة من الخادم",
     "specReloadedToastDiff": "تمت إعادة تحميل المواصفات المتقدمة من الخادم (الحقول المضافة: {{added}}، المحذوفة: {{removed}})",
     "specFallbackWarning": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة.",
-    "resultStatusProcessed": "Processed",
-    "resultStatusIngested": "Ingested",
-    "resultStatusSkipped": "Skipped",
-    "keywordsPlaceholder": "Keywords (comma-separated)",
-    "keywordsAria": "Keywords for this item"
+    "resultStatusProcessed": "تمت المعالجة",
+    "resultStatusIngested": "تمت الإضافة",
+    "resultStatusSkipped": "تم التجاهل",
+    "keywordsPlaceholder": "الكلمات المفتاحية (مفصولة بفواصل)",
+    "keywordsAria": "الكلمات المفتاحية لهذا العنصر"
   },
   "notesSearch": {
     "placeholder": "ابحث في العناوين والمحتوى",

@@ -1806,7 +1806,7 @@
     "message": "「{{name}}」のJSONをダウンロード"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "ファイルを選択"
   },
   "flashcards_cards": {
     "message": "カード"
@@ -2589,18 +2589,18 @@
     "message": "セッションのエクスポートに失敗しました: {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "処理済み"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "取り込み済み"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "スキップ"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "キーワード（カンマ区切り）"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "この項目のキーワード"
   }
 }

@@ -1373,7 +1373,7 @@
       "jsonKeyLabel": "JSON‑nøkkel for oppdeling",
       "frontmatterLabel": "Aktiver frontmatter‑tolking",
       "frontmatterSentinelLabel": "Frontmatter‑sentinel‑nøkkel",
-      "customChapterPatternLabel": "Egendefinert kapittemønster",
+      "customChapterPatternLabel": "Egendefinert kapittelmønster",
       "summarizationDetailLabel": "Detaljnivå for oppsummering",
       "llmOptionsTitle": "LLM‑alternativer (interne steg)",
       "llmTemperatureLabel": "LLM‑temperatur",

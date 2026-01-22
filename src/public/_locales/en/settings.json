@@ -3658,5 +3658,104 @@
   },
   "evaluations_createDatasetModalTitle": {
     "message": "New dataset"
+  },
+  "imageGenerationSettingsNav": {
+    "message": "Image Generation"
+  },
+  "imageGenerationSettings_title": {
+    "message": "Image generation"
+  },
+  "imageGenerationSettings_subtitle": {
+    "message": "Configure image generation defaults for each backend and set your slash-command default."
+  },
+  "imageGenerationSettings_noneOption": {
+    "message": "None"
+  },
+  "imageGenerationSettings_defaultBackendLabel": {
+    "message": "Default image backend"
+  },
+  "imageGenerationSettings_defaultBackendHint": {
+    "message": "Used when you run /generate-image without a provider override."
+  },
+  "imageGenerationSettings_defaultBackendPlaceholder": {
+    "message": "Select a backend"
+  },
+  "imageGenerationSettings_backendSectionTitle": {
+    "message": "Backend presets"
+  },
+  "imageGenerationSettings_backendSectionHint": {
+    "message": "These settings are sent with your prompt. Leave fields blank to use server defaults."
+  },
+  "imageGenerationSettings_noBackends": {
+    "message": "No image backends detected from the server yet."
+  },
+  "imageGenerationSettings_formatLabel": {
+    "message": "Output format"
+  },
+  "imageGenerationSettings_formatHint": {
+    "message": "PNG is safest for most models."
+  },
+  "imageGenerationSettings_format_png": {
+    "message": "PNG"
+  },
+  "imageGenerationSettings_format_jpg": {
+    "message": "JPEG"
+  },
+  "imageGenerationSettings_format_webp": {
+    "message": "WebP"
+  },
+  "imageGenerationSettings_negativePromptLabel": {
+    "message": "Negative prompt"
+  },
+  "imageGenerationSettings_negativePromptHint": {
+    "message": "Optional text to steer the model away from elements."
+  },
+  "imageGenerationSettings_negativePromptPlaceholder": {
+    "message": "e.g., blurry, low-res"
+  },
+  "imageGenerationSettings_widthLabel": {
+    "message": "Width"
+  },
+  "imageGenerationSettings_heightLabel": {
+    "message": "Height"
+  },
+  "imageGenerationSettings_stepsLabel": {
+    "message": "Steps"
+  },
+  "imageGenerationSettings_cfgScaleLabel": {
+    "message": "CFG scale"
+  },
+  "imageGenerationSettings_seedLabel": {
+    "message": "Seed"
+  },
+  "imageGenerationSettings_seedHint": {
+    "message": "Set to -1 or leave blank for random."
+  },
+  "imageGenerationSettings_samplerLabel": {
+    "message": "Sampler"
+  },
+  "imageGenerationSettings_samplerPlaceholder": {
+    "message": "e.g., euler_a"
+  },
+  "imageGenerationSettings_modelLabel": {
+    "message": "Model override"
+  },
+  "imageGenerationSettings_modelHint": {
+    "message": "Optional model identifier/path supported by the backend."
+  },
+  "imageGenerationSettings_modelPlaceholder": {
+    "message": "Leave blank to use server default"
+  },
+  "imageGenerationSettings_extraParamsLabel": {
+    "message": "Extra params (JSON)"
+  },
+  "imageGenerationSettings_extraParamsHint": {
+    "message": "Optional backend-specific parameters. Invalid JSON will be ignored; keys must be allowlisted on the server."
+  },
+  "imageGenerationSettings_resetBackend": {
+    "message": "Reset backend defaults"
+  },
+  "imageGenerationSettings_resetBackendHint": {
+    "message": "Clear all saved defaults for this backend."
   }
 }

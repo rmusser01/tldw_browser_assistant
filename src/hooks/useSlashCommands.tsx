@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useServerOnline } from "@/hooks/useServerOnline"
+import { useStorage } from "@plasmohq/storage/hook"
 
 type ServerSlashCommand = {
   id?: string | number
@@ -40,7 +41,15 @@ export interface SlashCommandItem {
   description?: string
   keywords?: string[]
   action?: () => void
+  insertText?: string
   source?: "server" | "local"
+}
+
+type SlashCommandMeta = {
+  label: string
+  description: string
+  keywords: string[]
+  insertText?: string
 }
 
 interface UseSlashCommandsOptions {
@@ -185,6 +194,11 @@ export const useSlashCommands = ({
 }: UseSlashCommandsOptions): UseSlashCommandsResult => {
   const { t } = useTranslation(["common", "sidepanel"])
   const isOnline = useServerOnline()
+  const [imageBackendDefault] = useStorage("imageBackendDefault", "")
+  const imageBackendDefaultTrimmed = React.useMemo(
+    () => (imageBackendDefault || "").trim(),
+    [imageBackendDefault]
+  )
   const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
   const { data: serverPayload } = useQuery({
     queryKey: ["tldw:chat:slashCommands"],
@@ -201,7 +215,7 @@ export const useSlashCommands = ({
     retry: 2
   })
 
-  const fallbackMeta = React.useMemo(
+  const fallbackMeta = React.useMemo<Record<string, SlashCommandMeta>>(
     () => ({
       search: {
         label: t(
@@ -237,9 +251,26 @@ export const useSlashCommands = ({
           "Open current chat settings"
         ),
         keywords: ["settings", "parameters", "temperature"]
+      },
+      "generate-image": {
+        label: t("sidepanel:composer.generateImage", "Generate image"),
+        description: imageBackendDefaultTrimmed
+          ? t(
+              "sidepanel:composer.generateImageDescDefault",
+              "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override.",
+              { backend: imageBackendDefaultTrimmed }
+            )
+          : t(
+              "sidepanel:composer.generateImageDesc",
+              "Generate an image via /generate-image:<provider>"
+            ),
+        keywords: ["image", "generate", "flux", "zturbo"],
+        insertText: imageBackendDefaultTrimmed
+          ? "/generate-image "
+          : "/generate-image:"
       }
     }),
-    [t]
+    [imageBackendDefaultTrimmed, t]
   )
 
   const localActions = React.useMemo(
@@ -260,6 +291,7 @@ export const useSlashCommands = ({
         label: meta.label,
         description: meta.description,
         keywords: meta.keywords,
+        insertText: meta.insertText,
         action: localActions[command as keyof typeof localActions],
         source: "local"
       })),
@@ -312,6 +344,7 @@ export const useSlashCommands = ({
           description:
             command.description || fallback?.description || undefined,
           keywords: normalizeStringArray(command.keywords || fallback?.keywords),
+          insertText: fallback?.insertText,
           action: localActions[commandName as keyof typeof localActions],
           source: "server"
         }
@@ -319,8 +352,19 @@ export const useSlashCommands = ({
       .filter(Boolean) as SlashCommandItem[]
   }, [fallbackMeta, localActions, serverPayload])
 
-  const slashCommands =
-    isOnline && serverCommands.length > 0 ? serverCommands : fallbackCommands
+  const slashCommands = React.useMemo(() => {
+    if (!isOnline || serverCommands.length === 0) {
+      return fallbackCommands
+    }
+    const merged = new Map<string, SlashCommandItem>()
+    serverCommands.forEach((command) => merged.set(command.command, command))
+    fallbackCommands.forEach((command) => {
+      if (!merged.has(command.command)) {
+        merged.set(command.command, command)
+      }
+    })
+    return Array.from(merged.values())
+  }, [fallbackCommands, isOnline, serverCommands])
 
   const slashCommandLookup = React.useMemo(
     () => new Map(slashCommands.map((command) => [command.command, command])),
@@ -396,6 +440,10 @@ export const useSlashCommands = ({
 
   const handleSlashCommandSelect = React.useCallback(
     (command: SlashCommandItem) => {
+      if (command.insertText && setInputValue) {
+        setInputValue(command.insertText)
+        return
+      }
       if (command.action) {
         try {
           command.action()

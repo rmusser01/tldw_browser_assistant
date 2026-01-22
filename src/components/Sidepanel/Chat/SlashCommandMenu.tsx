@@ -8,6 +8,7 @@ export type SlashCommandItem = {
   description?: string
   keywords?: string[]
   action?: () => void
+  insertText?: string
 }
 
 type SlashCommandMenuProps = {

@@ -288,6 +288,7 @@ export const saveMessageOnSuccess = async ({
   image,
   fullText,
   source,
+  assistantImages,
   message_source = "web-ui",
   message_type,
   userMessageType,
@@ -317,6 +318,7 @@ export const saveMessageOnSuccess = async ({
   image: string
   fullText: string
   source: any[]
+  assistantImages?: string[]
   message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
   userMessageType?: string
@@ -368,7 +370,7 @@ export const saveMessageOnSuccess = async ({
           name: selectedModel,
           role: "assistant",
           content: fullText,
-          images: [],
+          images: assistantImages ?? [],
           source,
           time: 2,
           message_type: assistantMessageType ?? message_type,
@@ -443,7 +445,7 @@ export const saveMessageOnSuccess = async ({
         name: selectedModel,
         role: "assistant",
         content: fullText,
-        images: [],
+        images: assistantImages ?? [],
         source,
         time: 2,
         message_type: assistantMessageType ?? message_type,

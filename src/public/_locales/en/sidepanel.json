@@ -1096,5 +1096,14 @@
   },
   "rag_numericFidelityBehaviorOptions_retry": {
     "message": "Retry"
+  },
+  "composer_generateImage": {
+    "message": "Generate image"
+  },
+  "composer_generateImageDesc": {
+    "message": "Generate an image via /generate-image:<provider>"
+  },
+  "composer_generateImageDescDefault": {
+    "message": "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override."
   }
 }

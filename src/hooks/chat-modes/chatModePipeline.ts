@@ -79,6 +79,7 @@ export type ChatModePreflightResult = {
   handled: true
   fullText: string
   sources?: unknown[]
+  images?: string[]
   generationInfo?: unknown
   promptId?: string
   promptContent?: string
@@ -276,6 +277,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
     if (preflight?.handled) {
       fullText = preflight.fullText
       const sources = preflight.sources ?? []
+      const images = preflight.images ?? []
       const nextHistory = mode.updateHistory
         ? mode.updateHistory(context, fullText)
         : ([
@@ -290,6 +292,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
             ? updateActiveVariant(msg, {
                 message: fullText,
                 sources,
+                images,
                 generationInfo: preflight.generationInfo,
                 reasoning_time_taken: timetaken
               })
@@ -307,6 +310,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
         image,
         fullText,
         source: sources,
+        assistantImages: images,
         userMessageType,
         assistantMessageType,
         clusterId,

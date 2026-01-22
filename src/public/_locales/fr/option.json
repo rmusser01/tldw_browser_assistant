@@ -2589,18 +2589,18 @@
     "message": "Échec de l’exportation de la session : {{detail}}"
   },
   "quickIngest_resultStatusProcessed": {
-    "message": "Processed"
+    "message": "Traité"
   },
   "quickIngest_resultStatusIngested": {
-    "message": "Ingested"
+    "message": "Ingesté"
   },
   "quickIngest_resultStatusSkipped": {
-    "message": "Skipped"
+    "message": "Ignoré"
   },
   "quickIngest_keywordsPlaceholder": {
-    "message": "Keywords (comma-separated)"
+    "message": "Mots-clés (séparés par des virgules)"
   },
   "quickIngest_keywordsAria": {
-    "message": "Keywords for this item"
+    "message": "Mots-clés pour cet élément"
   }
 }

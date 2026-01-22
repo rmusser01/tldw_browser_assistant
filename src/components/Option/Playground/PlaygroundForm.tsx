@@ -62,7 +62,7 @@ import {
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
-import { fetchChatModels } from "@/services/tldw-server"
+import { fetchChatModels, fetchImageModels } from "@/services/tldw-server"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
 import { useMcpTools } from "@/hooks/useMcpTools"
@@ -247,6 +247,10 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   )
   const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
+  const [imageBackendDefault, setImageBackendDefault] = useStorage(
+    "imageBackendDefault",
+    ""
+  )
   const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [serverPersistenceHintSeen, setServerPersistenceHintSeen] = useStorage(
     "serverPersistenceHintSeen",
@@ -317,6 +321,11 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { data: composerModels } = useQuery({
     queryKey: ["playground:chatModels"],
     queryFn: () => fetchChatModels({ returnEmpty: true }),
+    enabled: true
+  })
+  const { data: imageModels = [] } = useQuery({
+    queryKey: ["playground:imageModels"],
+    queryFn: () => fetchImageModels({ returnEmpty: true }),
     enabled: true
   })
 
@@ -986,6 +995,115 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     ]
   )
 
+  const imageBackendOptions = React.useMemo<
+    { value: string; label: string; provider?: string }[]
+  >(() => {
+    const dynamicOptions = (imageModels || [])
+      .filter((model: any) => model && model.id)
+      .map((model: any) => ({
+        value: String(model.id),
+        label: String(model.name || model.id),
+        provider: model.provider ? String(model.provider) : undefined
+      }))
+
+    const fallbackOptions = [
+      {
+        value: "tldw_server-Flux-Klein",
+        label: t("playground:imageBackend.fluxKlein", "Flux-Klein"),
+        provider: undefined
+      },
+      {
+        value: "tldw_server-ZTurbo",
+        label: t("playground:imageBackend.zTurbo", "ZTurbo"),
+        provider: undefined
+      }
+    ]
+
+    const baseOptions = dynamicOptions.length > 0 ? dynamicOptions : fallbackOptions
+    return [
+      {
+        value: "",
+        label: t("playground:imageBackend.none", "None")
+      },
+      ...baseOptions
+    ]
+  }, [imageModels, t])
+  const imageBackendDefaultTrimmed = React.useMemo(
+    () => (imageBackendDefault || "").trim(),
+    [imageBackendDefault]
+  )
+  const imageBackendLabel = React.useMemo(() => {
+    if (!imageBackendDefaultTrimmed) {
+      return t("playground:imageBackend.none", "None")
+    }
+    const match = imageBackendOptions.find(
+      (option) => option.value === imageBackendDefaultTrimmed
+    )
+    if (match?.provider) {
+      return `${getProviderDisplayName(match.provider)} · ${match.label}`
+    }
+    return match?.label || imageBackendDefaultTrimmed
+  }, [imageBackendDefaultTrimmed, imageBackendOptions, t])
+  const imageBackendActiveKey =
+    imageBackendDefaultTrimmed.length > 0 ? imageBackendDefaultTrimmed : "none"
+  const imageBackendMenuItems = React.useMemo(
+    () =>
+      imageBackendOptions.map((option: any) => {
+        const providerLabel = option.provider
+          ? getProviderDisplayName(option.provider)
+          : null
+        const labelText = providerLabel
+          ? `${providerLabel} · ${option.label}`
+          : option.label
+        return {
+          key: option.value || "none",
+          label: (
+            <div className="flex items-center gap-2 text-sm">
+              <ImageIcon className="h-3 w-3 text-text-subtle" />
+              <span className="truncate">{labelText}</span>
+            </div>
+          ),
+          onClick: () => setImageBackendDefault(option.value)
+        }
+      }),
+    [imageBackendOptions, setImageBackendDefault]
+  )
+  const imageBackendBadgeLabel = imageBackendDefaultTrimmed
+    ? t("playground:imageBackend.badge", "Image: {{backend}}", {
+        backend: imageBackendLabel
+      })
+    : t("playground:imageBackend.noneBadge", "Image: none")
+
+  const imageProviderBadge = (
+    <Dropdown
+      menu={{
+        items: imageBackendMenuItems,
+        activeKey: imageBackendActiveKey
+      }}
+      trigger={["click"]}
+      placement="bottomLeft"
+    >
+      <button
+        type="button"
+        title={t(
+          "playground:imageBackend.tooltip",
+          "Default image provider for /generate-image."
+        )}
+        aria-label={imageBackendBadgeLabel}
+        className={`inline-flex items-center gap-2 rounded-full border border-border text-[11px] font-medium transition hover:bg-surface2 ${
+          isProMode ? "px-2 py-1 text-text" : "h-9 w-9 justify-center text-text-muted"
+        }`}
+      >
+        <ImageIcon className={isProMode ? "h-3 w-3" : "h-4 w-4"} />
+        {isProMode ? (
+          <span className="truncate max-w-[140px]">{imageBackendBadgeLabel}</span>
+        ) : (
+          <span className="sr-only">{imageBackendBadgeLabel}</span>
+        )}
+      </button>
+    </Dropdown>
+  )
+
   const showModelLabel = !isProMode
   const modelUsageBadge = (
     <div className="inline-flex items-center gap-2">
@@ -1026,6 +1144,29 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         compact={!isProMode}
       />
     </div>
+  )
+  const imageProviderControl = (
+    <Dropdown
+      menu={{
+        items: imageBackendMenuItems,
+        activeKey: imageBackendActiveKey
+      }}
+      trigger={["click"]}
+      placement="topLeft"
+    >
+      <button
+        type="button"
+        title={t(
+          "playground:imageBackend.tooltip",
+          "Default image provider for /generate-image."
+        )}
+        aria-label={imageBackendBadgeLabel}
+        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
+      >
+        <span className="truncate">{imageBackendBadgeLabel}</span>
+        <ImageIcon className="h-4 w-4 text-text-subtle" />
+      </button>
+    </Dropdown>
   )
 
   // Allow other components (e.g., connection card) to request focus
@@ -1768,16 +1909,32 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
 
   const submitForm = (options?: { ignorePinnedResults?: boolean }) => {
     form.onSubmit(async (value) => {
-      const slashResult = applySlashCommand(value.message)
-      if (slashResult.handled) {
-        form.setFieldValue("message", slashResult.message)
+      const intent = resolveSubmissionIntent(value.message)
+      if (intent.handled && !intent.invalidImageCommand) {
+        form.setFieldValue("message", intent.message)
       }
-      const nextMessage = slashResult.handled
-        ? slashResult.message
-        : value.message
-      const combinedMessage = buildPinnedMessage(nextMessage, options)
+      if (intent.invalidImageCommand) {
+        notificationApi.error({
+          message: t("error", { defaultValue: "Error" }),
+          description: intent.imageCommandMissingProvider
+            ? t(
+                "imageCommand.missingProvider",
+                "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>."
+              )
+            : t(
+                "imageCommand.invalidUsage",
+                "Use /generate-image:<provider> <prompt>."
+              )
+        })
+        return
+      }
+      const nextMessage = intent.message
+      const combinedMessage = intent.isImageCommand
+        ? nextMessage
+        : buildPinnedMessage(nextMessage, options)
       const trimmed = combinedMessage.trim()
       if (
+        !intent.isImageCommand &&
         trimmed.length === 0 &&
         value.image.length === 0 &&
         selectedDocuments.length === 0 &&
@@ -1796,43 +1953,60 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         return
       }
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareModeActive) {
-        if (!selectedModel || selectedModel.length === 0) {
-          form.setFieldError("message", t("formError.noModel"))
+      if (!intent.isImageCommand) {
+        if (!compareModeActive) {
+          if (!selectedModel || selectedModel.length === 0) {
+            form.setFieldError("message", t("formError.noModel"))
+            return
+          }
+        } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
+          form.setFieldError(
+            "message",
+            t(
+              "playground:composer.validationCompareSelectModelsInline",
+              "Select at least one model for Compare mode."
+            )
+          )
           return
         }
-      } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
-        form.setFieldError(
-          "message",
-          t(
-            "playground:composer.validationCompareSelectModelsInline",
-            "Select at least one model for Compare mode."
-          )
-        )
-        return
       }
 
-      if (webSearch) {
+      if (!intent.isImageCommand && webSearch) {
         const simpleSearch = await getIsSimpleInternetSearch()
         if (!defaultEM && !simpleSearch) {
           form.setFieldError("message", t("formError.noEmbeddingModel"))
           return
         }
       }
+      if (intent.isImageCommand && trimmed.length === 0) {
+        notificationApi.error({
+          message: t("error", { defaultValue: "Error" }),
+          description: t(
+            "imageCommand.missingPrompt",
+            "Image prompt is required."
+          )
+        })
+        return
+      }
       form.reset()
       clearSelectedDocuments()
       clearUploadedFiles()
       textAreaFocus()
       await sendMessage({
-        image: value.image,
+        image: intent.isImageCommand ? "" : value.image,
         message: trimmed,
-        docs: selectedDocuments.map((doc) => ({
-          type: "tab",
-          tabId: doc.id,
-          title: doc.title,
-          url: doc.url,
-          favIconUrl: doc.favIconUrl
-        }))
+        docs: intent.isImageCommand
+          ? []
+          : selectedDocuments.map((doc) => ({
+              type: "tab",
+              tabId: doc.id,
+              title: doc.title,
+              url: doc.url,
+              favIconUrl: doc.favIconUrl
+            })),
+        imageBackendOverride: intent.isImageCommand
+          ? intent.imageBackendOverride
+          : undefined
       })
     })()
   }
@@ -1842,13 +2016,29 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       return
     }
     form.onSubmit(async () => {
-      const slashResult = applySlashCommand(message)
-      const nextMessage = slashResult.handled
-        ? slashResult.message
-        : message
-      const combinedMessage = buildPinnedMessage(nextMessage)
+      const intent = resolveSubmissionIntent(message)
+      if (intent.invalidImageCommand) {
+        notificationApi.error({
+          message: t("error", { defaultValue: "Error" }),
+          description: intent.imageCommandMissingProvider
+            ? t(
+                "imageCommand.missingProvider",
+                "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>."
+              )
+            : t(
+                "imageCommand.invalidUsage",
+                "Use /generate-image:<provider> <prompt>."
+              )
+        })
+        return
+      }
+      const nextMessage = intent.message
+      const combinedMessage = intent.isImageCommand
+        ? nextMessage
+        : buildPinnedMessage(nextMessage)
       const trimmed = combinedMessage.trim()
       if (
+        !intent.isImageCommand &&
         trimmed.length === 0 &&
         image.length === 0 &&
         selectedDocuments.length === 0 &&
@@ -1857,42 +2047,59 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         return
       }
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareModeActive) {
-        if (!selectedModel || selectedModel.length === 0) {
-          form.setFieldError("message", t("formError.noModel"))
+      if (!intent.isImageCommand) {
+        if (!compareModeActive) {
+          if (!selectedModel || selectedModel.length === 0) {
+            form.setFieldError("message", t("formError.noModel"))
+            return
+          }
+        } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
+          form.setFieldError(
+            "message",
+            t(
+              "playground:composer.validationCompareSelectModelsInline",
+              "Select at least one model for Compare mode."
+            )
+          )
           return
         }
-      } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
-        form.setFieldError(
-          "message",
-          t(
-            "playground:composer.validationCompareSelectModelsInline",
-            "Select at least one model for Compare mode."
-          )
-        )
-        return
       }
-      if (webSearch) {
+      if (!intent.isImageCommand && webSearch) {
         const simpleSearch = await getIsSimpleInternetSearch()
         if (!defaultEM && !simpleSearch) {
           form.setFieldError("message", t("formError.noEmbeddingModel"))
           return
         }
       }
+      if (intent.isImageCommand && trimmed.length === 0) {
+        notificationApi.error({
+          message: t("error", { defaultValue: "Error" }),
+          description: t(
+            "imageCommand.missingPrompt",
+            "Image prompt is required."
+          )
+        })
+        return
+      }
       form.reset()
       clearSelectedDocuments()
       clearUploadedFiles()
       textAreaFocus()
       await sendMessage({
-        image,
+        image: intent.isImageCommand ? "" : image,
         message: trimmed,
-        docs: selectedDocuments.map((doc) => ({
-          type: "tab",
-          tabId: doc.id,
-          title: doc.title,
-          url: doc.url,
-          favIconUrl: doc.favIconUrl
-        }))
+        docs: intent.isImageCommand
+          ? []
+          : selectedDocuments.map((doc) => ({
+              type: "tab",
+              tabId: doc.id,
+              title: doc.title,
+              url: doc.url,
+              favIconUrl: doc.favIconUrl
+            })),
+        imageBackendOverride: intent.isImageCommand
+          ? intent.imageBackendOverride
+          : undefined
       })
     })()
   }
@@ -2025,17 +2232,41 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
 
       if (!characterId) {
         const DEFAULT_NAME = "Helpful AI Assistant"
-        try {
-          const characters = await tldwClient.listCharacters()
-          const existing = (characters || []).find((c: any) => {
-            const name = String(c?.name || "").trim().toLowerCase()
-            return name === DEFAULT_NAME.toLowerCase()
-          })
-          let target = existing
-          if (!target) {
-            target = await tldwClient.createCharacter({
-              name: DEFAULT_NAME
+        const normalizeName = (value: unknown) =>
+          String(value || "").trim().toLowerCase()
+        const findByName = (list: any[]) =>
+          (list || []).find(
+            (c: any) => normalizeName(c?.name) === normalizeName(DEFAULT_NAME)
+          )
+        const findDefaultCharacter = async () => {
+          try {
+            const results = await tldwClient.searchCharacters(DEFAULT_NAME, {
+              limit: 50
             })
+            const match = findByName(results)
+            if (match) return match
+          } catch {}
+          try {
+            const results = await tldwClient.listCharacters({ limit: 200 })
+            const match = findByName(results)
+            if (match) return match
+          } catch {}
+          return null
+        }
+        try {
+          let target = await findDefaultCharacter()
+          if (!target) {
+            try {
+              target = await tldwClient.createCharacter({
+                name: DEFAULT_NAME
+              })
+            } catch (error: any) {
+              if (error?.status === 409) {
+                target = await findDefaultCharacter()
+              } else {
+                throw error
+              }
+            }
           }
           characterId =
             target && typeof target.id !== "undefined" ? target.id : null
@@ -2268,6 +2499,28 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         action: handleImageUpload
       },
       {
+        id: "slash-generate-image",
+        command: "generate-image",
+        label: t(
+          "playground:composer.slashGenerateImage",
+          "Generate image"
+        ),
+        description: imageBackendDefaultTrimmed
+          ? t(
+              "playground:composer.slashGenerateImageDescDefault",
+              "Generate an image (default: {{backend}}). Use /generate-image:<provider> to override.",
+              { backend: imageBackendLabel }
+            )
+          : t(
+              "playground:composer.slashGenerateImageDesc",
+              "Generate an image. Use /generate-image:<provider> <prompt>."
+            ),
+        keywords: ["image", "image gen", "flux", "zturbo", "art"],
+        insertText: imageBackendDefaultTrimmed
+          ? "/generate-image "
+          : "/generate-image:"
+      },
+      {
         id: "slash-model",
         command: "model",
         label: t("common:commandPalette.switchModel", "Switch Model"),
@@ -2279,7 +2532,17 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         action: () => setOpenModelSettings(true)
       }
     ],
-    [chatMode, handleImageUpload, setChatMode, setWebSearch, t, webSearch, setOpenModelSettings]
+    [
+      chatMode,
+      handleImageUpload,
+      imageBackendDefaultTrimmed,
+      imageBackendLabel,
+      setChatMode,
+      setWebSearch,
+      t,
+      webSearch,
+      setOpenModelSettings
+    ]
   )
 
   const slashCommandLookup = React.useMemo(
@@ -2288,7 +2551,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   )
 
   const slashMatch = React.useMemo(
-    () => form.values.message.match(/^\s*\/(\w*)$/),
+    () => form.values.message.match(/^\s*\/([\w-]*)$/),
     [form.values.message]
   )
   const slashQuery = slashMatch?.[1] ?? ""
@@ -2328,6 +2591,46 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     }
   }, [])
 
+  const parseImageSlashCommand = React.useCallback(
+    (text: string) => {
+      const trimmed = text.trim()
+      if (!trimmed.toLowerCase().startsWith("/generate-image")) return null
+      const remainder = trimmed.slice("/generate-image".length)
+      const colonMatch = remainder.match(
+        /^\s*:\s*([^\s]+)(?:\s+([\s\S]*))?$/i
+      )
+      if (colonMatch) {
+        const provider = colonMatch[1]?.trim() || ""
+        const prompt = (colonMatch[2] || "").trim()
+        const missingProvider = provider.length === 0
+        return {
+          provider,
+          prompt,
+          invalid: missingProvider,
+          missingProvider
+        }
+      }
+
+      const prompt = remainder.trim()
+      if (imageBackendDefaultTrimmed) {
+        return {
+          provider: imageBackendDefaultTrimmed,
+          prompt,
+          invalid: false,
+          missingProvider: false
+        }
+      }
+
+      return {
+        provider: "",
+        prompt,
+        invalid: true,
+        missingProvider: true
+      }
+    },
+    [imageBackendDefaultTrimmed]
+  )
+
   const applySlashCommand = React.useCallback(
     (text: string) => {
       const parsed = parseSlashInput(text)
@@ -2344,10 +2647,45 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     [parseSlashInput, slashCommandLookup]
   )
 
+  const resolveSubmissionIntent = React.useCallback(
+    (rawMessage: string) => {
+      const imageCommand = parseImageSlashCommand(rawMessage)
+      if (imageCommand) {
+        return {
+          handled: true,
+          message: imageCommand.prompt,
+          imageBackendOverride: imageCommand.provider,
+          isImageCommand: true,
+          invalidImageCommand: imageCommand.invalid,
+          imageCommandMissingProvider: Boolean(imageCommand.missingProvider)
+        }
+      }
+      const slashResult = applySlashCommand(rawMessage)
+      return {
+        handled: slashResult.handled,
+        message: slashResult.handled ? slashResult.message : rawMessage,
+        imageBackendOverride: undefined,
+        isImageCommand: false,
+        invalidImageCommand: false,
+        imageCommandMissingProvider: false
+      }
+    },
+    [applySlashCommand, parseImageSlashCommand]
+  )
+  const activeImageCommand = React.useMemo(
+    () => Boolean(parseImageSlashCommand(form.values.message)),
+    [form.values.message, parseImageSlashCommand]
+  )
+
   const handleSlashCommandSelect = React.useCallback(
     (command: SlashCommandItem) => {
       const parsed = parseSlashInput(form.values.message)
-      command.action()
+      if (command.insertText) {
+        form.setFieldValue("message", command.insertText)
+        requestAnimationFrame(() => textareaRef.current?.focus())
+        return
+      }
+      command.action?.()
       form.setFieldValue("message", parsed?.remainder || "")
       requestAnimationFrame(() => textareaRef.current?.focus())
     },
@@ -2626,6 +2964,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
             unCheckedChildren={t("form.webSearch.off")}
           />
         </div>
+        {imageProviderControl}
         <div className="panel-divider my-1" />
         <div className="text-xs font-semibold text-text-muted">
           {t("playground:composer.toolChoiceLabel", "Tool choice")}
@@ -2775,6 +3114,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       handleImageUpload,
       handleToggleContextTools,
       history.length,
+      imageProviderControl,
       setCompareSettingsOpen,
       setWebSearch,
       setToolChoice,
@@ -3500,31 +3840,52 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
               </div>
             </Modal>
             <div>
-              <div className={`flex  bg-transparent `}>
+              <div className="flex w-full min-w-0 bg-transparent">
                 <form
                   onSubmit={form.onSubmit(async (value) => {
                     stopListening()
-                    if (!compareModeActive) {
-                      if (!selectedModel || selectedModel.length === 0) {
-                        form.setFieldError("message", t("formError.noModel"))
+                    const intent = resolveSubmissionIntent(value.message)
+                    if (intent.handled && !intent.invalidImageCommand) {
+                      form.setFieldValue("message", intent.message)
+                    }
+                    if (intent.invalidImageCommand) {
+                      notificationApi.error({
+                        message: t("error", { defaultValue: "Error" }),
+                        description: intent.imageCommandMissingProvider
+                          ? t(
+                              "imageCommand.missingProvider",
+                              "Pick an Image provider in More tools or use /generate-image:<provider> <prompt>."
+                            )
+                          : t(
+                              "imageCommand.invalidUsage",
+                              "Use /generate-image:<provider> <prompt>."
+                            )
+                      })
+                      return
+                    }
+                    if (!intent.isImageCommand) {
+                      if (!compareModeActive) {
+                        if (!selectedModel || selectedModel.length === 0) {
+                          form.setFieldError("message", t("formError.noModel"))
+                          return
+                        }
+                      } else if (
+                        !compareSelectedModels ||
+                        compareSelectedModels.length === 0
+                      ) {
+                        form.setFieldError(
+                          "message",
+                          t(
+                            "playground:composer.validationCompareSelectModelsInline",
+                            "Select at least one model for Compare mode."
+                          )
+                        )
                         return
                       }
-                    } else if (
-                      !compareSelectedModels ||
-                      compareSelectedModels.length === 0
-                    ) {
-                      form.setFieldError(
-                        "message",
-                        t(
-                          "playground:composer.validationCompareSelectModelsInline",
-                          "Select at least one model for Compare mode."
-                        )
-                      )
-                      return
                     }
                     const defaultEM = await defaultEmbeddingModelForRag()
 
-                    if (webSearch) {
+                    if (!intent.isImageCommand && webSearch) {
                       const simpleSearch = await getIsSimpleInternetSearch()
                       if (!defaultEM && !simpleSearch) {
                         form.setFieldError(
@@ -3535,11 +3896,22 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                       }
                     }
                     if (
-                      value.message.trim().length === 0 &&
+                      !intent.isImageCommand &&
+                      intent.message.trim().length === 0 &&
                       value.image.length === 0 &&
                       selectedDocuments.length === 0 &&
                       uploadedFiles.length === 0
                     ) {
+                      return
+                    }
+                    if (intent.isImageCommand && intent.message.trim().length === 0) {
+                      notificationApi.error({
+                        message: t("error", { defaultValue: "Error" }),
+                        description: t(
+                          "imageCommand.missingPrompt",
+                          "Image prompt is required."
+                        )
+                      })
                       return
                     }
                     form.reset()
@@ -3547,17 +3919,22 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                     clearUploadedFiles()
                     textAreaFocus()
                     await sendMessage({
-                      image: value.image,
-                      message: value.message.trim(),
-                      docs: selectedDocuments.map((doc) => ({
-                        type: "tab",
-                        tabId: doc.id,
-                        title: doc.title,
-                        url: doc.url
-                      }))
+                      image: intent.isImageCommand ? "" : value.image,
+                      message: intent.message.trim(),
+                      docs: intent.isImageCommand
+                        ? []
+                        : selectedDocuments.map((doc) => ({
+                            type: "tab",
+                            tabId: doc.id,
+                            title: doc.title,
+                            url: doc.url
+                          })),
+                      imageBackendOverride: intent.isImageCommand
+                        ? intent.imageBackendOverride
+                        : undefined
                     })
                   })}
-                  className="shrink-0 flex-grow  flex flex-col items-center ">
+                  className="flex w-full min-w-0 flex-col items-center">
                   <input
                     id="file-upload"
                     name="file-upload"
@@ -3885,7 +4262,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                     {/* Proactive validation hints - show why send might be disabled */}
                     {!form.errors.message && isConnectionReady && !isSending && isProMode && (
                       <div className="px-2 py-1 text-label text-text-subtle">
-                        {!selectedModel ? (
+                        {!selectedModel && !activeImageCommand ? (
                           <span className="flex items-center gap-1">
                             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -4175,6 +4552,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                                 </>
                               )}
                               {modelUsageBadge}
+                              {imageProviderBadge}
                               <Tooltip
                                 title={
                                   t(
@@ -4358,6 +4736,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             </Tooltip>
                           )}
                           {modelUsageBadge}
+                          {imageProviderBadge}
                           <Tooltip
                             title={
                               t(
