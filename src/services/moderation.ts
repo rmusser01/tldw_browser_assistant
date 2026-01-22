@@ -4,7 +4,7 @@
 
 import { bgRequest } from "@/services/background-proxy"
 import type { ApiSendResponse } from "@/services/api-send"
-import type { ClientPathOrUrlWithQuery } from "@/services/tldw/openapi-guard"
+import { appendPathQuery, toAllowedPath } from "@/services/tldw/path-utils"
 
 export type ModerationAction = "block" | "redact" | "warn" | "pass"
 
@@ -112,7 +112,7 @@ export async function updateModerationSettings(
 export async function getEffectivePolicy(userId?: string): Promise<Record<string, any>> {
   const query = userId ? `?user_id=${encodeURIComponent(userId)}` : ""
   return await bgRequest<Record<string, any>>({
-    path: `/api/v1/moderation/policy/effective${query}` as ClientPathOrUrlWithQuery,
+    path: appendPathQuery("/api/v1/moderation/policy/effective", query),
     method: "GET"
   })
 }
@@ -133,7 +133,7 @@ export async function listUserOverrides(): Promise<ModerationUserOverridesRespon
 
 export async function getUserOverride(userId: string): Promise<Record<string, any>> {
   return await bgRequest<Record<string, any>>({
-    path: `/api/v1/moderation/users/${encodeURIComponent(userId)}` as ClientPathOrUrlWithQuery,
+    path: toAllowedPath(`/api/v1/moderation/users/${encodeURIComponent(userId)}`),
     method: "GET"
   })
 }
@@ -143,7 +143,7 @@ export async function setUserOverride(
   body: ModerationUserOverride
 ): Promise<Record<string, any>> {
   return await bgRequest<Record<string, any>>({
-    path: `/api/v1/moderation/users/${encodeURIComponent(userId)}` as ClientPathOrUrlWithQuery,
+    path: toAllowedPath(`/api/v1/moderation/users/${encodeURIComponent(userId)}`),
     method: "PUT",
     body
   })
@@ -151,7 +151,7 @@ export async function setUserOverride(
 
 export async function deleteUserOverride(userId: string): Promise<{ status: string; persisted?: boolean } > {
   return await bgRequest<{ status: string; persisted?: boolean }>({
-    path: `/api/v1/moderation/users/${encodeURIComponent(userId)}` as ClientPathOrUrlWithQuery,
+    path: toAllowedPath(`/api/v1/moderation/users/${encodeURIComponent(userId)}`),
     method: "DELETE"
   })
 }
@@ -204,7 +204,7 @@ export async function deleteManagedBlocklistItem(
   itemId: number
 ): Promise<BlocklistDeleteResponse> {
   return await bgRequest<BlocklistDeleteResponse>({
-    path: `/api/v1/moderation/blocklist/${itemId}` as ClientPathOrUrlWithQuery,
+    path: toAllowedPath(`/api/v1/moderation/blocklist/${itemId}`),
     method: "DELETE",
     headers: { "If-Match": version }
   })

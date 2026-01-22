@@ -168,8 +168,16 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       combined.push(voice)
     }
 
+    const providerKey = inferredTldwProviderKey?.toLowerCase() || ""
+    const scopedVoices = providerKey
+      ? tldwVoices.filter((voice) => {
+          const voiceProvider = String(voice.provider || "").toLowerCase()
+          return !voiceProvider || voiceProvider === providerKey
+        })
+      : tldwVoices
+
     providerVoices.forEach(pushVoice)
-    tldwVoices.forEach(pushVoice)
+    scopedVoices.forEach(pushVoice)
 
     if (combined.length > 0) {
       return combined
@@ -188,7 +196,21 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
 
     const fallback = (form.values.tldwTtsVoice || "").trim()
     return fallback ? [{ label: fallback, value: fallback }] : []
-  }, [form.values.tldwTtsVoice, providerVoices, tldwVoices])
+  }, [
+    form.values.tldwTtsVoice,
+    inferredTldwProviderKey,
+    providerVoices,
+    tldwVoices
+  ])
+
+  React.useEffect(() => {
+    if (form.values.ttsProvider !== "tldw") return
+    if (tldwVoiceOptions.length === 0) return
+    const current = String(form.values.tldwTtsVoice || "").trim()
+    const values = tldwVoiceOptions.map((option) => option.value)
+    if (current && values.includes(current)) return
+    form.setFieldValue("tldwTtsVoice", values[0])
+  }, [form.values.ttsProvider, form.values.tldwTtsVoice, form.setFieldValue, tldwVoiceOptions])
 
   // Save mutation with loading state
   const { mutate: saveTTSMutation, isPending: isSaving } = useMutation({

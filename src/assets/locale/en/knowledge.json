@@ -115,6 +115,65 @@
     "connectTitle": "Connect to use Knowledge QA",
     "connectDescription": "To use Knowledge QA and RAG search, first connect to your tldw server.",
     "connectExample1": "Open Settings → tldw server to add your server URL.",
-    "connectExample2": "Use Diagnostics if your server is running but not reachable."
+    "connectExample2": "Use Diagnostics if your server is running but not reachable.",
+    "noSourcesTitle": "Index knowledge to search",
+    "noSourcesDescription": "Your server is online, but no knowledge indexes were found. Add documents to start searching.",
+    "noSourcesPrimaryCta": "Open Quick ingest"
+  },
+  "search": {
+    "title": "Knowledge Search",
+    "subtitle": "Search your knowledge and get AI-powered answers",
+    "placeholder": "Search your knowledge base...",
+    "settings": "Advanced settings",
+    "autoAnswer": "Auto-answer questions",
+    "hint": "Enter a query above to search your knowledge base",
+    "errorTitle": "Search failed",
+    "failed": "Search failed. Please try again.",
+    "aiAnswer": "AI Answer",
+    "sources": "Sources",
+    "source": "Source {{num}}",
+    "cited": "Cited",
+    "askAbout": "Ask about this",
+    "noResults": "No results found for your query",
+    "unsupported": "RAG not available",
+    "unsupportedDesc": "This server does not support RAG search. Upgrade your server or check Diagnostics."
+  },
+  "presets": {
+    "fast": "Fast",
+    "balanced": "Balanced",
+    "thorough": "Thorough"
+  },
+  "settings": {
+    "title": "Advanced RAG Settings",
+    "reset": "Reset to defaults",
+    "autoRag": "RAG for every reply",
+    "autoRagHelp": "Enable RAG search for all chat messages",
+    "searchMode": "Search Mode",
+    "searchModeHybrid": "Hybrid (recommended)",
+    "searchModeVector": "Vector (semantic)",
+    "searchModeFts": "Full-text (keyword)",
+    "searchModeHelp": "Hybrid combines semantic and keyword search for best results",
+    "topK": "Results per query (top-k)",
+    "topKHelp": "Higher values return more results but may include less relevant content",
+    "generationOptions": "Generation Options",
+    "enableGeneration": "Enable answer generation",
+    "enableGenerationHelp": "Generate AI summaries from search results",
+    "enableCitations": "Include citations",
+    "enableCitationsHelp": "Add source references to generated answers",
+    "sources": "Source Types",
+    "sourceMedia": "Media (videos, audio)",
+    "sourceNotes": "Notes",
+    "sourceCharacters": "Characters",
+    "sourceChats": "Chat history",
+    "sourcesHelp": "Leave empty to search all sources",
+    "openFullSettings": "Open full RAG settings"
+  },
+  "chat": {
+    "title": "Ask about this source",
+    "untitledSource": "Selected source",
+    "hint": "Ask a question about this source to start a conversation",
+    "placeholder": "Ask a follow-up question...",
+    "noResponse": "No response received",
+    "error": "Sorry, I encountered an error. Please try again."
   }
 }

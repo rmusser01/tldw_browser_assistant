@@ -159,6 +159,7 @@ const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground
 const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
 const OptionWritingPlayground = lazy(() => import("./option-writing-playground"))
+const OptionModelPlayground = lazy(() => import("./option-model-playground"))
 const OptionModerationPlayground = lazy(() => import("./option-moderation-playground"))
 const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
 const OptionWatchlists = lazy(() => import("./option-watchlists"))
@@ -167,6 +168,7 @@ const OptionDataTables = lazy(() => import("./option-data-tables"))
 const OptionCollections = lazy(() => import("./option-collections"))
 const OptionAudiobookStudio = lazy(() => import("./option-audiobook-studio"))
 const OptionWorkflowEditor = lazy(() => import("./option-workflow-editor"))
+const OptionWorkspacePlayground = lazy(() => import("./option-workspace-playground"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -431,6 +433,18 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       beta: true
     }
   },
+  {
+    kind: "options",
+    path: "/model-playground",
+    element: <OptionModelPlayground />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.modelPlayground",
+      icon: FlaskConical,
+      order: 5,
+      beta: true
+    }
+  },
   { kind: "options", path: "/chatbooks", element: <OptionChatbooksPlayground /> },
   { kind: "options", path: "/watchlists", element: <OptionWatchlists /> },
   { kind: "options", path: "/kanban", element: <OptionKanbanPlayground /> },
@@ -544,6 +558,18 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "option:header.workflowEditor",
       icon: GitBranch,
       order: 11,
+      beta: true
+    }
+  },
+  {
+    kind: "options",
+    path: "/workspace-playground",
+    element: <OptionWorkspacePlayground />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.workspacePlayground",
+      icon: FlaskConical,
+      order: 0,
       beta: true
     }
   },

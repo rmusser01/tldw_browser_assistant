@@ -2,25 +2,13 @@ import React, { useCallback } from "react"
 import { Card, Typography, Empty, Button, Space, Input, Popconfirm } from "antd"
 import { useTranslation } from "react-i18next"
 import { Plus, Trash2 } from "lucide-react"
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent
-} from "@dnd-kit/core"
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy
-} from "@dnd-kit/sortable"
+import { DragDropProvider, type DragDropEvents } from "@dnd-kit/react"
 import { useAudiobookStudioStore } from "@/store/audiobook-studio"
-import { ChapterItem } from "./ChapterItem"
 import { SortableChapterItem } from "./SortableChapterItem"
 
 const { Text } = Typography
+
+type DragEndEvent = Parameters<DragDropEvents["dragend"]>[0]
 
 export const ChapterList: React.FC = () => {
   const { t } = useTranslation(["audiobook", "common"])
@@ -34,16 +22,6 @@ export const ChapterList: React.FC = () => {
   const reorderChapters = useAudiobookStudioStore((s) => s.reorderChapters)
   const defaultVoiceConfig = useAudiobookStudioStore((s) => s.defaultVoiceConfig)
 
-  // DnD sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: { distance: 8 }
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    })
-  )
-
   const sortedChapters = React.useMemo(
     () => [...chapters].sort((a, b) => a.order - b.order),
     [chapters]
@@ -51,11 +29,13 @@ export const ChapterList: React.FC = () => {
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      const { active, over } = event
-      if (!over || active.id === over.id) return
+      if (event.canceled) return
+      const sourceId = event.operation.source?.id
+      const targetId = event.operation.target?.id
+      if (!sourceId || !targetId || sourceId === targetId) return
 
-      const oldIndex = sortedChapters.findIndex((ch) => ch.id === active.id)
-      const newIndex = sortedChapters.findIndex((ch) => ch.id === over.id)
+      const oldIndex = sortedChapters.findIndex((ch) => ch.id === sourceId)
+      const newIndex = sortedChapters.findIndex((ch) => ch.id === targetId)
 
       if (oldIndex !== -1 && newIndex !== -1) {
         reorderChapters(oldIndex, newIndex)
@@ -185,26 +165,17 @@ export const ChapterList: React.FC = () => {
           </Card>
         )}
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={sortedChapters.map((ch) => ch.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-2">
-              {sortedChapters.map((chapter, index) => (
-                <SortableChapterItem
-                  key={chapter.id}
-                  chapter={chapter}
-                  index={index}
-                />
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+        <DragDropProvider onDragEnd={handleDragEnd}>
+          <div className="space-y-2">
+            {sortedChapters.map((chapter, index) => (
+              <SortableChapterItem
+                key={chapter.id}
+                chapter={chapter}
+                index={index}
+              />
+            ))}
+          </div>
+        </DragDropProvider>
       </Card>
     </div>
   )

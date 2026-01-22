@@ -305,6 +305,10 @@ export const PROVIDER_REGISTRY: Record<string, ProviderMeta> = {
     label: "NeuTTS",
     capabilities: ["tts-engine"]
   },
+  pockettts: {
+    label: "PocketTTS",
+    capabilities: ["tts-engine"]
+  },
   index_tts: {
     label: "IndexTTS",
     capabilities: ["tts-engine"]
@@ -427,6 +431,13 @@ const TTS_PROVIDER_RULES: ProviderInferenceRule[] = [
   { provider: "chatterbox", match: (value) => value.startsWith("chatterbox") },
   { provider: "vibevoice", match: (value) => value.startsWith("vibevoice") },
   { provider: "neutts", match: (value) => value.startsWith("neutts") },
+  {
+    provider: "pockettts",
+    match: (value) =>
+      value.startsWith("pockettts") ||
+      value.startsWith("pocket-tts") ||
+      value.startsWith("pocket_tts")
+  },
   { provider: "elevenlabs", match: (value) => value.startsWith("eleven") },
   {
     provider: "index_tts",

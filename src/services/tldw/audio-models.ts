@@ -12,7 +12,9 @@ const FALLBACK_MODELS = [
   "kokoro",
   "higgs",
   "chatterbox",
-  "vibevoice"
+  "vibevoice",
+  "neutts",
+  "pockettts"
 ]
 
 const normalizeModelId = (value: unknown): string | null => {
@@ -181,12 +183,10 @@ export const fetchTldwTtsModels = async (): Promise<TldwTtsModel[]> => {
     // Ignore and fall back to static list below.
   }
 
-  if (models.length === 0) {
-    for (const id of FALLBACK_MODELS) {
-      if (!seen.has(id)) {
-        seen.add(id)
-        models.push(id)
-      }
+  for (const id of FALLBACK_MODELS) {
+    if (!seen.has(id)) {
+      seen.add(id)
+      models.push(id)
     }
   }
 

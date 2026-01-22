@@ -1,16 +1,15 @@
 import OptionLayout from "~/components/Layouts/Layout"
 import { PageShell } from "@/components/Common/PageShell"
-import { KnowledgeSearchChat } from "@/components/Option/KnowledgeSearchChat"
+import { ModelPlayground } from "@/components/Option/ModelPlayground"
 
-const OptionKnowledgeWorkspace = () => {
+const OptionModelPlayground = () => {
   return (
     <OptionLayout>
       <PageShell className="py-6" maxWidthClassName="max-w-7xl">
-        <KnowledgeSearchChat />
+        <ModelPlayground />
       </PageShell>
     </OptionLayout>
   )
 }
 
-export default OptionKnowledgeWorkspace
-
+export default OptionModelPlayground

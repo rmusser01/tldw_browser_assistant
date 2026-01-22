@@ -166,7 +166,7 @@ PRD 2 — Prompt Studio Playground & Settings (Prompt Studio Module)
   - Phase C — Playground interactions:
       - Hook test-case rows to the ad-hoc execute form: clicking a case pre-fills Inputs JSON; add a play/run icon per case to execute immediately and show inline result/status.
       - Separate evaluation config bar (model/temp/tokens/run_async) from results list; keep results panel dedicated to history/detail with polling.
-      - Enforce project scoping on lists and show a subtitle (“Showing N cases for <project>”) to clarify filtering.
+      - Enforce project scoping on lists and show a subtitle (“Showing N cases for `<project>`”) to clarify filtering.
 
   - Phase D — Settings & defaults:
       - Persist default project, execute model/provider, evaluation model config, page size, warn_seconds; reuse status probe in “Test Prompt Studio” with warn_seconds.

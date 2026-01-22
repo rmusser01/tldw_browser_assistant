@@ -79,6 +79,8 @@
     "collections": "Collections",
     "audiobookStudio": "Audiobook Studio",
     "workflowEditor": "Workflow Editor",
+    "modelPlayground": "Model Playground",
+    "workspacePlayground": "Workspace Playground",
     "modeKanban": "Kanban Playground",
     "modeShortcutHint": "{{shortcut}} to switch",
     "quickIngest": "Quick ingest",

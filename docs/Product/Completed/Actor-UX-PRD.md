@@ -148,7 +148,7 @@ The **order of blades** in the stack should be:
 #### 7.1.1 Header
 
 - Title: **“Scene Director (Actor)”**.
-- Subtitle: `Chat: <chat name> · Character: <character name>` (truncated with tooltip on hover).
+- Subtitle: `Chat: &lt;chat name&gt; · Character: &lt;character name&gt;` (truncated with tooltip on hover).
 - Right side: primary **Enabled** toggle:
   - Label: “Enabled”.
   - States: On / Off.
@@ -162,13 +162,13 @@ The **order of blades** in the stack should be:
 - A compact info row under the header:
   - `Scope: This chat` (non-editable description).
   - If a per-character profile is in use:
-    - Badge: `Using <Character> default` with tooltip “This chat was seeded from <Character>’s Actor profile.”
+    - Badge: `Using &lt;Character&gt; default` with tooltip “This chat was seeded from &lt;Character&gt;’s Actor profile.”
 
 #### 7.1.3 Presets & Defaults
 
 - Provide three inline actions (button or link-style with icons):
   - `Apply preset…` (opens preset selector / uses existing presets).
-  - `Save as <Character> default` (writes the current Actor settings as the character’s profile).
+  - `Save as &lt;Character&gt; default` (writes the current Actor settings as the character’s profile).
   - `Reset for this chat` (resets Actor settings to default for this chat).
 - These actions should be clearly visible but not visually heavy (secondary style).
 
@@ -373,4 +373,3 @@ These can be refined during design review but do not block initial implementatio
 3. Should we surface a **“last updated”** timestamp for Actor settings to help users understand when they last changed context?
 
 These should be resolved with product/UX stakeholders before final polishing but can be implemented with reasonable defaults (e.g., local blade state, no global “collapse all”) in the first iteration.
-

@@ -48,6 +48,14 @@ export const fetchTtsProviders = async (): Promise<TldwTtsProvidersInfo | null> 
         const value = rawProviders[key]
         if (value && typeof value === "object") {
           providers[key] = value as TldwTtsProviderCapabilities
+          const providerVoices = (value as { voices?: unknown }).voices
+          if (
+            !voices[key] &&
+            Array.isArray(providerVoices) &&
+            providerVoices.length > 0
+          ) {
+            voices[key] = providerVoices as TldwTtsVoiceInfo[]
+          }
         }
       }
     }

@@ -3,7 +3,6 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { toBase64 } from "~/libs/to-base64"
 import { useMessageOption } from "~/hooks/useMessageOption"
-import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
 import {
   Checkbox,
   Dropdown,
@@ -83,7 +82,14 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreChatModelSettings } from "@/store/model"
 import { TokenProgressBar } from "./TokenProgressBar"
 import { AttachmentsSummary } from "./AttachmentsSummary"
-import { CompareToggle } from "./CompareToggle"
+import {
+  ParameterPresets,
+  JsonModeToggle,
+  JsonModeIndicator,
+  SystemPromptTemplatesButton,
+  SessionCostEstimation,
+  type PromptTemplate
+} from "./playground-features"
 import { useMobile } from "@/hooks/useMediaQuery"
 import { clearSetting, getSetting } from "@/services/settings/registry"
 import { DISCUSS_MEDIA_PROMPT_SETTING } from "@/services/settings/ui-settings"
@@ -194,7 +200,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const isMobileViewport = useMobile()
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
-  const [compareSettingsOpen, setCompareSettingsOpen] = React.useState(false)
   const apiProvider = useStoreChatModelSettings((state) => state.apiProvider)
   const numCtx = useStoreChatModelSettings((state) => state.numCtx)
   const systemPrompt = useStoreChatModelSettings((state) => state.systemPrompt)
@@ -421,78 +426,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     return `${providerLabel} / ${modelSummaryLabel}`
   }, [modelSummaryLabel, providerLabel, selectedModel, t])
 
-  const compareSummaryLabel = React.useMemo(() => {
-    if (!compareModeActive) {
-      return null
-    }
-    const count = compareSelectedModels.length
-    if (count === 0) {
-      return t("playground:composer.compareNoneSelected", "No models selected for compare")
-    }
-    if (count === 1) {
-      return t("playground:composer.compareSingle", "Comparing 1 model")
-    }
-    return t("playground:composer.compareMany", "Comparing {{count}} models", { count })
-  }, [compareModeActive, compareSelectedModels.length, t])
-
-  const compareModelLabelById = React.useMemo(() => {
-    const map = new Map<string, string>()
-    const models = (composerModels as any[]) || []
-    models.forEach((model) => {
-      const label = model.nickname || model.model
-      if (model.model && !map.has(model.model)) {
-        map.set(model.model, label)
-      }
-    })
-    return map
-  }, [composerModels])
-
-  const compareActiveSummary = React.useMemo(() => {
-    if (!compareModeActive || compareSelectedModels.length === 0) {
-      return null
-    }
-    const maxNames = 2
-    const names = compareSelectedModels
-      .slice(0, maxNames)
-      .map((modelId) => compareModelLabelById.get(modelId) || modelId)
-    const moreCount = compareSelectedModels.length - names.length
-    const label = names.join(", ") + (moreCount > 0 ? ` +${moreCount}` : "")
-    return t(
-      "playground:composer.compareActiveSummary",
-      "Active models next turn: {{label}}",
-      { label }
-    )
-  }, [compareModeActive, compareModelLabelById, compareSelectedModels, t])
-
-  const compareButtonLabel = React.useMemo(() => {
-    if (!compareModeActive) {
-      return t("playground:composer.compareButton", "Compare models")
-    }
-    if (compareSelectedModels.length > 0) {
-      return t(
-        "playground:composer.compareButtonActive",
-        "Compare: {{count}} models",
-        { count: compareSelectedModels.length }
-      )
-    }
-    return t("playground:composer.compareButtonOn", "Compare enabled")
-  }, [compareModeActive, compareSelectedModels.length, t])
-
-  const compareModelOptions = React.useMemo(() => {
-    const models = (composerModels as any[]) || []
-    return models.map((model) => ({
-      value: model.model,
-      label: (
-        <div className="flex items-center gap-2">
-          <ProviderIcons provider={model.provider} className="h-3 w-3 text-text-subtle" />
-          <span className="truncate">
-            {model.nickname || model.model}
-          </span>
-        </div>
-      )
-    }))
-  }, [composerModels])
-
   // Grouped menu items for quick model selection dropdown
   const modelDropdownItems = React.useMemo(() => {
     const models = (composerModels as any[]) || []
@@ -557,36 +490,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       }
     ]
   }, [modelDropdownItems, navigate, t])
-
-  const handleCompareModelChange = (values: string[]) => {
-    if (!compareFeatureEnabled) {
-      return
-    }
-    const max =
-      typeof compareMaxModels === "number" && compareMaxModels > 0
-        ? compareMaxModels
-        : MAX_COMPARE_MODELS
-    const next = values.slice(0, max)
-    if (values.length > max) {
-      notificationApi.warning({
-        message: t("playground:composer.compareMaxModelsTitle", "Compare limit reached"),
-        description: t(
-          "playground:composer.compareMaxModels",
-          "You can compare up to {{limit}} models per turn.",
-          { count: max, limit: max }
-        )
-      })
-    }
-    setCompareSelectedModels(next)
-  }
-
-  const removeCompareModel = (modelId: string) => {
-    if (!compareFeatureEnabled) {
-      return
-    }
-    const next = compareSelectedModels.filter((id) => id !== modelId)
-    setCompareSelectedModels(next)
-  }
 
   const sendLabel = React.useMemo(() => {
     if (compareModeActive && compareSelectedModels.length > 1) {
@@ -1123,7 +1026,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         activeKey: imageBackendActiveKey
       }}
       trigger={["hover", "click"]}
-      placement="rightTop"
+      placement="topRight"
     >
       <button
         type="button"
@@ -3048,15 +2951,14 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
             )}
           </div>
         )}
-        <button
-          type="button"
-          onClick={() => setCompareSettingsOpen(true)}
-          title={compareButtonLabel}
+        <Link
+          to="/workspace-playground"
+          title={t("playground:actions.workspacePlayground", "Multi-model compare") as string}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
-          <span>{compareButtonLabel}</span>
+          <span>{t("playground:actions.workspacePlayground", "Multi-model compare")}</span>
           <GitBranch className="h-4 w-4" />
-        </button>
+        </Link>
         <button
           type="button"
           onClick={handleImageUpload}
@@ -3090,7 +2992,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     ),
     [
       chatMode,
-      compareButtonLabel,
       contextToolsOpen,
       handleClearContext,
       handleDocumentUpload,
@@ -3098,7 +2999,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       handleToggleContextTools,
       history.length,
       imageProviderControl,
-      setCompareSettingsOpen,
       setWebSearch,
       setToolChoice,
       t,
@@ -3647,181 +3547,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
               onRemoveFile={removeUploadedFile}
               onClearFiles={clearUploadedFiles}
             />
-            {/* Compare Toggle - surfaced in main toolbar for better discoverability */}
-            {compareFeatureEnabled && (
-              <div className="px-3 pb-2">
-                <div className="flex flex-wrap items-center gap-3">
-                  <CompareToggle
-                    featureEnabled={compareFeatureEnabled}
-                    active={compareModeActive}
-                    onToggle={() => setCompareMode(!compareMode)}
-                    selectedModels={compareSelectedModels}
-                    availableModels={(composerModels as any[]) || []}
-                    maxModels={compareMaxModels || 4}
-                    onAddModel={(modelId) => {
-                      if (!compareSelectedModels.includes(modelId)) {
-                        setCompareSelectedModels([...compareSelectedModels, modelId])
-                      }
-                    }}
-                    onRemoveModel={removeCompareModel}
-                    onOpenSettings={() => setCompareSettingsOpen(true)}
-                  />
-                  {compareModeActive && compareSelectedModels.length > 1 && (
-                    <span className="text-[10px] text-text-muted">
-                      {t(
-                        "playground:composer.compareActiveModelsHint",
-                        "Your next message will be sent to each active model."
-                      )}
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
-            <Modal
-              title={t(
-                "playground:composer.compareSettingsTitle",
-                "Compare settings"
-              )}
-              open={compareSettingsOpen}
-              onCancel={() => setCompareSettingsOpen(false)}
-              footer={null}
-            >
-              <div className="space-y-4 text-sm">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 text-sm font-medium text-text">
-                      {t(
-                        "playground:composer.compareFeatureToggle",
-                        "Enable Compare mode"
-                      )}
-                      <BetaTag className="!m-0" />
-                    </div>
-                    <div className="text-xs text-text-muted">
-                      {t(
-                        "playground:composer.compareFeatureToggleHint",
-                        "Unlock experimental multi-model compare features."
-                      )}
-                    </div>
-                  </div>
-                  <Switch
-                    checked={compareFeatureEnabled}
-                    onChange={setCompareFeatureEnabled}
-                  />
-                </div>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <div className="text-sm font-medium text-text">
-                      {t(
-                        "playground:composer.compareSettingsToggle",
-                        "Enable Compare mode"
-                      )}
-                    </div>
-                    <div className="text-xs text-text-muted">
-                      {t(
-                        "playground:composer.compareSettingsToggleHint",
-                        "Send your next message to multiple models."
-                      )}
-                    </div>
-                  </div>
-                  <Switch
-                    checked={compareMode}
-                    onChange={setCompareMode}
-                    disabled={!compareFeatureEnabled}
-                  />
-                </div>
-
-                <div
-                  className={
-                    compareModeActive
-                      ? "space-y-2"
-                      : "space-y-2 opacity-50 pointer-events-none"
-                  }
-                >
-                  <div className="text-xs font-semibold uppercase tracking-wide text-text-subtle">
-                    {t(
-                      "playground:composer.compareModelPickerLabel",
-                      "Select models"
-                    )}
-                  </div>
-                  <Select
-                    mode="multiple"
-                    value={compareSelectedModels}
-                    onChange={handleCompareModelChange}
-                    options={compareModelOptions}
-                    placeholder={t(
-                      "playground:composer.compareModelPickerPlaceholder",
-                      "Choose models to compare"
-                    )}
-                    maxTagCount="responsive"
-                    style={{ width: "100%" }}
-                  />
-                  {compareSummaryLabel && (
-                    <div className="text-xs text-text-muted">
-                      {compareSummaryLabel}
-                    </div>
-                  )}
-                  {compareActiveSummary && (
-                    <div className="text-xs text-text-muted">
-                      {compareActiveSummary}
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  className={
-                    compareModeActive
-                      ? "flex items-center gap-2 text-xs text-text-muted"
-                      : "flex items-center gap-2 text-xs text-text-muted opacity-50 pointer-events-none"
-                  }
-                >
-                  <span>
-                    {t(
-                      "playground:composer.compareMaxLabel",
-                      "Max models per turn"
-                    )}
-                    :
-                  </span>
-                  <Select
-                    size="small"
-                    value={compareMaxModels}
-                    style={{ width: 70 }}
-                    onChange={(value: number) => {
-                      const next = Math.min(Math.max(value, 2), 4)
-                      setCompareMaxModels(next)
-                      if (
-                        compareSelectedModels &&
-                        compareSelectedModels.length > next
-                      ) {
-                        setCompareSelectedModels(
-                          compareSelectedModels.slice(0, next)
-                        )
-                      }
-                    }}
-                    options={[2, 3, 4].map((v) => ({
-                      value: v,
-                      label: v.toString()
-                    }))}
-                  />
-                  <span
-                    className={`ml-1 ${
-                      compareSelectedModels.length >=
-                      (compareMaxModels || MAX_COMPARE_MODELS)
-                        ? "text-warn"
-                        : ""
-                    }`}
-                  >
-                    {t(
-                      "playground:composer.compareMaxHelper",
-                      "Selected {{current}} / {{limit}}",
-                      {
-                        current: compareSelectedModels.length,
-                        limit: compareMaxModels || MAX_COMPARE_MODELS
-                      }
-                    )}
-                  </span>
-                </div>
-              </div>
-            </Modal>
+            {/* Link to Workspace Playground for Compare mode */}
             <div>
               <div className="flex w-full min-w-0 bg-transparent">
                 <form
@@ -4342,6 +4068,29 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               )}
                             </div>
                           </div>
+                          {/* Enhanced Playground Features Row */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <ParameterPresets compact />
+                              <JsonModeToggle compact />
+                              <JsonModeIndicator />
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <SystemPromptTemplatesButton
+                                onSelect={(template: PromptTemplate) => {
+                                  setSystemPrompt(template.content)
+                                  setSelectedSystemPrompt(undefined)
+                                }}
+                              />
+                              {messages.length > 0 && (
+                                <SessionCostEstimation
+                                  modelId={selectedModel}
+                                  provider={resolvedProviderKey}
+                                  messages={messages}
+                                />
+                              )}
+                            </div>
+                          </div>
                           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                             <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-muted">
                               <button
@@ -4717,6 +4466,8 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               </button>
                             </Tooltip>
                           )}
+                          <JsonModeToggle compact />
+                          <JsonModeIndicator />
                           {modelUsageBadge}
                           <Tooltip
                             title={

@@ -31,6 +31,9 @@ import {
   Headphones,
   SquarePen,
   ShieldCheck,
+  FlaskConical,
+  GitCompare,
+  MessageSquare,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -122,7 +125,7 @@ export function HeaderShortcuts({
           {
             type: "link" as const,
             to: "/",
-            icon: Layers,
+            icon: MessageSquare,
             label: t("option:header.modePlayground", "Chat"),
           },
           {
@@ -201,6 +204,24 @@ export function HeaderShortcuts({
       {
         title: t("option:header.groupWorkspace", "Workspace"),
         items: [
+          {
+            type: "link" as const,
+            to: "/model-playground",
+            icon: FlaskConical,
+            label: t(
+              "option:header.modelPlayground",
+              "Model Playground"
+            ),
+          },
+          {
+            type: "link" as const,
+            to: "/workspace-playground",
+            icon: GitCompare,
+            label: t(
+              "option:header.workspacePlayground",
+              "Workspace Playground"
+            ),
+          },
           {
             type: "link" as const,
             to: "/writing-playground",

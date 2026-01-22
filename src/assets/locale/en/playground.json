@@ -582,5 +582,147 @@
     "privateModeDescription": "Firefox Private Mode does not support saving chat. Temporary chat is enabled by default. More fixes coming soon.",
     "loadLocalHistoryPrefix": "Failed to load local chat history",
     "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
+  },
+  "presets": {
+    "title": "Parameter Presets",
+    "creative": {
+      "label": "Creative",
+      "description": "Higher temperature for creative writing, brainstorming, and varied responses"
+    },
+    "balanced": {
+      "label": "Balanced",
+      "description": "Default settings for general-purpose conversations"
+    },
+    "precise": {
+      "label": "Precise",
+      "description": "Lower temperature for factual, deterministic, and consistent responses"
+    },
+    "custom": {
+      "label": "Custom",
+      "description": "Fine-tune parameters manually",
+      "hint": "Adjust parameters in the settings panel"
+    }
+  },
+  "cost": {
+    "title": "Cost Estimation",
+    "breakdown": "Cost Breakdown",
+    "inputTokens": "Input tokens",
+    "outputTokens": "Output tokens",
+    "inputCost": "Input cost",
+    "outputCost": "Output cost",
+    "total": "Total",
+    "tokens": "tokens",
+    "noPricing": "Pricing data not available for this model",
+    "disclaimer": "Estimates are approximate and may vary based on actual API usage.",
+    "unknown": "Cost N/A",
+    "sessionStats": "Session Statistics"
+  },
+  "jsonMode": {
+    "title": "JSON Mode",
+    "label": "JSON Output",
+    "description": "When enabled, the model will output valid JSON. This is useful for structured data extraction, API responses, and programmatic parsing.",
+    "tips": "Tips:",
+    "tip1": "Include \"JSON\" in your prompt for best results",
+    "tip2": "Describe the expected schema in your system prompt",
+    "tip3": "Not all models support structured output",
+    "warning": "May increase response time slightly",
+    "activeHint": "Responses will be formatted as valid JSON"
+  },
+  "templates": {
+    "title": "System Prompt Templates",
+    "button": "Templates",
+    "search": "Search templates...",
+    "all": "All",
+    "noResults": "No templates found",
+    "copy": "Copy to clipboard",
+    "use": "Use template",
+    "category": {
+      "general": "General",
+      "coding": "Coding",
+      "writing": "Writing",
+      "analysis": "Analysis",
+      "roleplay": "Roleplay",
+      "specialized": "Specialized"
+    }
+  },
+  "branching": {
+    "title": "Branch Conversation",
+    "button": "Branch",
+    "hint": "Create alternative conversation paths",
+    "description": "Create a new conversation branch from any point in the chat history.",
+    "branchFrom": "Branch from",
+    "noMessages": "No messages to branch from",
+    "modalTitle": "Branch Conversation",
+    "modalDescription": "Select a message to create a new conversation branch. You can explore alternative responses or take the conversation in a different direction.",
+    "selectMessage": "Select a message",
+    "options": "Branch options",
+    "includeResponse": "Include the response that follows",
+    "create": "Create Branch",
+    "quickBranch": "Branch from here",
+    "hasBranches": "{{count}} branches"
+  },
+  "toolbar": {
+    "presets": "Generation Style",
+    "outputSettings": "Output Settings",
+    "costInfo": "Cost Information",
+    "quickSettings": "Quick Settings",
+    "settings": "Settings"
+  },
+  "modelPlayground": {
+    "description": "Experiment with model parameters, presets, and system prompts. Configure your settings here, then head to Chat to test them out.",
+    "goToChat": "Go to Chat",
+    "currentSettings": "Current Settings",
+    "presetsDescription": "Quickly switch between Creative, Balanced, and Precise modes to adjust model behavior.",
+    "templatesDescription": "Choose from a library of pre-built system prompts for different use cases like coding, writing, analysis, and more.",
+    "browseTemplates": "Browse Templates",
+    "costDescription": "See estimated costs for your API calls based on token usage and model pricing. Costs are displayed in real-time during chat.",
+    "costHint": "Cost estimation appears automatically during chat based on your selected model and token usage.",
+    "tips": "Quick Tips"
+  },
+  "workspace": {
+    "title": "Workspace Playground",
+    "subtitle": "Developer chat with compare mode and full controls",
+    "toggleDebug": "Toggle debug panel",
+    "hideSidebar": "Hide sidebar",
+    "showSidebar": "Show sidebar",
+    "goToSimpleChat": "Simple Chat",
+    "presets": "Presets",
+    "modelParams": "Model Parameters",
+    "systemPrompt": "System Prompt",
+    "systemPromptPlaceholder": "Enter a system prompt to guide the model's behavior...",
+    "systemPromptHint": "The system prompt provides context and instructions that shape how the model responds.",
+    "ragSettings": "RAG Settings",
+    "configuration": "Configuration",
+    "compareMode": "Compare Mode",
+    "compareResponses": "Compare Responses",
+    "addModel": "Add model",
+    "clearChat": "Clear chat",
+    "messagePlaceholder": "Type your message...",
+    "messagePlaceholderCompare": "Send to {{count}} models..."
+  },
+  "debug": {
+    "title": "Debug Panel",
+    "overview": "Overview",
+    "toolTraces": "Tool Traces",
+    "rawData": "Raw Data",
+    "noMessages": "No assistant messages yet",
+    "messages": "Messages",
+    "promptTokens": "Prompt Tokens",
+    "completionTokens": "Completion Tokens",
+    "totalLatency": "Total Latency",
+    "perMessage": "Per Message Breakdown",
+    "noToolCalls": "No tool calls recorded",
+    "noData": "No data available"
+  },
+  "params": {
+    "temperature": "Temperature",
+    "topP": "Top P",
+    "topK": "Top K",
+    "maxTokens": "Max Tokens",
+    "frequencyPenalty": "Frequency Penalty",
+    "presencePenalty": "Presence Penalty"
+  },
+  "actions": {
+    "workspacePlayground": "Multi-model compare"
   }
 }

@@ -1,6 +1,6 @@
 import React from "react"
-import { useSortable } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+import { useSortable } from "@dnd-kit/react/sortable"
+import { closestCenter } from "@dnd-kit/collision"
 import { GripVertical } from "lucide-react"
 import { type AudioChapter } from "@/store/audiobook-studio"
 import { ChapterItem } from "./ChapterItem"
@@ -15,27 +15,25 @@ export const SortableChapterItem: React.FC<SortableChapterItemProps> = ({
   index
 }) => {
   const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
+    ref,
+    handleRef,
     isDragging
-  } = useSortable({ id: chapter.id })
+  } = useSortable({
+    id: chapter.id,
+    index,
+    collisionDetector: closestCenter
+  })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
     opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 100 : "auto"
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="relative">
+    <div ref={ref} style={style} className="relative">
       <div className="absolute left-0 top-0 bottom-0 flex items-center z-10">
         <div
-          {...attributes}
-          {...listeners}
+          ref={handleRef}
           className="cursor-grab active:cursor-grabbing p-2 -ml-2 text-text-muted hover:text-text transition-colors"
         >
           <GripVertical className="h-4 w-4" />

@@ -10,27 +10,10 @@ import {
   GripVertical,
   Edit2
 } from "lucide-react"
-import {
-  DndContext,
-  DragOverlay,
-  closestCorners,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragStartEvent,
-  type DragEndEvent,
-  type DragOverEvent
-} from "@dnd-kit/core"
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  horizontalListSortingStrategy,
-  verticalListSortingStrategy,
-  useSortable,
-  arrayMove
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+import { DragDropProvider, DragOverlay, type DragDropEvents } from "@dnd-kit/react"
+import { useSortable } from "@dnd-kit/react/sortable"
+import { closestCorners } from "@dnd-kit/collision"
+import { arrayMove } from "@dnd-kit/helpers"
 
 import {
   createList,
@@ -62,6 +45,9 @@ interface BoardViewProps {
   onDelete: () => void
 }
 
+type DragStartEvent = Parameters<DragDropEvents["dragstart"]>[0]
+type DragEndEvent = Parameters<DragDropEvents["dragend"]>[0]
+
 export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
   const queryClient = useQueryClient()
 
@@ -88,16 +74,6 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
   useEffect(() => {
     setRenameValue(board.name)
   }, [board.id, board.name])
-
-  // DnD sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: { distance: 8 }
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    })
-  )
 
   // Mutations
   const createListMutation = useMutation({
@@ -255,8 +231,9 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
 
   // Drag handlers
   const handleDragStart = useCallback((event: DragStartEvent) => {
-    const { active } = event
-    const idStr = String(active.id)
+    const sourceId = event.operation.source?.id
+    if (!sourceId) return
+    const idStr = String(sourceId)
     setActiveId(idStr)
 
     if (idStr.startsWith("list-")) {
@@ -279,23 +256,25 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
     updateBoardMutation.mutate(nextName)
   }, [renameValue, board.name, updateBoardMutation])
 
-  const handleDragCancel = useCallback(() => {
-    setActiveId(null)
-    setActiveType(null)
-  }, [])
-
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      const { active, over } = event
-
-      if (!over) {
+      if (event.canceled) {
         setActiveId(null)
         setActiveType(null)
         return
       }
 
-      const activeIdStr = String(active.id)
-      const overIdStr = String(over.id)
+      const sourceId = event.operation.source?.id
+      const targetId = event.operation.target?.id
+
+      if (!sourceId || !targetId) {
+        setActiveId(null)
+        setActiveType(null)
+        return
+      }
+
+      const activeIdStr = String(sourceId)
+      const overIdStr = String(targetId)
 
       // Handle list reordering
       if (activeIdStr.startsWith("list-") && overIdStr.startsWith("list-")) {
@@ -439,36 +418,26 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
       </div>
 
       {/* Kanban board with DnD */}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragCancel={handleDragCancel}
-      >
+      <DragDropProvider onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <div className="flex gap-4 overflow-x-auto pb-4 min-h-[400px]">
-          <SortableContext
-            items={board.lists.map((l) => `list-${l.id}`)}
-            strategy={horizontalListSortingStrategy}
-          >
-            {board.lists.map((list) => (
-              <SortableList
-                key={list.id}
-                list={list}
-                onDeleteList={() => deleteListMutation.mutate(list.id)}
-                onCardClick={handleCardClick}
-                addingCard={addingCardListId === list.id}
-                onStartAddCard={() => setAddingCardListId(list.id)}
-                onCancelAddCard={() => {
-                  setAddingCardListId(null)
-                  setNewCardTitle("")
-                }}
-                newCardTitle={newCardTitle}
-                onNewCardTitleChange={setNewCardTitle}
-                onAddCard={() => handleAddCard(list.id)}
-              />
-            ))}
-          </SortableContext>
+          {board.lists.map((list, index) => (
+            <SortableList
+              key={list.id}
+              list={list}
+              index={index}
+              onDeleteList={() => deleteListMutation.mutate(list.id)}
+              onCardClick={handleCardClick}
+              addingCard={addingCardListId === list.id}
+              onStartAddCard={() => setAddingCardListId(list.id)}
+              onCancelAddCard={() => {
+                setAddingCardListId(null)
+                setNewCardTitle("")
+              }}
+              newCardTitle={newCardTitle}
+              onNewCardTitleChange={setNewCardTitle}
+              onAddCard={() => handleAddCard(list.id)}
+            />
+          ))}
 
           {/* Add list button/input */}
           <div className="flex-shrink-0 w-72">
@@ -528,7 +497,7 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
             </div>
           )}
         </DragOverlay>
-      </DndContext>
+      </DragDropProvider>
 
       {/* Card detail panel */}
       <CardDetailPanel
@@ -576,6 +545,7 @@ export const BoardView = ({ board, onRefresh, onDelete }: BoardViewProps) => {
 
 interface SortableListProps {
   list: ListWithCards
+  index: number
   onDeleteList: () => void
   onCardClick: (card: Card) => void
   addingCard: boolean
@@ -588,6 +558,7 @@ interface SortableListProps {
 
 const SortableList = ({
   list,
+  index,
   onDeleteList,
   onCardClick,
   addingCard,
@@ -598,17 +569,17 @@ const SortableList = ({
   onAddCard
 }: SortableListProps) => {
   const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
+    ref,
+    handleRef,
     isDragging
-  } = useSortable({ id: `list-${list.id}` })
+  } = useSortable({
+    id: `list-${list.id}`,
+    index,
+    collisionDetector: closestCorners,
+    group: "lists"
+  })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
     opacity: isDragging ? 0.5 : 1
   }
 
@@ -624,15 +595,14 @@ const SortableList = ({
 
   return (
     <div
-      ref={setNodeRef}
+      ref={ref}
       style={style}
       className="kanban-list flex-shrink-0 w-72 bg-gray-100 dark:bg-gray-800 rounded-lg"
     >
       {/* List header */}
       <div
         className="flex items-center justify-between p-3 cursor-grab"
-        {...attributes}
-        {...listeners}
+        ref={handleRef}
       >
         <div className="flex items-center gap-2">
           <GripVertical className="w-4 h-4 text-gray-400" />
@@ -652,18 +622,15 @@ const SortableList = ({
 
       {/* Cards container */}
       <div className="px-2 pb-2 max-h-[500px] overflow-y-auto">
-        <SortableContext
-          items={list.cards.map((c) => `card-${c.id}`)}
-          strategy={verticalListSortingStrategy}
-        >
-          {list.cards.map((card) => (
-            <SortableCard
-              key={card.id}
-              card={card}
-              onClick={() => onCardClick(card)}
-            />
-          ))}
-        </SortableContext>
+        {list.cards.map((card, cardIndex) => (
+          <SortableCard
+            key={card.id}
+            card={card}
+            index={cardIndex}
+            group={`cards-${list.id}`}
+            onClick={() => onCardClick(card)}
+          />
+        ))}
 
         {/* Add card input */}
         {addingCard ? (
@@ -714,31 +681,30 @@ const SortableList = ({
 
 interface SortableCardProps {
   card: Card
+  index: number
+  group: string
   onClick: () => void
 }
 
-const SortableCard = ({ card, onClick }: SortableCardProps) => {
+const SortableCard = ({ card, index, group, onClick }: SortableCardProps) => {
   const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
+    ref,
     isDragging
-  } = useSortable({ id: `card-${card.id}` })
+  } = useSortable({
+    id: `card-${card.id}`,
+    index,
+    collisionDetector: closestCorners,
+    group
+  })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
     opacity: isDragging ? 0.5 : 1
   }
 
   return (
     <div
-      ref={setNodeRef}
+      ref={ref}
       style={style}
-      {...attributes}
-      {...listeners}
       onClick={onClick}
       className="kanban-card bg-white dark:bg-gray-900 rounded-md p-3 mb-2 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
     >

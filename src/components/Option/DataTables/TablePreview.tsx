@@ -1,19 +1,7 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react"
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent
-} from "@dnd-kit/core"
-import {
-  SortableContext,
-  horizontalListSortingStrategy,
-  useSortable
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+import { DragDropProvider, type DragDropEvents } from "@dnd-kit/react"
+import { useSortable } from "@dnd-kit/react/sortable"
+import { closestCenter } from "@dnd-kit/collision"
 import {
   Alert,
   Button,
@@ -48,36 +36,33 @@ const AddColumnModal = React.lazy(() =>
   }))
 )
 
+type DragEndEvent = Parameters<DragDropEvents["dragend"]>[0]
+
 // Sortable column header for preview
 const SortablePreviewHeader: React.FC<{
   column: DataTableColumn
+  index: number
   onDelete: () => void
-}> = ({ column, onDelete }) => {
+}> = ({ column, index, onDelete }) => {
   const { t } = useTranslation(["dataTables", "common"])
   const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
+    ref,
+    handleRef,
     isDragging
-  } = useSortable({ id: column.id })
+  } = useSortable({ id: column.id, index, collisionDetector: closestCenter })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
     opacity: isDragging ? 0.5 : 1
   }
 
   return (
     <div
-      ref={setNodeRef}
+      ref={ref}
       style={style}
       className="flex items-center gap-1 group"
     >
       <span
-        {...attributes}
-        {...listeners}
+        ref={handleRef}
         className="cursor-grab hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <GripVertical className="h-4 w-4" />
@@ -152,12 +137,6 @@ export const TablePreview: React.FC = () => {
     tableUuid: string
     rowsLimit: number
   } | null>(null)
-
-  // DnD sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(KeyboardSensor)
-  )
 
   useEffect(() => {
     return () => {
@@ -355,11 +334,13 @@ export const TablePreview: React.FC = () => {
   // Handle drag end for column reordering
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      const { active, over } = event
-      if (!over || active.id === over.id || !editingTable) return
+      if (event.canceled) return
+      const sourceId = event.operation.source?.id
+      const targetId = event.operation.target?.id
+      if (!sourceId || !targetId || sourceId === targetId || !editingTable) return
 
-      const oldIndex = editingTable.columns.findIndex((c) => c.id === active.id)
-      const newIndex = editingTable.columns.findIndex((c) => c.id === over.id)
+      const oldIndex = editingTable.columns.findIndex((c) => c.id === sourceId)
+      const newIndex = editingTable.columns.findIndex((c) => c.id === targetId)
 
       if (oldIndex !== -1 && newIndex !== -1) {
         reorderColumns(oldIndex, newIndex)
@@ -386,10 +367,11 @@ export const TablePreview: React.FC = () => {
   // Build columns
   const columns = useMemo((): ColumnsType<DataTableRow> => {
     const tableColumns = editingTable?.columns || generatedTable?.columns || []
-    const dataColumns: ColumnsType<DataTableRow> = tableColumns.map((col) => ({
+    const dataColumns: ColumnsType<DataTableRow> = tableColumns.map((col, index) => ({
       title: (
         <SortablePreviewHeader
           column={col}
+          index={index}
           onDelete={() => deleteColumn(col.id)}
         />
       ),
@@ -453,12 +435,6 @@ export const TablePreview: React.FC = () => {
     setEditingCellKey,
     t
   ])
-
-  // Column IDs for sortable context
-  const columnIds = useMemo(
-    () => (editingTable?.columns || generatedTable?.columns || []).map((c) => c.id),
-    [editingTable, generatedTable]
-  )
 
   // Loading state
   if (isGenerating) {
@@ -582,32 +558,23 @@ export const TablePreview: React.FC = () => {
       </div>
 
       {/* Editable table with DnD */}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={columnIds}
-          strategy={horizontalListSortingStrategy}
-        >
-          <Table
-            dataSource={editingRows.length > 0 ? editingRows : generatedTable?.rows?.map((row, index) => ({
-              ...row,
-              _id: `row-${index}`
-            }))}
-            columns={columns}
-            rowKey="_id"
-            pagination={{
-              pageSize: 10,
-              showSizeChanger: false,
-              showTotal: (total) => t("dataTables:showingRows", "Showing {{total}} rows", { total })
-            }}
-            scroll={{ x: true }}
-            size="small"
-          />
-        </SortableContext>
-      </DndContext>
+      <DragDropProvider onDragEnd={handleDragEnd}>
+        <Table
+          dataSource={editingRows.length > 0 ? editingRows : generatedTable?.rows?.map((row, index) => ({
+            ...row,
+            _id: `row-${index}`
+          }))}
+          columns={columns}
+          rowKey="_id"
+          pagination={{
+            pageSize: 10,
+            showSizeChanger: false,
+            showTotal: (total) => t("dataTables:showingRows", "Showing {{total}} rows", { total })
+          }}
+          scroll={{ x: true }}
+          size="small"
+        />
+      </DragDropProvider>
 
       {/* Prompt used */}
       <div className="mt-4 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg">
