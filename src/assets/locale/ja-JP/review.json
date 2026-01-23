@@ -211,6 +211,7 @@
     "contentCopied": "内容をコピーしました",
     "metadataCopied": "メタデータをコピーしました",
     "analysisCopied": "分析をコピーしました",
+    "analysisPending": "Pending save",
     "copyFailed": "コピーに失敗しました",
     "noContent": "利用可能な内容がありません",
     "collapse": "折りたたむ",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "包括的な分析",
     "presetExecutiveSummary": "エグゼクティブサマリー",
     "presetCriticalReview": "批判的レビュー",
-    "presetQAAnalysis": "Q&A 分析"
+    "presetQAAnalysis": "Q&A 分析",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "レビューを使用するには接続してください",

@@ -4,6 +4,7 @@ import { StyleProvider } from "@ant-design/cssinjs"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
+import { LocaleJsonDiagnostics } from "@/components/Common/LocaleJsonDiagnostics"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
 import { getQueryClient } from "@/services/query-client"
 
@@ -59,6 +60,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       <QueryClientProvider client={queryClient}>
         <PageAssistProvider>
           <FontSizeProvider>
+            <LocaleJsonDiagnostics />
             {suspendWhenHidden && !isVisible ? null : children}
             {extras}
           </FontSizeProvider>

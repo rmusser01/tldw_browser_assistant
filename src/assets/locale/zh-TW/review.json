@@ -211,6 +211,7 @@
     "contentCopied": "內容已複製",
     "metadataCopied": "中繼資料已複製",
     "analysisCopied": "分析已複製",
+    "analysisPending": "Pending save",
     "copyFailed": "複製失敗",
     "noContent": "沒有可用內容",
     "collapse": "收合",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "全面分析",
     "presetExecutiveSummary": "高階摘要",
     "presetCriticalReview": "批判性檢視",
-    "presetQAAnalysis": "問答分析"
+    "presetQAAnalysis": "問答分析",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "連線以使用審閱",

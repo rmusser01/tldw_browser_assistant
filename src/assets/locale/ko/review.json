@@ -211,6 +211,7 @@
     "contentCopied": "콘텐츠가 복사되었습니다",
     "metadataCopied": "메타데이터가 복사되었습니다",
     "analysisCopied": "분석이 복사되었습니다",
+    "analysisPending": "Pending save",
     "copyFailed": "복사에 실패했습니다",
     "noContent": "사용할 수 있는 콘텐츠가 없습니다",
     "collapse": "접기",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "종합 분석",
     "presetExecutiveSummary": "요약 보고",
     "presetCriticalReview": "비판적 검토",
-    "presetQAAnalysis": "Q&A 분석"
+    "presetQAAnalysis": "Q&A 분석",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "리뷰를 사용하려면 연결하세요",

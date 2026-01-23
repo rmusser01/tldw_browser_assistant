@@ -211,6 +211,7 @@
     "contentCopied": "Contenido copiado",
     "metadataCopied": "Metadatos copiados",
     "analysisCopied": "Análisis copiado",
+    "analysisPending": "Pending save",
     "copyFailed": "Error al copiar",
     "noContent": "No hay contenido disponible",
     "collapse": "Contraer",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "Análisis exhaustivo",
     "presetExecutiveSummary": "Resumen ejecutivo",
     "presetCriticalReview": "Revisión crítica",
-    "presetQAAnalysis": "Análisis de preguntas y respuestas"
+    "presetQAAnalysis": "Análisis de preguntas y respuestas",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Conéctate para usar Review",

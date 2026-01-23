@@ -211,6 +211,7 @@
     "contentCopied": "内容已复制",
     "metadataCopied": "元数据已复制",
     "analysisCopied": "分析已复制",
+    "analysisPending": "Pending save",
     "copyFailed": "复制失败",
     "noContent": "没有可用内容",
     "collapse": "折叠",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "全面分析",
     "presetExecutiveSummary": "执行摘要",
     "presetCriticalReview": "批判性审阅",
-    "presetQAAnalysis": "问答分析"
+    "presetQAAnalysis": "问答分析",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "连接以使用审阅",

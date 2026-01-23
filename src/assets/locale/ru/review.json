@@ -211,6 +211,7 @@
     "contentCopied": "Содержимое скопировано",
     "metadataCopied": "Метаданные скопированы",
     "analysisCopied": "Анализ скопирован",
+    "analysisPending": "Pending save",
     "copyFailed": "Не удалось скопировать",
     "noContent": "Нет доступного содержимого",
     "collapse": "Свернуть",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "Полный анализ",
     "presetExecutiveSummary": "Краткое резюме",
     "presetCriticalReview": "Критический обзор",
-    "presetQAAnalysis": "Анализ вопросов и ответов"
+    "presetQAAnalysis": "Анализ вопросов и ответов",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Подключитесь, чтобы использовать обзор",

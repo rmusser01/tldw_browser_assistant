@@ -534,7 +534,12 @@ export const MediaReviewPage: React.FC = () => {
     const { virtualRow, isAllMode } = opts || {}
     const key = String(d.id)
     const content = getContent(d) || ""
-    const analysisText = d.summary || (d as any)?.analysis || ""
+    const analysisText =
+      d.summary ||
+      (d as any)?.analysis ||
+      (d as any)?.analysis_content ||
+      (d as any)?.analysisContent ||
+      ""
     const contentIsLong = content.length > 2000
     const analysisIsLong = analysisText.length > 1600
     const contentExpanded = contentExpandedIds.has(key)

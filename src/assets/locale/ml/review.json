@@ -211,6 +211,7 @@
     "contentCopied": "ഉള്ളടക്കം പകർത്തി",
     "metadataCopied": "മീറ്റാഡാറ്റ പകർത്തി",
     "analysisCopied": "വിശകലനം പകർത്തി",
+    "analysisPending": "Pending save",
     "copyFailed": "പകർത്തൽ പരാജയപ്പെട്ടു",
     "noContent": "ലഭ്യമായ ഉള്ളടക്കം ഇല്ല",
     "collapse": "ചുരുക്കുക",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "സമഗ്ര വിശകലനം",
     "presetExecutiveSummary": "എക്സിക്യൂട്ടീവ് സംഗ്രഹം",
     "presetCriticalReview": "വിമർശനപരമായ റിവ്യൂ",
-    "presetQAAnalysis": "Q&A വിശകലനം"
+    "presetQAAnalysis": "Q&A വിശകലനം",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "റിവ്യൂ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക",

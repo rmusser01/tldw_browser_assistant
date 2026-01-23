@@ -75,60 +75,62 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
           <span className="text-xs uppercase tracking-[0.14em] text-text-muted">
             {t('option:notesSearch.resultsLabel', { defaultValue: 'Results' })}
           </span>
-          <Tooltip
-            title={
-              exportDisabled
-                ? t('option:notesSearch.exportDisabled', {
-                    defaultValue: isOnline
-                      ? 'No results to export'
-                      : 'Connect to export notes'
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 'md',
+                  label: t('option:notesSearch.exportMdTooltip', {
+                    defaultValue: 'Export matching notes as Markdown (.md)'
                   })
-                : undefined
-            }
-          >
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: 'md',
-                    label: t('option:notesSearch.exportMdTooltip', {
-                      defaultValue: 'Export matching notes as Markdown (.md)'
-                    })
-                  },
-                  {
-                    key: 'csv',
-                    label: t('option:notesSearch.exportCsvTooltip', {
-                      defaultValue: 'Export matching notes as CSV'
-                    })
-                  },
-                  {
-                    key: 'json',
-                    label: t('option:notesSearch.exportJsonTooltip', {
-                      defaultValue: 'Export matching notes as JSON'
-                    })
-                  }
-                ],
-                onClick: ({ key }) => {
-                  if (exportDisabled) return
-                  if (key === 'md') onExportAllMd()
-                  if (key === 'csv') onExportAllCsv()
-                  if (key === 'json') onExportAllJson()
+                },
+                {
+                  key: 'csv',
+                  label: t('option:notesSearch.exportCsvTooltip', {
+                    defaultValue: 'Export matching notes as CSV'
+                  })
+                },
+                {
+                  key: 'json',
+                  label: t('option:notesSearch.exportJsonTooltip', {
+                    defaultValue: 'Export matching notes as JSON'
+                  })
                 }
-              }}
-              disabled={exportDisabled}
-            >
-              <Button
-                size="small"
-                type="text"
-                className="text-xs"
-                disabled={exportDisabled}
+              ],
+              onClick: ({ key }) => {
+                if (exportDisabled) return
+                if (key === 'md') onExportAllMd()
+                if (key === 'csv') onExportAllCsv()
+                if (key === 'json') onExportAllJson()
+              }
+            }}
+            disabled={exportDisabled}
+          >
+            <span className="inline-flex">
+              <Tooltip
+                title={
+                  exportDisabled
+                    ? t('option:notesSearch.exportDisabled', {
+                        defaultValue: isOnline
+                          ? 'No results to export'
+                          : 'Connect to export notes'
+                      })
+                    : undefined
+                }
               >
-                {t('option:notesSearch.exportMenuTrigger', {
-                  defaultValue: 'Export'
-                })}
-              </Button>
-            </Dropdown>
-          </Tooltip>
+                <Button
+                  size="small"
+                  type="text"
+                  className="text-xs"
+                  disabled={exportDisabled}
+                >
+                  {t('option:notesSearch.exportMenuTrigger', {
+                    defaultValue: 'Export'
+                  })}
+                </Button>
+              </Tooltip>
+            </span>
+          </Dropdown>
         </div>
       </div>
 

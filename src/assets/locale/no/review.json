@@ -212,6 +212,7 @@
     "contentCopied": "Innhold kopiert",
     "metadataCopied": "Metadata kopiert",
     "analysisCopied": "Analyse kopiert",
+    "analysisPending": "Pending save",
     "copyFailed": "Kopiering mislyktes",
     "noContent": "Ingen innhold tilgjengelig",
     "collapse": "Trekk sammen",
@@ -303,7 +304,8 @@
     "presetComprehensiveAnalysis": "Omfattende analyse",
     "presetExecutiveSummary": "Lederoppsummering",
     "presetCriticalReview": "Kritisk gjennomgang",
-    "presetQAAnalysis": "Spørsmål og svar-analyse"
+    "presetQAAnalysis": "Spørsmål og svar-analyse",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Koble til for å bruke Review",

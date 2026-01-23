@@ -211,6 +211,7 @@
     "contentCopied": "Innehåll kopierat",
     "metadataCopied": "Metadata har kopierats",
     "analysisCopied": "Analys har kopierats",
+    "analysisPending": "Pending save",
     "copyFailed": "Kopiering misslyckades",
     "noContent": "Inget innehåll tillgängligt",
     "collapse": "Fäll ihop",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "Omfattande analys",
     "presetExecutiveSummary": "Sammanfattning för ledningen",
     "presetCriticalReview": "Kritisk granskning",
-    "presetQAAnalysis": "Frågor och svar-analys"
+    "presetQAAnalysis": "Frågor och svar-analys",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Anslut för att använda granskning",

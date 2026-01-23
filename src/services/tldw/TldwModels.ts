@@ -1,6 +1,7 @@
 import { Storage } from "@plasmohq/storage"
-import { tldwClient, TldwModel } from "./TldwApiClient"
+import { tldwClient, TldwModel, type TldwConfig } from "./TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { isPlaceholderApiKey } from "@/utils/api-key"
 import {
   getProviderDisplayName,
   inferProviderFromModel
@@ -60,6 +61,21 @@ export class TldwModelsService {
     }
   }
 
+  private isConfiguredForModels(config: TldwConfig | null): boolean {
+    if (!config) return false
+    const serverUrl = String(config.serverUrl || "").trim()
+    if (!serverUrl) return false
+
+    if (config.authMode === "multi-user") {
+      return Boolean(String(config.accessToken || "").trim())
+    }
+
+    const key = String(config.apiKey || "").trim()
+    if (!key) return false
+    if (isPlaceholderApiKey(key)) return false
+    return true
+  }
+
   /**
    * Get available models from tldw server
    * Uses cache to avoid frequent API calls
@@ -74,6 +90,11 @@ export class TldwModelsService {
     }
 
     try {
+      const config = await tldwClient.getConfig().catch(() => null)
+      if (!this.isConfiguredForModels(config)) {
+        return this.cachedModels || []
+      }
+
       await tldwClient.initialize()
       const models = await tldwClient.getModels()
       

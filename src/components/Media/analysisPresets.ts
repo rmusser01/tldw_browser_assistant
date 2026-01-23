@@ -1,3 +1,5 @@
+import { DEFAULT_ANALYSIS_SUMMARY_PROMPT } from "@/utils/default-prompts"
+
 export interface AnalysisPresetConfig {
   nameKey: string
   nameDefault: string
@@ -9,8 +11,12 @@ export const ANALYSIS_PRESETS: AnalysisPresetConfig[] = [
   {
     nameKey: 'mediaPage.presetComprehensiveAnalysis',
     nameDefault: 'Comprehensive Analysis',
-    systemPrompt:
-      'You are an expert analyst. Provide a comprehensive analysis of the following content, including key themes, insights, and actionable takeaways.'
+    systemPrompt: DEFAULT_ANALYSIS_SUMMARY_PROMPT
+  },
+  {
+    nameKey: 'mediaPage.presetBulletedNotes',
+    nameDefault: 'Bulleted Notes',
+    systemPrompt: DEFAULT_ANALYSIS_SUMMARY_PROMPT
   },
   {
     nameKey: 'mediaPage.presetExecutiveSummary',

@@ -211,6 +211,7 @@
     "contentCopied": "Contenu copié",
     "metadataCopied": "Métadonnées copiées",
     "analysisCopied": "Analyse copiée",
+    "analysisPending": "Pending save",
     "copyFailed": "Échec de la copie",
     "noContent": "Aucun contenu disponible",
     "collapse": "Réduire",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "Analyse complète",
     "presetExecutiveSummary": "Résumé exécutif",
     "presetCriticalReview": "Revue critique",
-    "presetQAAnalysis": "Analyse Q&R"
+    "presetQAAnalysis": "Analyse Q&R",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Connectez-vous pour utiliser la Revue",

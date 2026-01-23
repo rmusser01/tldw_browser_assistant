@@ -52,6 +52,7 @@ import {
   LAST_MEDIA_ID_SETTING
 } from "@/services/settings/ui-settings"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import { DEFAULT_ANALYSIS_SUMMARY_PROMPT } from "@/utils/default-prompts"
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type MediaItem = any
@@ -135,11 +136,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [diffRightText, setDiffRightText] = React.useState<string>("")
   const [promptsOpen, setPromptsOpen] = React.useState<boolean>(false)
   const [reviewSystemPrompt, setReviewSystemPrompt] = React.useState<string>(
-    "You are an expert reviewer. Provide a concise, structured review of the following content."
+    DEFAULT_ANALYSIS_SUMMARY_PROMPT
   )
   const [reviewUserPrefix, setReviewUserPrefix] = React.useState<string>("")
   const [summarySystemPrompt, setSummarySystemPrompt] = React.useState<string>(
-    "Summarize the following content into key points and a brief abstract."
+    DEFAULT_ANALYSIS_SUMMARY_PROMPT
   )
   const [summaryUserPrefix, setSummaryUserPrefix] = React.useState<string>("")
   const reviewPresets = React.useMemo(

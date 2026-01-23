@@ -1,20 +1,56 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Modal, Button, Select, Input, message, Spin } from 'antd'
+import { Modal, Button, Select, Input, Spin } from 'antd'
 import { Storage } from '@plasmohq/storage'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useTranslation } from 'react-i18next'
-import { bgRequest } from '@/services/background-proxy'
+import { bgRequest, bgStream } from '@/services/background-proxy'
 import { tldwModels } from '@/services/tldw'
 import { ANALYSIS_PRESETS } from "@/components/Media/analysisPresets"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { safeStorageSerde } from "@/utils/safe-storage"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import { DEFAULT_ANALYSIS_SUMMARY_PROMPT } from "@/utils/default-prompts"
 
 interface AnalysisModalProps {
   open: boolean
   onClose: () => void
   mediaId: string | number
   mediaContent: string
-  onAnalysisGenerated: () => void
+  onAnalysisGenerated?: (analysisText: string, prompt?: string) => void
+}
+
+const MIN_ANALYSIS_TIMEOUT_MS = 120_000
+const MIN_ANALYSIS_STREAM_IDLE_TIMEOUT_MS = 120_000
+
+const toPositiveNumber = (value: unknown): number => {
+  const num = Number(value)
+  return Number.isFinite(num) && num > 0 ? num : 0
+}
+
+const firstNonEmptyString = (...vals: any[]): string => {
+  for (const v of vals) {
+    if (typeof v === 'string' && v.trim().length > 0) return v
+  }
+  return ''
+}
+
+const extractStreamDelta = (chunk: string): string | null => {
+  if (!chunk) return null
+  let payload = chunk.trim()
+  if (!payload) return null
+  if (payload.startsWith("data:")) payload = payload.slice(5).trim()
+  if (!payload || payload === "[DONE]") return null
+  try {
+    const parsed = JSON.parse(payload)
+    const delta =
+      parsed?.choices?.[0]?.delta?.content ??
+      parsed?.choices?.[0]?.message?.content ??
+      parsed?.choices?.[0]?.text ??
+      parsed?.content
+    return typeof delta === "string" ? delta : null
+  } catch {
+    return null
+  }
 }
 
 export function AnalysisModal({
@@ -25,15 +61,39 @@ export function AnalysisModal({
   onAnalysisGenerated
 }: AnalysisModalProps) {
   const { t } = useTranslation(['review', 'common'])
+  const messageApi = useAntdMessage()
   const [selectedModel, setSelectedModel] = useStorage<string | undefined>('selectedModel')
   const [models, setModels] = useState<Array<{ id: string; name?: string }>>([])
-  const [systemPrompt, setSystemPrompt] = useState(
-    'You are an expert analyst. Provide a comprehensive analysis of the following content, including key themes, insights, and actionable takeaways.'
-  )
+  const [systemPrompt, setSystemPrompt] = useState(DEFAULT_ANALYSIS_SUMMARY_PROMPT)
   const [userPrefix, setUserPrefix] = useState('')
   const [generating, setGenerating] = useState(false)
   const [showPresets, setShowPresets] = useState(false)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
+  const [analysisPreview, setAnalysisPreview] = useState("")
+
+  const buildTimeoutMessage = () => {
+    const summary = t('common:error.friendlyTimeoutSummary', 'Your chat timed out.')
+    const hint = t(
+      'common:error.friendlyTimeoutHint',
+      'The server stopped streaming responses. Try again, or open Health & diagnostics to check server status.'
+    )
+    return `${summary} ${hint}`.trim()
+  }
+
+  const isTimeoutError = (err: unknown) => {
+    const msg =
+      err instanceof Error
+        ? err.message
+        : typeof err === "string"
+          ? err
+          : ""
+    const lowered = msg.toLowerCase()
+    return (
+      lowered.includes("timeout") ||
+      lowered.includes("timed out") ||
+      lowered.includes("abort")
+    )
+  }
 
   const presets = useMemo(
     () =>
@@ -50,6 +110,34 @@ export function AnalysisModal({
       ? selectedModel
       : `tldw:${selectedModel}`
   }, [selectedModel])
+
+  useEffect(() => {
+    if (!open) {
+      setAnalysisPreview("")
+    }
+  }, [open])
+
+  const getAnalysisTimeouts = async () => {
+    try {
+      const storage = new Storage({ area: 'local', serde: safeStorageSerde } as any)
+      const cfg = (await storage.get('tldwConfig').catch(() => null)) as any
+      const configuredRequest =
+        toPositiveNumber(cfg?.chatRequestTimeoutMs) ||
+        toPositiveNumber(cfg?.requestTimeoutMs)
+      const configuredStreamIdle =
+        toPositiveNumber(cfg?.chatStreamIdleTimeoutMs) ||
+        toPositiveNumber(cfg?.streamIdleTimeoutMs)
+      return {
+        requestTimeoutMs: Math.max(configuredRequest, MIN_ANALYSIS_TIMEOUT_MS),
+        streamIdleTimeoutMs: Math.max(configuredStreamIdle, MIN_ANALYSIS_STREAM_IDLE_TIMEOUT_MS)
+      }
+    } catch {
+      return {
+        requestTimeoutMs: MIN_ANALYSIS_TIMEOUT_MS,
+        streamIdleTimeoutMs: MIN_ANALYSIS_STREAM_IDLE_TIMEOUT_MS
+      }
+    }
+  }
 
   // Load models from tldw_server
   useEffect(() => {
@@ -104,15 +192,15 @@ export function AnalysisModal({
     try {
       const storage = new Storage({ area: 'local', serde: safeStorageSerde } as any)
       await storage.set('media:analysisPrompts', { systemPrompt, userPrefix })
-      message.success(t('mediaPage.savedAsDefault', 'Saved as default prompts'))
+      messageApi.success(t('mediaPage.savedAsDefault', 'Saved as default prompts'))
     } catch {
-      message.error(t('mediaPage.savePromptsFailed', 'Failed to save prompts'))
+      messageApi.error(t('mediaPage.savePromptsFailed', 'Failed to save prompts'))
     }
   }
 
   const handleGenerate = async () => {
     if (!mediaContent || !mediaContent.trim()) {
-      message.warning(t('mediaPage.noContentForAnalysis', 'No content available for analysis'))
+      messageApi.warning(t('mediaPage.noContentForAnalysis', 'No content available for analysis'))
       return
     }
 
@@ -120,7 +208,7 @@ export function AnalysisModal({
       selectedModelKey && models.find((m) => m.id === selectedModelKey)?.id
     const effectiveModel = validSelectedModel || models[0]?.id
     if (!effectiveModel) {
-      message.warning(
+      messageApi.warning(
         t(
           'mediaPage.noModelSelected',
           'Select a model before generating analysis'
@@ -135,15 +223,59 @@ export function AnalysisModal({
 
     setGenerating(true)
     setElapsedSeconds(0)
+    setAnalysisPreview("")
     const startTime = Date.now()
     const timer = setInterval(() => {
       setElapsedSeconds(Math.floor((Date.now() - startTime) / 1000))
     }, 1000)
+    const extractPersistedAnalysis = (detail: any): string => {
+      if (!detail || typeof detail !== 'object') return ''
+      const fromProcessing = firstNonEmptyString(detail?.processing?.analysis)
+      if (fromProcessing) return fromProcessing
+      const fromRoot = firstNonEmptyString(
+        detail?.analysis,
+        detail?.analysis_content,
+        detail?.analysisContent
+      )
+      if (fromRoot) return fromRoot
+      if (Array.isArray(detail?.analyses)) {
+        for (const entry of detail.analyses) {
+          const text = typeof entry === 'string'
+            ? entry
+            : (entry?.content || entry?.text || entry?.summary || entry?.analysis_content || '')
+          const resolved = firstNonEmptyString(text)
+          if (resolved) return resolved
+        }
+      }
+      return ''
+    }
+
+    const saveAsVersion = async (analysisText: string) => {
+      if (!mediaId) return false
+      if (!mediaContent || !mediaContent.trim()) return false
+      try {
+        await bgRequest<any>({
+          path: `/api/v1/media/${mediaId}/versions`,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: {
+            content: String(mediaContent || ''),
+            analysis_content: analysisText,
+            prompt: systemPrompt
+          }
+        })
+        return true
+      } catch (err) {
+        console.error('Failed to save analysis as version:', err)
+        return false
+      }
+    }
+
     try {
-      const body = {
+      const { requestTimeoutMs, streamIdleTimeoutMs } = await getAnalysisTimeouts()
+      const requestBody = {
         model: normalizedModel || effectiveModel,
         ...(resolvedApiProvider ? { api_provider: resolvedApiProvider } : {}),
-        stream: false,
         messages: [
           { role: 'system', content: systemPrompt },
           {
@@ -153,20 +285,58 @@ export function AnalysisModal({
         ]
       }
 
-      const resp = await bgRequest<any>({
-        path: '/api/v1/chat/completions',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body
-      })
+      let analysisText = ''
+      let streamError: unknown = null
 
-      const analysisText =
-        resp?.choices?.[0]?.message?.content || resp?.content || ''
+      try {
+        let lastPreviewAt = 0
+        let streamedText = ""
+        for await (const chunk of bgStream({
+          path: '/api/v1/chat/completions',
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: { ...requestBody, stream: true },
+          streamIdleTimeoutMs
+        })) {
+          const delta = extractStreamDelta(chunk)
+          if (delta) {
+            streamedText += delta
+            analysisText = streamedText
+            const now = Date.now()
+            if (now - lastPreviewAt > 120) {
+              setAnalysisPreview(streamedText)
+              lastPreviewAt = now
+            }
+          }
+        }
+        if (analysisText) {
+          setAnalysisPreview(analysisText)
+        }
+      } catch (err) {
+        streamError = err
+      }
 
       if (!analysisText) {
-        message.error(t('mediaPage.noAnalysisReturned', 'No analysis returned from API'))
+        const resp = await bgRequest<any>({
+          path: '/api/v1/chat/completions',
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: { ...requestBody, stream: false },
+          timeoutMs: requestTimeoutMs
+        })
+        analysisText =
+          resp?.choices?.[0]?.message?.content || resp?.content || ''
+        if (analysisText) setAnalysisPreview(analysisText)
+      } else if (streamError) {
+        console.warn('Analysis stream completed with warnings:', streamError)
+      }
+
+      if (!analysisText) {
+        messageApi.error(t('mediaPage.noAnalysisReturned', 'No analysis returned from API'))
         return
       }
+
+      onAnalysisGenerated?.(analysisText, systemPrompt)
 
       // Save the analysis to the media item (MediaUpdateRequest)
       try {
@@ -180,15 +350,48 @@ export function AnalysisModal({
           }
         })
 
-        message.success(t('mediaPage.analysisGeneratedAndSaved', 'Analysis generated and saved'))
-        onAnalysisGenerated()
+        let persisted = true
+        try {
+          const detail = await bgRequest<any>({
+            path: `/api/v1/media/${mediaId}`,
+            method: 'GET'
+          })
+          persisted = Boolean(extractPersistedAnalysis(detail))
+        } catch {
+          persisted = true
+        }
+
+        if (!persisted) {
+          const versionSaved = await saveAsVersion(analysisText)
+          if (versionSaved) {
+            messageApi.warning(t('mediaPage.analysisSaveFailed', 'Failed to save analysis to media item'))
+            messageApi.success(t('mediaPage.versionSaved', 'Saved as new version'))
+            onClose()
+            return
+          }
+          messageApi.error(t('mediaPage.analysisSaveFailed', 'Failed to save analysis to media item'))
+          return
+        }
+
+        messageApi.success(t('mediaPage.analysisGeneratedAndSaved', 'Analysis generated and saved'))
         onClose()
       } catch (err) {
-        message.error(t('mediaPage.analysisSaveFailed', 'Failed to save analysis to media item'))
+        const versionSaved = await saveAsVersion(analysisText)
+        if (versionSaved) {
+          messageApi.warning(t('mediaPage.analysisSaveFailed', 'Failed to save analysis to media item'))
+          messageApi.success(t('mediaPage.versionSaved', 'Saved as new version'))
+          onClose()
+        } else {
+          messageApi.error(t('mediaPage.analysisSaveFailed', 'Failed to save analysis to media item'))
+        }
         console.error('Save error:', err)
       }
     } catch (err) {
-      message.error(t('mediaPage.analysisGenerateFailed', 'Failed to generate analysis'))
+      if (isTimeoutError(err)) {
+        messageApi.error(buildTimeoutMessage())
+      } else {
+        messageApi.error(t('mediaPage.analysisGenerateFailed', 'Failed to generate analysis'))
+      }
       console.error('Generation error:', err)
     } finally {
       clearInterval(timer)
@@ -240,6 +443,20 @@ export function AnalysisModal({
                 </div>
               </div>
             </div>
+          </div>
+        )}
+        {(generating || analysisPreview) && (
+          <div aria-live="polite">
+            <label className="block text-sm font-medium text-text mb-2">
+              {t('mediaPage.analysis', 'Analysis')}
+            </label>
+            <Input.TextArea
+              value={analysisPreview}
+              placeholder={t('mediaPage.generatingAnalysis', 'Generating analysis...')}
+              rows={6}
+              readOnly
+              className="text-sm"
+            />
           </div>
         )}
         <div>

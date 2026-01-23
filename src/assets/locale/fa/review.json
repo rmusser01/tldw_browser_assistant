@@ -211,6 +211,7 @@
     "contentCopied": "محتوا کپی شد",
     "metadataCopied": "فراداده کپی شد",
     "analysisCopied": "تحلیل کپی شد",
+    "analysisPending": "Pending save",
     "copyFailed": "کپی ناموفق بود",
     "noContent": "هیچ محتوایی موجود نیست",
     "collapse": "جمع کردن",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "تحلیل جامع",
     "presetExecutiveSummary": "خلاصه اجرایی",
     "presetCriticalReview": "بازبینی انتقادی",
-    "presetQAAnalysis": "تحلیل پرسش‌وپاسخ"
+    "presetQAAnalysis": "تحلیل پرسش‌وپاسخ",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "برای استفاده از بازبینی متصل شوید",

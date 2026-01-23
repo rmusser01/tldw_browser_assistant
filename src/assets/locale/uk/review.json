@@ -211,6 +211,7 @@
     "contentCopied": "Вміст скопійовано",
     "metadataCopied": "Метадані скопійовано",
     "analysisCopied": "Аналіз скопійовано",
+    "analysisPending": "Pending save",
     "copyFailed": "Не вдалося скопіювати",
     "noContent": "Немає доступного вмісту",
     "collapse": "Згорнути",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "Комплексний аналіз",
     "presetExecutiveSummary": "Резюме для керівництва",
     "presetCriticalReview": "Критичний огляд",
-    "presetQAAnalysis": "Аналіз запитань і відповідей"
+    "presetQAAnalysis": "Аналіз запитань і відповідей",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "Підключіться, щоб використовувати review",

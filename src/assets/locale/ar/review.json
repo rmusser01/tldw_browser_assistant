@@ -211,6 +211,7 @@
     "contentCopied": "تم نسخ المحتوى",
     "metadataCopied": "تم نسخ البيانات الوصفية",
     "analysisCopied": "تم نسخ التحليل",
+    "analysisPending": "Pending save",
     "copyFailed": "فشل النسخ",
     "noContent": "لا يتوفر محتوى",
     "collapse": "طي",
@@ -302,7 +303,8 @@
     "presetComprehensiveAnalysis": "تحليل شامل",
     "presetExecutiveSummary": "ملخص تنفيذي",
     "presetCriticalReview": "مراجعة نقدية",
-    "presetQAAnalysis": "تحليل أسئلة وأجوبة"
+    "presetQAAnalysis": "تحليل أسئلة وأجوبة",
+    "presetBulletedNotes": "Bulleted Notes"
   },
   "empty": {
     "connectTitle": "اتصل لاستخدام المراجعة",

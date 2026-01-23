@@ -126,6 +126,9 @@ export function ContentViewer({
   const [contentExpanded, setContentExpanded] = useState(true)
   const [analysisEditModalOpen, setAnalysisEditModalOpen] = useState(false)
   const [editingAnalysisText, setEditingAnalysisText] = useState('')
+  const [optimisticAnalysis, setOptimisticAnalysis] = useState('')
+  const [activeAnalysisIndex, setActiveAnalysisIndex] = useState(0)
+  const [analysisExpanded, setAnalysisExpanded] = useState(false)
   const [diffModalOpen, setDiffModalOpen] = useState(false)
   const [diffLeftText, setDiffLeftText] = useState('')
   const [diffRightText, setDiffRightText] = useState('')
@@ -218,12 +221,17 @@ export function ContentViewer({
     return firstNonEmptyString(latestVersion?.prompt)
   }, [mediaDetail, latestVersion])
 
-  const derivedAnalysisContent = useMemo(() => {
+  const persistedAnalysisContent = useMemo(() => {
     if (!mediaDetail) return ''
     const fromProcessing = firstNonEmptyString(mediaDetail?.processing?.analysis)
     if (fromProcessing) return fromProcessing
     const fromAnalysis = firstNonEmptyString(mediaDetail?.analysis)
     if (fromAnalysis) return fromAnalysis
+    const fromAnalysisContent = firstNonEmptyString(
+      mediaDetail?.analysis_content,
+      mediaDetail?.analysisContent
+    )
+    if (fromAnalysisContent) return fromAnalysisContent
     if (Array.isArray(mediaDetail?.analyses)) {
       for (const entry of mediaDetail.analyses) {
         const text = typeof entry === 'string'
@@ -240,6 +248,30 @@ export function ContentViewer({
     if (fromVersion) return fromVersion
     return firstNonEmptyString(mediaDetail?.summary)
   }, [mediaDetail, latestVersion])
+
+  const derivedAnalysisContent = useMemo(() => {
+    if (optimisticAnalysis) return optimisticAnalysis
+    return persistedAnalysisContent
+  }, [optimisticAnalysis, persistedAnalysisContent])
+
+  useEffect(() => {
+    setOptimisticAnalysis('')
+  }, [selectedMedia?.id])
+
+  useEffect(() => {
+    if (persistedAnalysisContent) {
+      setOptimisticAnalysis('')
+    }
+  }, [persistedAnalysisContent])
+
+  useEffect(() => {
+    setActiveAnalysisIndex(0)
+    setAnalysisExpanded(false)
+  }, [selectedMedia?.id])
+
+  useEffect(() => {
+    setAnalysisExpanded(false)
+  }, [activeAnalysisIndex])
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -374,8 +406,18 @@ export function ContentViewer({
     }
 
     // Check for analysis field (root level)
-    if (mediaDetail.analysis && typeof mediaDetail.analysis === 'string' && mediaDetail.analysis.trim()) {
-      analyses.push({ type: 'Analysis', text: mediaDetail.analysis })
+    const rootAnalysis = typeof mediaDetail.analysis === 'string' ? mediaDetail.analysis.trim() : ''
+    if (rootAnalysis) {
+      analyses.push({ type: 'Analysis', text: rootAnalysis })
+    }
+
+    // Check for analysis_content field (root level, alternate API shape)
+    const rootAnalysisContent = firstNonEmptyString(
+      mediaDetail.analysis_content,
+      mediaDetail.analysisContent
+    )
+    if (rootAnalysisContent && rootAnalysisContent !== rootAnalysis) {
+      analyses.push({ type: 'Analysis', text: rootAnalysisContent })
     }
 
     // Check for analyses array
@@ -399,8 +441,25 @@ export function ContentViewer({
       })
     }
 
+    if (optimisticAnalysis) {
+      const trimmed = optimisticAnalysis.trim()
+      if (trimmed && !analyses.some((entry) => entry.text.trim() === trimmed)) {
+        analyses.unshift({ type: 'Analysis', text: optimisticAnalysis })
+      }
+    }
+
     return analyses
-  }, [mediaDetail])
+  }, [mediaDetail, optimisticAnalysis])
+
+  useEffect(() => {
+    if (existingAnalyses.length === 0) {
+      setActiveAnalysisIndex(0)
+      return
+    }
+    if (activeAnalysisIndex >= existingAnalyses.length) {
+      setActiveAnalysisIndex(existingAnalyses.length - 1)
+    }
+  }, [activeAnalysisIndex, existingAnalyses.length])
 
   const toggleSection = (section: string) => {
     void setCollapsedSections((prev) => ({
@@ -452,7 +511,20 @@ export function ContentViewer({
   }
 
   // Get the first/selected analysis for creating note with analysis
-  const selectedAnalysis = existingAnalyses.length > 0 ? existingAnalyses[0] : null
+  const activeAnalysis =
+    existingAnalyses.length > 0
+      ? existingAnalyses[Math.min(activeAnalysisIndex, existingAnalyses.length - 1)]
+      : null
+
+  const selectedAnalysis = activeAnalysis
+
+  const analysisText = activeAnalysis?.text || ''
+  const ANALYSIS_COLLAPSE_THRESHOLD = 2000
+  const analysisIsLong = analysisText.length > ANALYSIS_COLLAPSE_THRESHOLD
+  const analysisShown =
+    !analysisIsLong || analysisExpanded
+      ? analysisText
+      : `${analysisText.slice(0, ANALYSIS_COLLAPSE_THRESHOLD)}…`
 
   // Check if viewing a note vs media
   const isNote = selectedMedia?.kind === 'note'
@@ -874,21 +946,12 @@ export function ContentViewer({
                 </button>
                   {existingAnalyses.length > 0 && (
                     <>
-                      {/* Edit analysis button */}
-                      <button
-                        onClick={() => {
-                          setEditingAnalysisText(existingAnalyses[0].text)
-                          setAnalysisEditModalOpen(true)
-                        }}
-                        className="p-1 text-text-muted hover:text-text transition-colors"
-                        title={t('review:mediaPage.editAnalysis', { defaultValue: 'Edit analysis' })}
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
                       {/* Send to chat button */}
                       {onSendAnalysisToChat && (
                         <button
-                          onClick={() => onSendAnalysisToChat(existingAnalyses[0].text)}
+                          onClick={() => {
+                            if (activeAnalysis) onSendAnalysisToChat(activeAnalysis.text)
+                          }}
                           className="p-1 text-text-muted hover:text-text transition-colors"
                           title={t('review:reviewPage.sendAnalysisToChat', {
                             defaultValue: 'Send analysis to chat'
@@ -900,8 +963,9 @@ export function ContentViewer({
                       {/* Copy analysis button */}
                       <button
                         onClick={() =>
+                          activeAnalysis &&
                           copyTextWithToasts(
-                            existingAnalyses[0].text,
+                            activeAnalysis.text,
                             'mediaPage.analysisCopied',
                             'Analysis copied'
                           )
@@ -911,7 +975,48 @@ export function ContentViewer({
                       >
                         <Copy className="w-3.5 h-3.5" />
                       </button>
+                      {/* Edit analysis button */}
+                      <button
+                        onClick={() => {
+                          if (!activeAnalysis) return
+                          setEditingAnalysisText(activeAnalysis.text)
+                          setAnalysisEditModalOpen(true)
+                        }}
+                        className="p-1 text-text-muted hover:text-text transition-colors"
+                        title={t('review:mediaPage.editAnalysis', { defaultValue: 'Edit analysis' })}
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
                     </>
+                  )}
+                  {activeAnalysis && analysisIsLong && (
+                    <button
+                      onClick={() => {
+                        if (collapsedSections.analysis) {
+                          toggleSection('analysis')
+                          setAnalysisExpanded(true)
+                          return
+                        }
+                        setAnalysisExpanded((v) => !v)
+                      }}
+                      className="p-1 text-text-muted hover:text-text transition-colors"
+                      aria-label={
+                        collapsedSections.analysis || !analysisExpanded
+                          ? `${t('review:reviewPage.expandAnalysis', { defaultValue: 'Expand' })} ${t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}`
+                          : `${t('review:reviewPage.collapseAnalysis', { defaultValue: 'Collapse' })} ${t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}`
+                      }
+                      title={
+                        collapsedSections.analysis || !analysisExpanded
+                          ? `${t('review:reviewPage.expandAnalysis', { defaultValue: 'Expand' })} ${t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}`
+                          : `${t('review:reviewPage.collapseAnalysis', { defaultValue: 'Collapse' })} ${t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}`
+                      }
+                    >
+                      {collapsedSections.analysis || !analysisExpanded ? (
+                        <Expand className="w-4 h-4" />
+                      ) : (
+                        <Minimize2 className="w-4 h-4" />
+                      )}
+                    </button>
                   )}
                 </div>
               </div>
@@ -919,39 +1024,70 @@ export function ContentViewer({
                 <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                   {existingAnalyses.length > 0 ? (
                     <div className="space-y-3">
-                    {existingAnalyses.map((analysis, idx) => (
-                      <div key={idx} className="space-y-1">
+                      {existingAnalyses.length > 1 && (
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-text-muted uppercase">
-                            {analysis.type}
+                          <span className="text-xs text-text-muted">
+                            {t('review:mediaPage.analysis', { defaultValue: 'Analysis' })}
                           </span>
-                          <button
-                            onClick={() =>
-                              copyTextWithToasts(
-                                analysis.text,
-                                'mediaPage.analysisCopied',
-                                'Analysis copied'
-                              )
-                            }
-                          className="p-0.5 text-text-subtle hover:text-text"
-                              aria-label={t('review:mediaPage.copyAnalysis', {
-                                defaultValue: 'Copy analysis to clipboard'
-                              })}
-                              title={t('review:mediaPage.copyAnalysis', {
-                                defaultValue: 'Copy analysis to clipboard'
-                              })}
-                            >
-                              <Copy className="w-3 h-3" />
-                            </button>
-                          </div>
-                          <div className="text-sm text-text whitespace-pre-wrap leading-relaxed">
-                            {analysis.text}
-                          </div>
-                          {idx < existingAnalyses.length - 1 && (
-                            <div className="border-t border-border pt-3 mt-3" />
-                          )}
+                          <Select
+                            size="small"
+                            value={activeAnalysisIndex}
+                            onChange={setActiveAnalysisIndex}
+                            className="min-w-[220px]"
+                            aria-label={t('review:mediaPage.analysis', { defaultValue: 'Analysis' })}
+                          >
+                            {existingAnalyses.map((analysis, idx) => (
+                              <Select.Option key={idx} value={idx}>
+                                {analysis.type}
+                              </Select.Option>
+                            ))}
+                          </Select>
                         </div>
-                      ))}
+                      )}
+                      {activeAnalysis && (() => {
+                        const trimmedOptimistic = optimisticAnalysis.trim()
+                        const isOptimistic =
+                          trimmedOptimistic && activeAnalysis.text.trim() === trimmedOptimistic
+                        return (
+                          <div className="space-y-1">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-medium text-text-muted uppercase">
+                                  {activeAnalysis.type}
+                                </span>
+                                {isOptimistic && (
+                                  <span className="text-[10px] uppercase tracking-wide bg-surface2 text-text-muted border border-border rounded px-1.5 py-0.5">
+                                    {t('review:mediaPage.analysisPending', {
+                                      defaultValue: 'Pending save'
+                                    })}
+                                  </span>
+                                )}
+                              </div>
+                              <button
+                                onClick={() =>
+                                  copyTextWithToasts(
+                                    activeAnalysis.text,
+                                    'mediaPage.analysisCopied',
+                                    'Analysis copied'
+                                  )
+                                }
+                                className="p-0.5 text-text-subtle hover:text-text"
+                                aria-label={t('review:mediaPage.copyAnalysis', {
+                                  defaultValue: 'Copy analysis to clipboard'
+                                })}
+                                title={t('review:mediaPage.copyAnalysis', {
+                                  defaultValue: 'Copy analysis to clipboard'
+                                })}
+                              >
+                                <Copy className="w-3 h-3" />
+                              </button>
+                            </div>
+                            <div className="text-sm text-text whitespace-pre-wrap leading-relaxed">
+                            {analysisShown}
+                            </div>
+                          </div>
+                        )
+                      })()}
                     </div>
                   ) : (
                     <div className="text-sm text-text-muted text-center py-4">
@@ -1133,7 +1269,10 @@ export function ContentViewer({
           onClose={() => setAnalysisModalOpen(false)}
           mediaId={selectedMedia.id}
           mediaContent={content}
-          onAnalysisGenerated={() => {
+          onAnalysisGenerated={(analysisText) => {
+            if (analysisText) {
+              setOptimisticAnalysis(analysisText)
+            }
             if (onRefreshMedia) {
               onRefreshMedia()
             }
