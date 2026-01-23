@@ -8,9 +8,10 @@ import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
 
 type UseCompareModeOptions = {
   historyId: string | null
+  forceEnabled?: boolean
 }
 
-export const useCompareMode = ({ historyId }: UseCompareModeOptions) => {
+export const useCompareMode = ({ historyId, forceEnabled }: UseCompareModeOptions) => {
   const {
     compareMode,
     setCompareMode,
@@ -37,7 +38,8 @@ export const useCompareMode = ({ historyId }: UseCompareModeOptions) => {
     FEATURE_FLAGS.COMPARE_MODE
   )
 
-  const compareModeActive = compareFeatureEnabled && compareMode
+  const effectiveCompareEnabled = forceEnabled ? true : compareFeatureEnabled
+  const compareModeActive = effectiveCompareEnabled && compareMode
   const compareModeActiveRef = React.useRef(compareModeActive)
   const compareFeatureEnabledRef = React.useRef(compareFeatureEnabled)
   const compareHydratingRef = React.useRef(false)
@@ -62,11 +64,11 @@ export const useCompareMode = ({ historyId }: UseCompareModeOptions) => {
   }, [setCompareMode, setCompareSelectedModels])
 
   React.useEffect(() => {
-    if (!compareFeatureEnabled && compareMode) {
+    if (!effectiveCompareEnabled && compareMode) {
       setCompareMode(false)
       setCompareSelectedModels([])
     }
-  }, [compareFeatureEnabled, compareMode, setCompareMode, setCompareSelectedModels])
+  }, [effectiveCompareEnabled, compareMode, setCompareMode, setCompareSelectedModels])
 
   React.useEffect(() => {
     if (compareModeActiveRef.current === compareModeActive) {
@@ -185,7 +187,7 @@ export const useCompareMode = ({ historyId }: UseCompareModeOptions) => {
   return {
     compareMode,
     setCompareMode,
-    compareFeatureEnabled,
+    compareFeatureEnabled: effectiveCompareEnabled,
     setCompareFeatureEnabled,
     compareSelectedModels,
     setCompareSelectedModels,

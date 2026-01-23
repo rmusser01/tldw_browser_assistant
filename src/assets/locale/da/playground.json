@@ -204,7 +204,7 @@
     "demoDescription": "Du er i demotilstand — prøv at stille et spørgsmål for at se, hvordan assistenten svarer. Du kan forbinde din egen tldw-server senere.",
     "example1": "Stil et spørgsmål, og træk derefter dokumenter eller websider ind, som du vil drøfte.",
     "example2": "Brug Quick Ingest til at tilføje transskriptioner eller noter og henvis til dem i chatten.",
-    "example3": "Prøv forskellige prompts eller modeller i headeren for at sammenligne svar.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "Start chat",
     "secondaryCta": "Åbn serverindstillinger"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "Redigering aktiveret for denne transskription.",
     "transcriptLockedHint": "Låst til live transskriptionsopdateringer.",
     "transcriptRecordingHint": "Optagelse i gang; transskriptionen er låst."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

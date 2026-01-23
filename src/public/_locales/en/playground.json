@@ -27,7 +27,7 @@
     "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "Try different prompts or models, or open Workspace Playground to compare answers."
   },
   "empty_primaryCta": {
     "message": "Start chatting"
@@ -1582,5 +1582,359 @@
   },
   "imageBackend_menuLabel": {
     "message": "Default image provider"
+  },
+  "actions_workspacePlayground": {
+    "message": "Multi-model compare"
+  },
+  "presets_title": {
+    "message": "Parameter Presets"
+  },
+  "presets_creative_label": {
+    "message": "Creative"
+  },
+  "presets_creative_description": {
+    "message": "Higher temperature for creative writing, brainstorming, and varied responses"
+  },
+  "presets_balanced_label": {
+    "message": "Balanced"
+  },
+  "presets_balanced_description": {
+    "message": "Default settings for general-purpose conversations"
+  },
+  "presets_precise_label": {
+    "message": "Precise"
+  },
+  "presets_precise_description": {
+    "message": "Lower temperature for factual, deterministic, and consistent responses"
+  },
+  "presets_custom_label": {
+    "message": "Custom"
+  },
+  "presets_custom_description": {
+    "message": "Fine-tune parameters manually"
+  },
+  "presets_custom_hint": {
+    "message": "Adjust parameters in the settings panel"
+  },
+  "cost_title": {
+    "message": "Cost Estimation"
+  },
+  "cost_breakdown": {
+    "message": "Cost Breakdown"
+  },
+  "cost_inputTokens": {
+    "message": "Input tokens"
+  },
+  "cost_outputTokens": {
+    "message": "Output tokens"
+  },
+  "cost_inputCost": {
+    "message": "Input cost"
+  },
+  "cost_outputCost": {
+    "message": "Output cost"
+  },
+  "cost_total": {
+    "message": "Total"
+  },
+  "cost_tokens": {
+    "message": "tokens"
+  },
+  "cost_noPricing": {
+    "message": "Pricing data not available for this model"
+  },
+  "cost_disclaimer": {
+    "message": "Estimates are approximate and may vary based on actual API usage."
+  },
+  "cost_unknown": {
+    "message": "Cost N/A"
+  },
+  "cost_sessionStats": {
+    "message": "Session Statistics"
+  },
+  "jsonMode_title": {
+    "message": "JSON Mode"
+  },
+  "jsonMode_label": {
+    "message": "JSON Output"
+  },
+  "jsonMode_description": {
+    "message": "When enabled, the model will output valid JSON. This is useful for structured data extraction, API responses, and programmatic parsing."
+  },
+  "jsonMode_tips": {
+    "message": "Tips:"
+  },
+  "jsonMode_tip1": {
+    "message": "Include \"JSON\" in your prompt for best results"
+  },
+  "jsonMode_tip2": {
+    "message": "Describe the expected schema in your system prompt"
+  },
+  "jsonMode_tip3": {
+    "message": "Not all models support structured output"
+  },
+  "jsonMode_warning": {
+    "message": "May increase response time slightly"
+  },
+  "jsonMode_activeHint": {
+    "message": "Responses will be formatted as valid JSON"
+  },
+  "templates_title": {
+    "message": "System Prompt Templates"
+  },
+  "templates_button": {
+    "message": "Templates"
+  },
+  "templates_search": {
+    "message": "Search templates..."
+  },
+  "templates_all": {
+    "message": "All"
+  },
+  "templates_noResults": {
+    "message": "No templates found"
+  },
+  "templates_copy": {
+    "message": "Copy to clipboard"
+  },
+  "templates_use": {
+    "message": "Use template"
+  },
+  "templates_category_general": {
+    "message": "General"
+  },
+  "templates_category_coding": {
+    "message": "Coding"
+  },
+  "templates_category_writing": {
+    "message": "Writing"
+  },
+  "templates_category_analysis": {
+    "message": "Analysis"
+  },
+  "templates_category_roleplay": {
+    "message": "Roleplay"
+  },
+  "templates_category_specialized": {
+    "message": "Specialized"
+  },
+  "branching_title": {
+    "message": "Branch Conversation"
+  },
+  "branching_button": {
+    "message": "Branch"
+  },
+  "branching_hint": {
+    "message": "Create alternative conversation paths"
+  },
+  "branching_description": {
+    "message": "Create a new conversation branch from any point in the chat history."
+  },
+  "branching_branchFrom": {
+    "message": "Branch from"
+  },
+  "branching_noMessages": {
+    "message": "No messages to branch from"
+  },
+  "branching_modalTitle": {
+    "message": "Branch Conversation"
+  },
+  "branching_modalDescription": {
+    "message": "Select a message to create a new conversation branch. You can explore alternative responses or take the conversation in a different direction."
+  },
+  "branching_selectMessage": {
+    "message": "Select a message"
+  },
+  "branching_options": {
+    "message": "Branch options"
+  },
+  "branching_includeResponse": {
+    "message": "Include the response that follows"
+  },
+  "branching_create": {
+    "message": "Create Branch"
+  },
+  "branching_quickBranch": {
+    "message": "Branch from here"
+  },
+  "branching_hasBranches": {
+    "message": "{{count}} branches"
+  },
+  "toolbar_presets": {
+    "message": "Generation Style"
+  },
+  "toolbar_outputSettings": {
+    "message": "Output Settings"
+  },
+  "toolbar_costInfo": {
+    "message": "Cost Information"
+  },
+  "toolbar_quickSettings": {
+    "message": "Quick Settings"
+  },
+  "toolbar_settings": {
+    "message": "Settings"
+  },
+  "modelPlayground_description": {
+    "message": "Experiment with model parameters, presets, and system prompts. Configure your settings here, then head to Chat to test them out."
+  },
+  "modelPlayground_goToChat": {
+    "message": "Go to Chat"
+  },
+  "modelPlayground_currentSettings": {
+    "message": "Current Settings"
+  },
+  "modelPlayground_presetsDescription": {
+    "message": "Quickly switch between Creative, Balanced, and Precise modes to adjust model behavior."
+  },
+  "modelPlayground_templatesDescription": {
+    "message": "Choose from a library of pre-built system prompts for different use cases like coding, writing, analysis, and more."
+  },
+  "modelPlayground_browseTemplates": {
+    "message": "Browse Templates"
+  },
+  "modelPlayground_costDescription": {
+    "message": "See estimated costs for your API calls based on token usage and model pricing. Costs are displayed in real-time during chat."
+  },
+  "modelPlayground_costHint": {
+    "message": "Cost estimation appears automatically during chat based on your selected model and token usage."
+  },
+  "modelPlayground_tips": {
+    "message": "Quick Tips"
+  },
+  "workspace_title": {
+    "message": "Workspace Playground"
+  },
+  "workspace_subtitle": {
+    "message": "Developer chat with compare mode and full controls"
+  },
+  "workspace_toggleDebug": {
+    "message": "Toggle debug panel"
+  },
+  "workspace_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "workspace_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "workspace_goToSimpleChat": {
+    "message": "Simple Chat"
+  },
+  "workspace_presets": {
+    "message": "Presets"
+  },
+  "workspace_modelParams": {
+    "message": "Model Parameters"
+  },
+  "workspace_systemPrompt": {
+    "message": "System Prompt"
+  },
+  "workspace_systemPromptPlaceholder": {
+    "message": "Enter a system prompt to guide the model's behavior..."
+  },
+  "workspace_systemPromptHint": {
+    "message": "The system prompt provides context and instructions that shape how the model responds."
+  },
+  "workspace_ragSettings": {
+    "message": "RAG Settings"
+  },
+  "workspace_configuration": {
+    "message": "Configuration"
+  },
+  "workspace_compareMode": {
+    "message": "Compare Mode"
+  },
+  "workspace_compareResponses": {
+    "message": "Compare Responses"
+  },
+  "workspace_addModel": {
+    "message": "Add model"
+  },
+  "workspace_clearChat": {
+    "message": "Clear chat"
+  },
+  "workspace_messagePlaceholder": {
+    "message": "Type your message..."
+  },
+  "workspace_messagePlaceholderCompare": {
+    "message": "Send to {{count}} models..."
+  },
+  "debug_title": {
+    "message": "Debug Panel"
+  },
+  "debug_overview": {
+    "message": "Overview"
+  },
+  "debug_toolTraces": {
+    "message": "Tool Traces"
+  },
+  "debug_rawData": {
+    "message": "Raw Data"
+  },
+  "debug_noMessages": {
+    "message": "No assistant messages yet"
+  },
+  "debug_messages": {
+    "message": "Messages"
+  },
+  "debug_promptTokens": {
+    "message": "Prompt Tokens"
+  },
+  "debug_completionTokens": {
+    "message": "Completion Tokens"
+  },
+  "debug_totalLatency": {
+    "message": "Total Latency"
+  },
+  "debug_perMessage": {
+    "message": "Per Message Breakdown"
+  },
+  "debug_noToolCalls": {
+    "message": "No tool calls recorded"
+  },
+  "debug_noData": {
+    "message": "No data available"
+  },
+  "params_temperature": {
+    "message": "Temperature"
+  },
+  "params_topP": {
+    "message": "Top P"
+  },
+  "params_topK": {
+    "message": "Top K"
+  },
+  "params_maxTokens": {
+    "message": "Max Tokens"
+  },
+  "params_frequencyPenalty": {
+    "message": "Frequency Penalty"
+  },
+  "params_presencePenalty": {
+    "message": "Presence Penalty"
+  },
+  "ttsClips_title": {
+    "message": "TTS clips"
+  },
+  "ttsClips_empty": {
+    "message": "Generate chat audio to save it here."
+  },
+  "ttsClips_clearAll": {
+    "message": "Clear all"
+  },
+  "ttsClips_clearConfirm": {
+    "message": "Clear all saved TTS clips?"
+  },
+  "ttsClips_deleteConfirm": {
+    "message": "Delete this clip?"
+  },
+  "ttsClips_download": {
+    "message": "Download"
+  },
+  "ttsClips_downloadAll": {
+    "message": "Download all segments"
+  },
+  "ttsClips_segmentsLabel": {
+    "message": "{{count}} segments"
   }
 }

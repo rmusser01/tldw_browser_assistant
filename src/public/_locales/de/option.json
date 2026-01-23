@@ -2611,5 +2611,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "Familiensicherheit und Schutzmechanismen des Servers an einem Ort."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

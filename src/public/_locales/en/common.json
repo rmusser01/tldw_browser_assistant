@@ -1198,5 +1198,53 @@
   },
   "error_imageBackendUnavailableHint": {
     "message": "Enable an image backend (e.g., Flux-Klein or ZTurbo) in your tldw server config, then try again."
+  },
+  "contextCopilotPopup": {
+    "message": "Contextual action"
+  },
+  "contextCopilotPopupNoSelection": {
+    "message": "Select text first to use contextual action."
+  },
+  "contextCopilotPopupNoTab": {
+    "message": "No active tab found for contextual action."
+  },
+  "contextCopilotPopupDeliveryFailed": {
+    "message": "Could not open the contextual popup. Check that tldw Assistant is allowed on this site and try again."
+  },
+  "popupStop": {
+    "message": "Stop"
+  },
+  "popupOpenSidepanel": {
+    "message": "Open sidepanel"
+  },
+  "popupCopy": {
+    "message": "Copy"
+  },
+  "popupReplace": {
+    "message": "Replace selection"
+  },
+  "popupCancel": {
+    "message": "Cancel"
+  },
+  "popupClose": {
+    "message": "Close"
+  },
+  "popupNoSelection": {
+    "message": "No selection found."
+  },
+  "popupNoModel": {
+    "message": "Select a model to continue."
+  },
+  "popupStreaming": {
+    "message": "Streaming…"
+  },
+  "popupError": {
+    "message": "Something went wrong. Please try again."
+  },
+  "popupPreviewLabel": {
+    "message": "Preview"
+  },
+  "popupResponseLabel": {
+    "message": "Response"
   }
 }

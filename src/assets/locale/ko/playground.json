@@ -204,7 +204,7 @@
     "demoDescription": "데모 모드입니다 — 질문을 입력해 응답을 확인해 보세요. 나중에 tldw 서버를 연결할 수 있습니다.",
     "example1": "질문을 한 뒤 논의할 문서나 웹 페이지를 끌어다 놓으세요.",
     "example2": "퀵 인제스트로 전사나 노트를 추가한 뒤 채팅에서 참조하세요.",
-    "example3": "헤더에서 다른 프롬프트나 모델을 시도해 답변을 비교하세요.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "채팅 시작",
     "secondaryCta": "서버 설정 열기"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "이 전사는 편집 가능합니다.",
     "transcriptLockedHint": "실시간 전사 업데이트에 잠겨 있습니다.",
     "transcriptRecordingHint": "녹음 중이므로 전사가 잠겨 있습니다."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

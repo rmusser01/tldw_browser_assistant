@@ -38,6 +38,7 @@ import type { Character } from "@/types/character"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { createBranchMessage } from "./handlers/messageHandlers"
 import { consumeStreamingChunk } from "@/utils/streaming-chunks"
+import type { ToolCall } from "@/types/tool-calls"
 import {
   createSaveMessageOnError,
   createSaveMessageOnSuccess,
@@ -60,6 +61,13 @@ import { normalizeConversationState } from "@/utils/conversation-state"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 import type { ChatDocuments } from "@/models/ChatTypes"
 import type { UploadedFile } from "@/db/dexie/types"
+
+const extractToolCalls = (generationInfo: unknown): ToolCall[] | undefined => {
+  if (!generationInfo || typeof generationInfo !== "object") return undefined
+  const candidate =
+    (generationInfo as any).tool_calls ?? (generationInfo as any).toolCalls
+  return Array.isArray(candidate) ? (candidate as ToolCall[]) : undefined
+}
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
@@ -571,6 +579,7 @@ export const useMessage = () => {
         count++
       }
 
+      const toolCalls = extractToolCalls(generationInfo)
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
@@ -578,6 +587,7 @@ export const useMessage = () => {
               message: fullText,
               sources: source,
               generationInfo,
+              toolCalls,
               reasoning_time_taken: timetaken
             })
           }
@@ -865,28 +875,30 @@ export const useMessage = () => {
             reasoningEndTime.getTime() - reasoningStartTime.getTime()
           timetaken = reasoningTime
         }
-        setMessages((prev) => {
-          return prev.map((message) => {
-            if (message.id === generateMessageId) {
-              return updateActiveVariant(message, {
-                message: fullText + "▋",
-                reasoning_time_taken: timetaken
-              })
-            }
-            return message
-          })
-        })
-        count++
-      }
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
             return updateActiveVariant(message, {
-              message: fullText,
-              generationInfo,
+              message: fullText + "▋",
               reasoning_time_taken: timetaken
             })
           }
+          return message
+        })
+      })
+      count++
+    }
+    const toolCalls = extractToolCalls(generationInfo)
+    setMessages((prev) => {
+      return prev.map((message) => {
+        if (message.id === generateMessageId) {
+          return updateActiveVariant(message, {
+            message: fullText,
+            generationInfo,
+            toolCalls,
+            reasoning_time_taken: timetaken
+          })
+        }
           return message
         })
       })
@@ -1535,12 +1547,14 @@ export const useMessage = () => {
         count++
       }
 
+      const toolCalls = extractToolCalls(generationInfo)
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
             return updateActiveVariant(message, {
               message: fullText,
               generationInfo,
+              toolCalls,
               reasoning_time_taken: timetaken
             })
           }

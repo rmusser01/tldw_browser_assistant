@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — в очереди {{count}} элементов — нажмите, чтобы просмотреть и обработать",
     "modeSpeech": "Речь",
     "moreTools": "Еще",
-    "writingPlayground": "Площадка для письма"
+    "writingPlayground": "Площадка для письма",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Площадка для письма",

@@ -51,7 +51,7 @@ export const ParametersSidebar: React.FC = () => {
     setRagEnableGeneration,
     ragEnableCitations,
     setRagEnableCitations
-  } = useMessageOption()
+  } = useMessageOption({ forceCompareEnabled: true })
 
   const collapseItems = [
     {

@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} objekt i kö — klicka för att granska och bearbeta",
     "modeSpeech": "Tal",
     "moreTools": "Mer",
-    "writingPlayground": "Skrivverkstad"
+    "writingPlayground": "Skrivverkstad",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Skrivverkstad",

@@ -19,6 +19,7 @@ import {
   type StreamingChunk
 } from "@/utils/streaming-chunks"
 import type { ChatHistory, Message, ToolChoice } from "~/store/option"
+import type { ToolCall } from "@/types/tool-calls"
 
 const STREAMING_UPDATE_INTERVAL_MS = 80
 
@@ -108,6 +109,13 @@ export type ChatModeDefinition<TParams extends ChatModeParamsBase> = {
 
 const defaultExtractGenerationInfo = (output: any) =>
   output?.generations?.[0][0]?.generationInfo
+
+const extractToolCalls = (generationInfo: unknown): ToolCall[] | undefined => {
+  if (!generationInfo || typeof generationInfo !== "object") return undefined
+  const candidate =
+    (generationInfo as any).tool_calls ?? (generationInfo as any).toolCalls
+  return Array.isArray(candidate) ? (candidate as ToolCall[]) : undefined
+}
 
 export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
   mode: ChatModeDefinition<TParams>,
@@ -278,6 +286,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
       fullText = preflight.fullText
       const sources = preflight.sources ?? []
       const images = preflight.images ?? []
+      const toolCalls = extractToolCalls(preflight.generationInfo)
       const nextHistory = mode.updateHistory
         ? mode.updateHistory(context, fullText)
         : ([
@@ -294,6 +303,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
                 sources,
                 images,
                 generationInfo: preflight.generationInfo,
+                toolCalls,
                 reasoning_time_taken: timetaken
               })
             : msg
@@ -403,6 +413,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
     }
 
     cancelStreamingUpdate()
+    const toolCalls = extractToolCalls(generationInfo)
     setMessages((prev) =>
       prev.map((msg) =>
         msg.id === generateMessageId
@@ -410,6 +421,7 @@ export const runChatPipeline = async <TParams extends ChatModeParamsBase>(
               message: fullText,
               sources,
               generationInfo,
+              toolCalls,
               reasoning_time_taken: timetaken
             })
           : msg

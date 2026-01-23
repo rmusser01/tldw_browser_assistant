@@ -8,6 +8,7 @@ import { useTimelineStore } from "@/store/timeline"
 import { useSetting } from "@/hooks/useSetting"
 import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
 import { ChatHeader } from "./ChatHeader"
+import { TtsClipsDrawer } from "@/components/Sidepanel/Chat/TtsClipsDrawer"
 
 type Props = {
   onToggleSidebar?: () => void
@@ -33,6 +34,7 @@ export const Header: React.FC<Props> = ({
   const navigate = useNavigate()
   const [chatTitle, setChatTitle] = React.useState("")
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
+  const [ttsClipsOpen, setTtsClipsOpen] = React.useState(false)
 
   const canOpenTimeline = Boolean(historyId) && !temporaryChat && historyId !== "temp"
   const showTimelineButton = canOpenTimeline && !streaming
@@ -94,26 +96,33 @@ export const Header: React.FC<Props> = ({
   )
 
   return (
-    <ChatHeader
-      t={t}
-      temporaryChat={temporaryChat}
-      historyId={historyId}
-      chatTitle={chatTitle}
-      isEditingTitle={isEditingTitle}
-      onTitleChange={setChatTitle}
-      onTitleEditStart={handleTitleEditStart}
-      onTitleCommit={handleTitleCommit}
-      onToggleSidebar={onToggleSidebar}
-      sidebarCollapsed={sidebarCollapsed}
-      onOpenCommandPalette={openCommandPalette}
-      onOpenShortcutsModal={openShortcutsModal}
-      onOpenSettings={() => navigate("/settings/tldw")}
-      onClearChat={clearChat}
-      showTimelineButton={showTimelineButton}
-      onOpenTimeline={handleOpenTimeline}
-      shortcutsExpanded={headerShortcutsExpanded}
-      onToggleShortcuts={toggleHeaderShortcuts}
-      commandKeyLabel={cmdKey}
-    />
+    <>
+      <ChatHeader
+        t={t}
+        temporaryChat={temporaryChat}
+        historyId={historyId}
+        chatTitle={chatTitle}
+        isEditingTitle={isEditingTitle}
+        onTitleChange={setChatTitle}
+        onTitleEditStart={handleTitleEditStart}
+        onTitleCommit={handleTitleCommit}
+        onToggleSidebar={onToggleSidebar}
+        sidebarCollapsed={sidebarCollapsed}
+        onOpenCommandPalette={openCommandPalette}
+        onOpenShortcutsModal={openShortcutsModal}
+        onOpenSettings={() => navigate("/settings/tldw")}
+        onOpenTtsClips={() => setTtsClipsOpen(true)}
+        onClearChat={clearChat}
+        showTimelineButton={showTimelineButton}
+        onOpenTimeline={handleOpenTimeline}
+        shortcutsExpanded={headerShortcutsExpanded}
+        onToggleShortcuts={toggleHeaderShortcuts}
+        commandKeyLabel={cmdKey}
+      />
+      <TtsClipsDrawer
+        open={ttsClipsOpen}
+        onClose={() => setTtsClipsOpen(false)}
+      />
+    </>
   )
 }

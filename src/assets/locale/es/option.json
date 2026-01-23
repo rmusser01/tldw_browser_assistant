@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} elementos en cola — haz clic para revisar y procesar",
     "modeSpeech": "Voz",
     "moreTools": "Más",
-    "writingPlayground": "Taller de escritura"
+    "writingPlayground": "Taller de escritura",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Taller de escritura",

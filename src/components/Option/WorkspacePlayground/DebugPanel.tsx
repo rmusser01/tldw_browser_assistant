@@ -68,7 +68,29 @@ const extractTokenInfo = (generationInfo: any): TokenInfo | null => {
  */
 export const DebugPanel: React.FC<DebugPanelProps> = ({ onClose }) => {
   const { t } = useTranslation(["playground", "common"])
-  const { messages, actionInfo } = useMessageOption()
+  const { messages, actionInfo } = useMessageOption({
+    forceCompareEnabled: true
+  })
+
+  const toolTraces = React.useMemo(() => {
+    const traces: Array<{ tool: string; status?: string; input?: unknown }> = []
+    messages.forEach((msg) => {
+      const toolCalls =
+        (msg as any)?.generationInfo?.tool_calls ??
+        (msg as any)?.generationInfo?.toolCalls
+      if (Array.isArray(toolCalls)) {
+        toolCalls.forEach((call: any) => {
+          const fn = call.function || {}
+          traces.push({
+            tool: fn.name || call.name || "Unknown Tool",
+            status: call.status,
+            input: fn.arguments ?? call.input
+          })
+        })
+      }
+    })
+    return traces
+  }, [messages])
 
   // Extract debug info from messages
   const debugInfo = React.useMemo(() => {
@@ -215,9 +237,9 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({ onClose }) => {
       ),
       children: (
         <div className="p-3">
-          {actionInfo && Array.isArray(actionInfo) && actionInfo.length > 0 ? (
+          {toolTraces.length > 0 ? (
             <div className="space-y-2">
-              {actionInfo.map((action: any, idx: number) => (
+              {toolTraces.map((action, idx: number) => (
                 <div
                   key={idx}
                   className="rounded border border-border bg-surface p-2 text-xs"
@@ -225,7 +247,7 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({ onClose }) => {
                   <div className="flex items-center gap-2">
                     <ChevronRight className="h-3 w-3 text-primary" />
                     <span className="font-medium text-text">
-                      {action.tool || action.name || "Unknown Tool"}
+                      {action.tool || "Unknown Tool"}
                     </span>
                     {action.status === "error" && (
                       <AlertCircle className="h-3 w-3 text-danger" />
@@ -241,6 +263,8 @@ export const DebugPanel: React.FC<DebugPanelProps> = ({ onClose }) => {
                 </div>
               ))}
             </div>
+          ) : actionInfo ? (
+            <div className="text-xs text-text-muted">{actionInfo}</div>
           ) : (
             <Empty
               description={t("playground:debug.noToolCalls", "No tool calls recorded")}

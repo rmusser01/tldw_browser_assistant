@@ -205,7 +205,7 @@
     "demoDescription": "Estás en modo demo; prueba hacer una pregunta para ver cómo responde el asistente. Puedes conectar tu propio servidor tldw más tarde.",
     "example1": "Haz una pregunta y luego arrastra documentos o páginas web que quieras comentar.",
     "example2": "Usa Quick Ingest para añadir transcripciones o notas y luego referenciarlas en el chat.",
-    "example3": "Prueba distintos prompts o modelos en el encabezado para comparar respuestas.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "Empezar a chatear",
     "secondaryCta": "Abrir configuración del servidor"
   },
@@ -512,5 +512,15 @@
     "transcriptEditHint": "Edición habilitada para esta transcripción.",
     "transcriptLockedHint": "Bloqueado a las actualizaciones de transcripción en vivo.",
     "transcriptRecordingHint": "Grabación en curso; la transcripción está bloqueada."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

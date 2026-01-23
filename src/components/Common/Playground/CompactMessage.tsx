@@ -274,9 +274,15 @@ export function CompactMessage({
     if (isSpeaking) {
       cancel()
     } else {
-      speak({ utterance: message })
+      speak({
+        utterance: message,
+        saveClip: isBot,
+        clipMeta: isBot
+          ? { role: "assistant", source: "chat" }
+          : { role: "user", source: "chat" }
+      })
     }
-  }, [isSpeaking, cancel, speak, message])
+  }, [isSpeaking, cancel, speak, message, isBot])
 
   const handleDelete = useCallback(() => {
     if (!onDelete) return

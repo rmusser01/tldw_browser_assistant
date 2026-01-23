@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} Elemente in der Warteschlange — klicken, um zu prüfen und zu verarbeiten",
     "modeSpeech": "Sprache",
     "moreTools": "Mehr",
-    "writingPlayground": "Schreib-Spielwiese"
+    "writingPlayground": "Schreib-Spielwiese",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Schreib-Spielwiese",

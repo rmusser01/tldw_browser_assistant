@@ -3514,5 +3514,11 @@
   },
   "moderationPlayground_subtitle": {
     "message": "Family safety controls and server guardrails in one place."
+  },
+  "header_modelPlayground": {
+    "message": "Model Playground"
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

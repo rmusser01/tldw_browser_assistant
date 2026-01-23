@@ -154,6 +154,15 @@ export interface ChatStreamChunk {
     delta: {
       role?: string
       content?: string
+      tool_calls?: Array<{
+        index?: number
+        id?: string
+        type?: "function"
+        function?: {
+          name?: string
+          arguments?: string
+        }
+      }>
     }
     finish_reason?: string | null
   }>

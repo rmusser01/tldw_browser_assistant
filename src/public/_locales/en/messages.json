@@ -80,6 +80,18 @@
   "contextSaveToNotesDeliveryFailed": {
     "message": "Could not open the sidebar to save this note. Check that the tldw Assistant sidebar is allowed on this site and try again."
   },
+  "contextCopilotPopup": {
+    "message": "Contextual action"
+  },
+  "contextCopilotPopupNoSelection": {
+    "message": "Select text first to use contextual action."
+  },
+  "contextCopilotPopupNoTab": {
+    "message": "No active tab found for contextual action."
+  },
+  "contextCopilotPopupDeliveryFailed": {
+    "message": "Could not open the contextual popup. Check that tldw Assistant is allowed on this site and try again."
+  },
   "hfSendPageRejected": {
     "message": "[tldw] Page send request rejected by tldw_server"
   },

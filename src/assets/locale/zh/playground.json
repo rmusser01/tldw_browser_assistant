@@ -204,7 +204,7 @@
     "demoDescription": "你处于演示模式——试着提问看看助手如何回应。稍后可以连接自己的 tldw 服务器。",
     "example1": "提问后，把想讨论的文档或网页拖进来。",
     "example2": "使用快速导入添加转写或笔记，然后在聊天中引用。",
-    "example3": "从页眉尝试不同提示词或模型来比较答案。",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "开始聊天",
     "secondaryCta": "打开服务器设置"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "此转写已开启编辑。",
     "transcriptLockedHint": "已锁定为实时转写更新。",
     "transcriptRecordingHint": "正在录音；转写已锁定。"
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

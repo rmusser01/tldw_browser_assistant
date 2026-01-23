@@ -1259,6 +1259,44 @@ export default defineBackground({
           },
           isCopilotRunning ? 0 : 5000
         )
+      } else if (info.menuItemId === "contextual-popup-pa") {
+        const selection = String(info.selectionText || "").trim()
+        if (!selection) {
+          notify(
+            browser.i18n.getMessage("contextCopilotPopup"),
+            browser.i18n.getMessage("contextCopilotPopupNoSelection")
+          )
+          return
+        }
+        const tabId = tab?.id
+        if (!tabId) {
+          notify(
+            browser.i18n.getMessage("contextCopilotPopup"),
+            browser.i18n.getMessage("contextCopilotPopupNoTab")
+          )
+          return
+        }
+        try {
+          await browser.tabs.sendMessage(
+            tabId,
+            {
+              type: "tldw:popup:open",
+              payload: {
+                selectionText: selection,
+                pageUrl: info.pageUrl || tab?.url || "",
+                pageTitle: tab?.title || "",
+                frameId: info.frameId
+              }
+            },
+            typeof info.frameId === "number" ? { frameId: info.frameId } : undefined
+          )
+        } catch (error) {
+          logBackgroundError("contextual popup sendMessage", error)
+          notify(
+            browser.i18n.getMessage("contextCopilotPopup"),
+            browser.i18n.getMessage("contextCopilotPopupDeliveryFailed")
+          )
+        }
       }
     })
 

@@ -204,7 +204,7 @@
     "demoDescription": "你正在示範模式 — 試著提問看看助理如何回應。之後可以連線自己的 tldw 伺服器。",
     "example1": "提出問題後，拖曳你想討論的文件或網頁。",
     "example2": "使用快速匯入新增逐字稿或筆記，然後在聊天中引用。",
-    "example3": "從標頭嘗試不同的提示詞或模型以比較答案。",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "開始聊天",
     "secondaryCta": "開啟伺服器設定"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "此轉寫已啟用編輯。",
     "transcriptLockedHint": "已鎖定為即時轉寫更新。",
     "transcriptRecordingHint": "錄音進行中；轉寫已鎖定。"
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

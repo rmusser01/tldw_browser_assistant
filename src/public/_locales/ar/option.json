@@ -2590,5 +2590,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "ضوابط أمان الأسرة وحواجز حماية الخادم في مكان واحد."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

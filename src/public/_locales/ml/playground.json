@@ -321,7 +321,7 @@
     "message": "Quick ingest ഉപയോഗിച്ച് ട്രാൻസ്ക്രിപ്റ്റുകളോ കുറിപ്പുകളോ ചേർത്ത ശേഷം അവ ചാറ്റിൽ പരാമർശിക്കുക."
   },
   "empty_example3": {
-    "message": "ഉത്തരങ്ങൾ താരതമ്യം ചെയ്യാൻ ഹെഡറിൽ നിന്ന് വ്യത്യസ്ത പ്രോംപ്റ്റുകളോ മോഡലുകളോ പരീക്ഷിക്കുക."
+    "message": "Try different prompts or models, or open Workspace Playground to compare answers."
   },
   "empty_primaryCta": {
     "message": "ചാറ്റ് ആരംഭിക്കുക"
@@ -1387,5 +1387,29 @@
   },
   "errors_loadLocalHistoryDefault": {
     "message": "ലോക്കൽ ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്യുമ്പോൾ എന്തോ പിശക് സംഭവിച്ചു."
+  },
+  "ttsClips_title": {
+    "message": "TTS clips"
+  },
+  "ttsClips_empty": {
+    "message": "Generate chat audio to save it here."
+  },
+  "ttsClips_clearAll": {
+    "message": "Clear all"
+  },
+  "ttsClips_clearConfirm": {
+    "message": "Clear all saved TTS clips?"
+  },
+  "ttsClips_deleteConfirm": {
+    "message": "Delete this clip?"
+  },
+  "ttsClips_download": {
+    "message": "Download"
+  },
+  "ttsClips_downloadAll": {
+    "message": "Download all segments"
+  },
+  "ttsClips_segmentsLabel": {
+    "message": "{{count}} segments"
   }
 }

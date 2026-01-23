@@ -433,14 +433,14 @@ export function ChatSidebar({
             <span>{t("common:chatSidebar.prompts", "Prompts")}</span>
           </button>
           <button
-            onClick={() => navigateWithLoading("/chunking-playground")}
+            onClick={() => navigateWithLoading("/workspace-playground")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Scissors className="size-4" />
             <span>
               {t(
-                "settings:chunkingPlayground.nav",
-                "Chunking Playground"
+                "option:header.workspacePlayground",
+                "Workspace Playground"
               )}
             </span>
           </button>

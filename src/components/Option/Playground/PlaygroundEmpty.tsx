@@ -54,7 +54,7 @@ export const PlaygroundEmpty = () => {
           }),
           t("playground:empty.example3", {
             defaultValue:
-              "Try different prompts or models from the header to compare answers."
+              "Try different prompts or models, or open Workspace Playground to compare answers."
           })
         ]}
         primaryActionLabel={t("playground:empty.primaryCta", {

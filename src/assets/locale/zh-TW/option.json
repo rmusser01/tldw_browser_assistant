@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理",
     "modeSpeech": "語音",
     "moreTools": "更多",
-    "writingPlayground": "寫作工坊"
+    "writingPlayground": "寫作工坊",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "寫作工坊",

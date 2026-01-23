@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next"
 import { Spin } from "antd"
 import { Send, X, MessageSquare, User, Bot } from "lucide-react"
 import { apiSend } from "@/services/api-send"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import { useMessageOption } from "@/hooks/useMessageOption"
 
 type RagResult = {
   id?: string
@@ -37,6 +39,7 @@ export const ChatThread: React.FC<ChatThreadProps> = ({ context, onClose }) => {
   const { t } = useTranslation(["knowledge", "common"])
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
+  const { selectedModel } = useMessageOption()
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([])
   const [input, setInput] = React.useState("")
@@ -65,11 +68,20 @@ export const ChatThread: React.FC<ChatThreadProps> = ({ context, onClose }) => {
     try {
       // Build context-aware prompt
       const systemContext = `You are answering questions about the following document excerpt:\n\n---\nTitle: ${contextTitle}\n\n${contextContent.slice(0, 2000)}\n---\n\nAnswer questions specifically about this content. If the question cannot be answered from this content, say so.`
+      const modelId = selectedModel || "default"
+      const normalizedModel =
+        modelId.replace(/^tldw:/, "").trim() || modelId
+      const resolvedApiProvider = await resolveApiProviderForModel({
+        modelId
+      })
 
       const response = await apiSend({
         path: "/api/v1/chat/completions",
         method: "POST",
         body: {
+          model: normalizedModel,
+          ...(resolvedApiProvider ? { api_provider: resolvedApiProvider } : {}),
+          stream: false,
           messages: [
             { role: "system", content: systemContext },
             ...messages.map((m) => ({ role: m.role, content: m.content })),

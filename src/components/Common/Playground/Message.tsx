@@ -4,7 +4,7 @@ import { LoadingStatus } from "./ActionInfo"
 import { StopCircle as StopCircleIcon } from "lucide-react"
 import { EditMessageForm } from "./EditMessageForm"
 import { useTranslation } from "react-i18next"
-import { useTTS } from "@/hooks/useTTS"
+import { useTTS, type TtsClipMeta } from "@/hooks/useTTS"
 import { tagColors } from "@/utils/color"
 import { removeModelSuffix } from "@/db/dexie/models"
 import { parseReasoning } from "@/libs/reasoning"
@@ -20,7 +20,8 @@ import { buildChatTextClass } from "@/utils/chat-style"
 import { highlightText } from "@/utils/text-highlight"
 import { FeedbackModal } from "@/components/Sidepanel/Chat/FeedbackModal"
 import { SourceFeedback } from "@/components/Sidepanel/Chat/SourceFeedback"
-import { ToolCallBlock, type ToolCall, type ToolCallResult } from "@/components/Sidepanel/Chat/ToolCallBlock"
+import { ToolCallBlock } from "@/components/Sidepanel/Chat/ToolCallBlock"
+import type { ToolCall, ToolCallResult } from "@/types/tool-calls"
 import { MessageActionsBar } from "./MessageActionsBar"
 import { ReasoningBlock } from "./ReasoningBlock"
 import { useFeedback } from "@/hooks/useFeedback"
@@ -231,6 +232,23 @@ export const PlaygroundMessage = (props: Props) => {
       : props.modelName || props.name
   const shouldPreviewAvatar =
     shouldUseCharacterIdentity && Boolean(characterAvatar)
+  const ttsClipMeta = React.useMemo<TtsClipMeta>(
+    () => ({
+      historyId: props.historyId ?? null,
+      serverChatId: props.serverChatId ?? null,
+      messageId: props.messageId ?? null,
+      serverMessageId: props.serverMessageId ?? null,
+      role: resolvedRole,
+      source: "chat"
+    }),
+    [
+      props.historyId,
+      props.serverChatId,
+      props.messageId,
+      props.serverMessageId,
+      resolvedRole
+    ]
+  )
 
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
@@ -523,7 +541,9 @@ export const PlaygroundMessage = (props: Props) => {
       return
     }
     speak({
-      utterance: errorFriendlyText || props.message
+      utterance: errorFriendlyText || props.message,
+      saveClip: props.isBot,
+      clipMeta: props.isBot ? ttsClipMeta : undefined
     })
   }, [
     ttsActionDisabled,
@@ -531,7 +551,9 @@ export const PlaygroundMessage = (props: Props) => {
     cancel,
     speak,
     errorFriendlyText,
-    props.message
+    props.message,
+    props.isBot,
+    ttsClipMeta
   ])
 
   const handleDelete = React.useCallback(() => {
@@ -592,7 +614,9 @@ export const PlaygroundMessage = (props: Props) => {
       let messageToSpeak = props.message
 
       speak({
-        utterance: messageToSpeak
+        utterance: messageToSpeak,
+        saveClip: true,
+        clipMeta: ttsClipMeta
       })
     }
   }, [
@@ -605,7 +629,8 @@ export const PlaygroundMessage = (props: Props) => {
     props.isProcessing,
     props.message,
     errorPayload,
-    ttsActionDisabled
+    ttsActionDisabled,
+    ttsClipMeta
   ])
 
   const compareLabel = t("playground:composer.compareTag", "Compare")

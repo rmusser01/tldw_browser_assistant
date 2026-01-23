@@ -204,7 +204,7 @@
     "demoDescription": "أنت في وضع العرض التوضيحي — جرّب طرح سؤال لترى كيف يرد المساعد. يمكنك لاحقاً توصيل خادم tldw الخاص بك.",
     "example1": "اطرح سؤالاً، ثم اسحب المستندات أو صفحات الويب التي تريد مناقشتها.",
     "example2": "استخدم الإدخال السريع (Quick ingest) لإضافة التفريغات أو الملاحظات، ثم أشِر إليها في الدردشة.",
-    "example3": "جرّب موجّهات أو نماذج مختلفة من الترويسة لمقارنة الإجابات.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "ابدأ الدردشة",
     "secondaryCta": "فتح إعدادات الخادم"
   },
@@ -546,5 +546,15 @@
     "transcriptEditHint": "تم تفعيل التعديل لهذا التفريغ النصي.",
     "transcriptLockedHint": "مقفل لتحديثات التفريغ المباشر.",
     "transcriptRecordingHint": "جارٍ التسجيل؛ التفريغ النصي مقفل."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

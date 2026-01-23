@@ -220,6 +220,11 @@ export const initBackground = async (
     contexts: ["selection"]
   })
   browser.contextMenus.create({
+    id: "contextual-popup-pa",
+    title: browser.i18n.getMessage("contextCopilotPopup"),
+    contexts: ["selection"]
+  })
+  browser.contextMenus.create({
     id: narrateSelectionMenuId,
     title: browser.i18n.getMessage("contextNarrateSelection"),
     contexts: ["selection"]

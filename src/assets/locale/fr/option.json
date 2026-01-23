@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} éléments en file d’attente — cliquez pour revoir et traiter",
     "modeSpeech": "Vocal",
     "moreTools": "Plus",
-    "writingPlayground": "Atelier d’écriture"
+    "writingPlayground": "Atelier d’écriture",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Atelier d’écriture",

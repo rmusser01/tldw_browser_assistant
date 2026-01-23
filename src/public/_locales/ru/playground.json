@@ -321,7 +321,7 @@
     "message": "Используйте «Быстрый импорт», чтобы добавить расшифровки или заметки, затем ссылайтесь на них в чате."
   },
   "empty_example3": {
-    "message": "Попробуйте разные промпты или модели в заголовке, чтобы сравнить ответы."
+    "message": "Try different prompts or models, or open Workspace Playground to compare answers."
   },
   "empty_primaryCta": {
     "message": "Начать чат"
@@ -1387,5 +1387,29 @@
   },
   "errors_loadLocalHistoryDefault": {
     "message": "Произошла ошибка при загрузке локальной истории чата."
+  },
+  "ttsClips_title": {
+    "message": "TTS clips"
+  },
+  "ttsClips_empty": {
+    "message": "Generate chat audio to save it here."
+  },
+  "ttsClips_clearAll": {
+    "message": "Clear all"
+  },
+  "ttsClips_clearConfirm": {
+    "message": "Clear all saved TTS clips?"
+  },
+  "ttsClips_deleteConfirm": {
+    "message": "Delete this clip?"
+  },
+  "ttsClips_download": {
+    "message": "Download"
+  },
+  "ttsClips_downloadAll": {
+    "message": "Download all segments"
+  },
+  "ttsClips_segmentsLabel": {
+    "message": "{{count}} segments"
   }
 }

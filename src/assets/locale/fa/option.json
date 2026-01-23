@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} مورد در صف — برای بررسی و پردازش کلیک کنید",
     "modeSpeech": "گفتار",
     "moreTools": "بیشتر",
-    "writingPlayground": "کارگاه نگارش"
+    "writingPlayground": "کارگاه نگارش",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "کارگاه نگارش",

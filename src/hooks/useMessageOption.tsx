@@ -22,7 +22,9 @@ import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { useSetting } from "@/hooks/useSetting"
 import { CONTEXT_FILE_SIZE_MB_SETTING } from "@/services/settings/ui-settings"
 
-export const useMessageOption = () => {
+export const useMessageOption = (
+  opts: { forceCompareEnabled?: boolean } = {}
+) => {
   // Controllers come from Context (for aborting streaming requests)
   const {
     controller: abortController,
@@ -141,7 +143,7 @@ export const useMessageOption = () => {
     setCompareMaxModels,
     compareModeActive,
     markCompareHistoryCreated
-  } = useCompareMode({ historyId })
+  } = useCompareMode({ historyId, forceEnabled: opts.forceCompareEnabled })
 
   const currentChatModelSettings = useStoreChatModelSettings()
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")

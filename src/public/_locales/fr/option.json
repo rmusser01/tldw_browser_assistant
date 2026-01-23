@@ -2611,5 +2611,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "Contrôles de sécurité familiale et garde-fous du serveur au même endroit."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

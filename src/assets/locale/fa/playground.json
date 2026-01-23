@@ -204,7 +204,7 @@
     "demoDescription": "شما در حالت دمو هستید—برای دیدن پاسخ دستیار یک سؤال بپرسید. بعداً می‌توانید سرور tldw خود را متصل کنید.",
     "example1": "یک سؤال بپرسید، سپس اسناد یا صفحات وبی را که می‌خواهید درباره‌شان بحث کنید بکشید.",
     "example2": "برای افزودن رونوشت‌ها یا یادداشت‌ها از درون‌ریزی سریع استفاده کنید و سپس در گفتگو به آن‌ها ارجاع دهید.",
-    "example3": "برای مقایسه پاسخ‌ها، پرامپت‌ها یا مدل‌های مختلف را از سربرگ امتحان کنید.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "شروع گفتگو",
     "secondaryCta": "باز کردن تنظیمات سرور"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "ویرایش برای این رونوشت فعال است.",
     "transcriptLockedHint": "برای به‌روزرسانی‌های رونوشت زنده قفل شده است.",
     "transcriptRecordingHint": "ضبط در حال انجام است؛ رونوشت قفل است."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

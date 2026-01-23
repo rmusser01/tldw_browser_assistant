@@ -204,7 +204,7 @@
     "demoDescription": "നിങ്ങൾ ഡെമോ മോഡിലാണ് — അസിസ്റ്റന്റ് എങ്ങനെ പ്രതികരിക്കുന്നു എന്ന് കാണാൻ ഒരു ചോദ്യം ചോദിക്കുക. പിന്നീട് നിങ്ങളുടെ tldw സെർവർ കണക്റ്റ് ചെയ്യാം.",
     "example1": "ഒരു ചോദ്യം ചോദിച്ച്, ചർച്ച ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഡോക്യുമെന്റുകളോ വെബ് പേജുകളോ ഇവിടെ ഡ്രാഗ് ചെയ്യുക.",
     "example2": "Quick ingest ഉപയോഗിച്ച് ട്രാൻസ്ക്രിപ്റ്റുകളോ കുറിപ്പുകളോ ചേർത്ത ശേഷം അവ ചാറ്റിൽ പരാമർശിക്കുക.",
-    "example3": "ഉത്തരങ്ങൾ താരതമ്യം ചെയ്യാൻ ഹെഡറിൽ നിന്ന് വ്യത്യസ്ത പ്രോംപ്റ്റുകളോ മോഡലുകളോ പരീക്ഷിക്കുക.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "ചാറ്റ് ആരംഭിക്കുക",
     "secondaryCta": "സെർവർ സെറ്റിംഗുകൾ തുറക്കുക"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "ഈ ട്രാൻസ്ക്രിപ്റ്റിന് എഡിറ്റിംഗ് സജ്ജമാണ്.",
     "transcriptLockedHint": "ലൈവ് ട്രാൻസ്ക്രിപ്ഷൻ അപ്ഡേറ്റുകൾക്ക് ലോക്കാണ്.",
     "transcriptRecordingHint": "റെക്കോർഡിംഗ് പുരോഗമിക്കുന്നു; ട്രാൻസ്ക്രിപ്റ്റ് ലോക്കാണ്."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

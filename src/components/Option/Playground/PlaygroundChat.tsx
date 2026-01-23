@@ -367,6 +367,8 @@ export const PlaygroundChat = () => {
                 }}
                 isTTSEnabled={ttsEnabled}
                 generationInfo={message?.generationInfo}
+                toolCalls={message?.toolCalls}
+                toolResults={message?.toolResults}
                 isStreaming={streaming}
                 reasoningTimeTaken={message?.reasoning_time_taken}
                 openReasoning={openReasoning}
@@ -593,6 +595,8 @@ export const PlaygroundChat = () => {
                 }}
                 isTTSEnabled={ttsEnabled}
                 generationInfo={userMessage?.generationInfo}
+                toolCalls={userMessage?.toolCalls}
+                toolResults={userMessage?.toolResults}
                 isStreaming={streaming}
                 reasoningTimeTaken={userMessage?.reasoning_time_taken}
                 openReasoning={openReasoning}
@@ -920,6 +924,8 @@ export const PlaygroundChat = () => {
                         }}
                         isTTSEnabled={ttsEnabled}
                         generationInfo={message?.generationInfo}
+                        toolCalls={message?.toolCalls}
+                        toolResults={message?.toolResults}
                         isStreaming={streaming}
                         reasoningTimeTaken={message?.reasoning_time_taken}
                         openReasoning={openReasoning}

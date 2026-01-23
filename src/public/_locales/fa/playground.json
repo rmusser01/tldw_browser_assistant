@@ -321,7 +321,7 @@
     "message": "برای افزودن رونوشت‌ها یا یادداشت‌ها از درون‌ریزی سریع استفاده کنید و سپس در گفتگو به آن‌ها ارجاع دهید."
   },
   "empty_example3": {
-    "message": "برای مقایسه پاسخ‌ها، پرامپت‌ها یا مدل‌های مختلف را از سربرگ امتحان کنید."
+    "message": "Try different prompts or models, or open Workspace Playground to compare answers."
   },
   "empty_primaryCta": {
     "message": "شروع گفتگو"
@@ -1387,5 +1387,29 @@
   },
   "errors_loadLocalHistoryDefault": {
     "message": "Something went wrong while loading local chat history."
+  },
+  "ttsClips_title": {
+    "message": "TTS clips"
+  },
+  "ttsClips_empty": {
+    "message": "Generate chat audio to save it here."
+  },
+  "ttsClips_clearAll": {
+    "message": "Clear all"
+  },
+  "ttsClips_clearConfirm": {
+    "message": "Clear all saved TTS clips?"
+  },
+  "ttsClips_deleteConfirm": {
+    "message": "Delete this clip?"
+  },
+  "ttsClips_download": {
+    "message": "Download"
+  },
+  "ttsClips_downloadAll": {
+    "message": "Download all segments"
+  },
+  "ttsClips_segmentsLabel": {
+    "message": "{{count}} segments"
   }
 }

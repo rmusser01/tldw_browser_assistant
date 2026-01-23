@@ -22,6 +22,7 @@ import { getNoOfRetrievedDocs } from "@/services/app"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectFeatureBanner from "@/components/Common/ConnectFeatureBanner"
 import { useDemoMode } from "@/context/demo-mode"
+import { useKnowledgeWorkspaceStore } from "@/store/knowledge-workspace"
 import { AdvancedRagDrawer } from "./AdvancedRagDrawer"
 import { ChatThread } from "./ChatThread"
 
@@ -66,6 +67,14 @@ export const KnowledgeSearchChat: React.FC = () => {
   const { demoEnabled } = useDemoMode()
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const { knowledgeStatus } = useKnowledgeStatus()
+  const {
+    ragSearchMode,
+    ragTopK,
+    setRagTopK,
+    ragEnableGeneration,
+    ragEnableCitations,
+    ragSources
+  } = useKnowledgeWorkspaceStore()
 
   // Search state
   const [query, setQuery] = React.useState("")
@@ -113,17 +122,24 @@ export const KnowledgeSearchChat: React.FC = () => {
       await tldwClient.initialize()
       const defaultTopK = await getNoOfRetrievedDocs()
       const presetConfig = PRESETS[preset]
+      const resolvedTopK = ragTopK ?? presetConfig.topK ?? defaultTopK
+      const resolvedSearchMode = ragSearchMode || "hybrid"
+      const enableGeneration =
+        autoAnswer && isQuestion && Boolean(ragEnableGeneration)
+      const enableCitations = enableGeneration && Boolean(ragEnableCitations)
+      const resolvedSources =
+        Array.isArray(ragSources) && ragSources.length > 0 ? ragSources : undefined
 
       const options: any = {
-        top_k: presetConfig.topK || defaultTopK,
-        search_mode: "hybrid",
-        enable_reranking: presetConfig.reranking
+        top_k: resolvedTopK,
+        search_mode: resolvedSearchMode,
+        enable_reranking: presetConfig.reranking,
+        enable_generation: enableGeneration,
+        enable_citations: enableCitations
       }
 
-      // Enable answer generation if auto-answer is on and query is a question
-      if (autoAnswer && isQuestion) {
-        options.enable_generation = true
-        options.enable_citations = true
+      if (resolvedSources) {
+        options.sources = resolvedSources
       }
 
       const ragRes = await tldwClient.ragSearch(q, options)
@@ -311,7 +327,10 @@ export const KnowledgeSearchChat: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setPreset("fast")}
+                onClick={() => {
+                  setPreset("fast")
+                  setRagTopK(PRESETS.fast.topK)
+                }}
                 className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                   preset === "fast"
                     ? "bg-primary text-white"
@@ -323,7 +342,10 @@ export const KnowledgeSearchChat: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => setPreset("balanced")}
+                onClick={() => {
+                  setPreset("balanced")
+                  setRagTopK(PRESETS.balanced.topK)
+                }}
                 className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                   preset === "balanced"
                     ? "bg-primary text-white"
@@ -335,7 +357,10 @@ export const KnowledgeSearchChat: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => setPreset("thorough")}
+                onClick={() => {
+                  setPreset("thorough")
+                  setRagTopK(PRESETS.thorough.topK)
+                }}
                 className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                   preset === "thorough"
                     ? "bg-primary text-white"

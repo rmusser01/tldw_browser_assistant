@@ -1,7 +1,7 @@
 import React from "react"
 import type { TFunction } from "i18next"
 import { Tooltip, Input } from "antd"
-import { CogIcon, Menu, Search, Signpost, SquarePen, Keyboard, GitBranch } from "lucide-react"
+import { CogIcon, Menu, Search, Signpost, SquarePen, Keyboard, GitBranch, Volume2 } from "lucide-react"
 import { ConnectionStatus } from "./ConnectionStatus"
 import { HeaderShortcuts } from "./HeaderShortcuts"
 import logoImage from "~/assets/icon.png"
@@ -20,6 +20,7 @@ type ChatHeaderProps = {
   onOpenCommandPalette: () => void
   onOpenShortcutsModal: () => void
   onOpenSettings: () => void
+  onOpenTtsClips?: () => void
   onClearChat: () => void
   showTimelineButton?: boolean
   onOpenTimeline?: () => void
@@ -42,6 +43,7 @@ export function ChatHeader({
   onOpenCommandPalette,
   onOpenShortcutsModal,
   onOpenSettings,
+  onOpenTtsClips,
   onClearChat,
   showTimelineButton = false,
   onOpenTimeline,
@@ -131,6 +133,19 @@ export function ChatHeader({
           )}
         </div>
         <div className="flex items-center gap-2">
+          {onOpenTtsClips && (
+            <Tooltip title={t("playground:ttsClips.title", "TTS clips")}>
+              <button
+                type="button"
+                onClick={onOpenTtsClips}
+                aria-label={t("playground:ttsClips.title", "TTS clips") as string}
+                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t("playground:ttsClips.title", "TTS clips")}
+              >
+                <Volume2 className="size-4" aria-hidden="true" />
+              </button>
+            </Tooltip>
+          )}
           <button
             type="button"
             onClick={onOpenCommandPalette}

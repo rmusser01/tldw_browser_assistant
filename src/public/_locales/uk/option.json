@@ -2590,5 +2590,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "Сімейні налаштування безпеки та захисні бар’єри сервера в одному місці."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

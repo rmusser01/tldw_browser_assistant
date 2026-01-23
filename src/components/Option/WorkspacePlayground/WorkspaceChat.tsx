@@ -8,7 +8,6 @@ import {
   Plus,
   X,
   Trash2,
-  RotateCcw,
   StopCircle
 } from "lucide-react"
 import { useMessageOption } from "@/hooks/useMessageOption"
@@ -77,7 +76,6 @@ export const WorkspaceChat: React.FC = () => {
 
   const {
     messages,
-    setMessages,
     streaming,
     isProcessing,
     regenerateLastMessage,
@@ -95,7 +93,7 @@ export const WorkspaceChat: React.FC = () => {
     clearChat,
     ttsEnabled,
     historyId
-  } = useMessageOption()
+  } = useMessageOption({ forceCompareEnabled: true })
 
   const { data: chatModels = [] } = useQuery({
     queryKey: ["workspace:chatModels"],
@@ -106,8 +104,6 @@ export const WorkspaceChat: React.FC = () => {
   useDynamicTextareaSize(textareaRef, message, 200)
 
   const blocks = React.useMemo(() => buildBlocks(messages), [messages])
-
-  const compareModeActive = compareMode && compareSelectedModels.length > 0
 
   // Ensure selected model is in compare list when compare mode is on
   React.useEffect(() => {
@@ -144,8 +140,25 @@ export const WorkspaceChat: React.FC = () => {
     setCompareSelectedModels(compareSelectedModels.filter((id) => id !== modelId))
   }
 
+  const canSend = React.useMemo(() => {
+    if (compareMode) return compareSelectedModels.length > 0
+    return Boolean(selectedModel && selectedModel.trim().length > 0)
+  }, [compareMode, compareSelectedModels.length, selectedModel])
+
   const handleSend = async () => {
     if (!message.trim() || isProcessing || streaming) return
+    if (!canSend) {
+      notification.error({
+        message: t("error"),
+        description: compareMode
+          ? t(
+              "playground:composer.validationCompareSelectModels",
+              "Select at least one model to use in Compare mode."
+            )
+          : t("validationSelectModel")
+      })
+      return
+    }
 
     await onSubmit({
       message: message.trim(),
@@ -219,6 +232,8 @@ export const WorkspaceChat: React.FC = () => {
               onDeleteMessage={() => deleteMessage(block.index)}
               isTTSEnabled={ttsEnabled}
               generationInfo={msg?.generationInfo}
+              toolCalls={msg?.toolCalls}
+              toolResults={msg?.toolResults}
               isStreaming={streaming}
               modelImage={msg?.modelImage}
               modelName={msg?.modelName}
@@ -267,6 +282,8 @@ export const WorkspaceChat: React.FC = () => {
               onDeleteMessage={() => deleteMessage(block.userIndex)}
               isTTSEnabled={ttsEnabled}
               generationInfo={userMessage?.generationInfo}
+              toolCalls={userMessage?.toolCalls}
+              toolResults={userMessage?.toolResults}
               isStreaming={streaming}
               modelImage={userMessage?.modelImage}
               modelName={userMessage?.modelName}
@@ -319,6 +336,8 @@ export const WorkspaceChat: React.FC = () => {
                       onDeleteMessage={() => deleteMessage(index)}
                       isTTSEnabled={ttsEnabled}
                       generationInfo={replyMsg?.generationInfo}
+                      toolCalls={replyMsg?.toolCalls}
+                      toolResults={replyMsg?.toolResults}
                       isStreaming={streaming}
                       modelImage={replyMsg?.modelImage}
                       modelName={replyMsg?.modelName}
@@ -454,9 +473,9 @@ export const WorkspaceChat: React.FC = () => {
               <button
                 type="button"
                 onClick={handleSend}
-                disabled={!message.trim() || isProcessing}
-                className="rounded-xl bg-primary p-3 text-white transition hover:bg-primaryStrong disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+              disabled={!message.trim() || isProcessing || !canSend}
+              className="rounded-xl bg-primary p-3 text-white transition hover:bg-primaryStrong disabled:opacity-50 disabled:cursor-not-allowed"
+            >
                 <Send className="h-5 w-5" />
               </button>
             </Tooltip>

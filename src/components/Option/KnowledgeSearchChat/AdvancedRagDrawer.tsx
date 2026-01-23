@@ -1,7 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, Select, Switch, Slider, Checkbox, Button } from "antd"
-import { useMessageOption } from "@/hooks/useMessageOption"
+import { Drawer, Select, Slider, Checkbox, Button } from "antd"
+import { useKnowledgeWorkspaceStore } from "@/store/knowledge-workspace"
 import { useNavigate } from "react-router-dom"
 
 type AdvancedRagDrawerProps = {
@@ -23,8 +23,6 @@ export const AdvancedRagDrawer: React.FC<AdvancedRagDrawerProps> = ({
   const navigate = useNavigate()
 
   const {
-    chatMode,
-    setChatMode,
     ragSearchMode,
     setRagSearchMode,
     ragTopK,
@@ -35,9 +33,7 @@ export const AdvancedRagDrawer: React.FC<AdvancedRagDrawerProps> = ({
     setRagEnableCitations,
     ragSources,
     setRagSources
-  } = useMessageOption()
-
-  const autoRagOn = chatMode === "rag"
+  } = useKnowledgeWorkspaceStore()
 
   const handleResetDefaults = () => {
     setRagSearchMode("hybrid")
@@ -66,27 +62,6 @@ export const AdvancedRagDrawer: React.FC<AdvancedRagDrawerProps> = ({
       }
     >
       <div className="space-y-6">
-        {/* Auto RAG for chat */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="font-medium text-text">
-                {t("knowledge:settings.autoRag", "RAG for every reply")}
-              </div>
-              <p className="text-xs text-text-muted">
-                {t(
-                  "knowledge:settings.autoRagHelp",
-                  "Enable RAG search for all chat messages"
-                )}
-              </p>
-            </div>
-            <Switch
-              checked={autoRagOn}
-              onChange={(checked) => setChatMode(checked ? "rag" : "normal")}
-            />
-          </div>
-        </div>
-
         {/* Search Mode */}
         <div className="space-y-2">
           <label className="block font-medium text-text">

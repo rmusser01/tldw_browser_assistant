@@ -2578,5 +2578,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "家庭安全控制與伺服器防護欄集中於一處。"
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

@@ -204,7 +204,7 @@
     "demoDescription": "Ви в демо-режимі — спробуйте поставити запитання, щоб побачити відповідь асистента. Ви можете підключити власний tldw server пізніше.",
     "example1": "Поставте запитання, а потім перетягніть документи чи веб-сторінки, які хочете обговорити.",
     "example2": "Використовуйте Quick Ingest, щоб додати транскрипти чи нотатки, а потім посилатися на них у чаті.",
-    "example3": "Спробуйте різні промпти чи моделі у верхній панелі, щоб порівняти відповіді.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "Почати чат",
     "secondaryCta": "Відкрити налаштування сервера"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "Редагування увімкнено для цього транскрипту.",
     "transcriptLockedHint": "Заблоковано для оновлень живої транскрипції.",
     "transcriptRecordingHint": "Запис триває; транскрипт заблоковано."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

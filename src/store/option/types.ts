@@ -2,6 +2,7 @@ import type { ChatDocuments } from "@/models/ChatTypes"
 import type { UploadedFile } from "@/db/dexie/types"
 import type { ConversationState } from "@/services/tldw/TldwApiClient"
 import type { RagPinnedResult } from "@/utils/rag-format"
+import type { ToolCall, ToolCallResult } from "@/types/tool-calls"
 
 // Knowledge type is now server-side only; this is a placeholder for legacy compatibility
 export type Knowledge = {
@@ -65,6 +66,9 @@ export type Message = {
   clusterId?: string
   modelId?: string
   parentMessageId?: string | null
+  // Tool/function calls (optional)
+  toolCalls?: ToolCall[]
+  toolResults?: ToolCallResult[]
 }
 
 export type ChatHistory = {

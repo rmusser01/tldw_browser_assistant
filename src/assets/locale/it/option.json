@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} elementi in coda — fai clic per rivedere ed elaborare",
     "modeSpeech": "Voce",
     "moreTools": "Altro",
-    "writingPlayground": "Laboratorio di scrittura"
+    "writingPlayground": "Laboratorio di scrittura",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Laboratorio di scrittura",

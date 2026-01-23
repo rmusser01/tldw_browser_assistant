@@ -11,7 +11,7 @@
     "demoDescription": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later to save chats, ingest media, and use Knowledge search.",
     "example1": "Ask a question, then drag in documents or web pages you want to discuss.",
     "example2": "Use Quick ingest to add transcripts or notes, then reference them in chat.",
-    "example3": "Try different prompts or models from the header to compare answers.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "Start chatting",
     "secondaryCta": "Open server settings"
   },
@@ -224,24 +224,7 @@
     "currentTranscriptPlaceholder": "Live transcript will appear here while recording."
   },
   "actions": {
-    "temporaryOn": "Temporary chat (not saved)",
-    "temporaryOff": "Save chat to history",
-    "webSearchOn": "Web search on",
-    "webSearchOff": "Web search off",
-    "speechStart": "Start dictation",
-    "speechStop": "Stop dictation",
-    "speechUnavailableTitle": "Dictation unavailable",
-    "speechUnavailableBody": "Connect to a tldw server that exposes the audio transcriptions API to use dictation.",
-    "streamStart": "Live captions",
-    "streamStop": "Stop captions",
-    "visionOn": "Vision on",
-    "visionOff": "Vision off",
-    "upload": "Attach image",
-    "ingest": "Quick ingest",
-    "ingestDisabled": "Connect to your tldw server to ingest.",
-    "ingestHint": "Upload URLs or files with advanced options.",
-    "ingestSub": "Use URLs/files; download or store.",
-    "streamErrorTitle": "Live captions unavailable"
+    "workspacePlayground": "Multi-model compare"
   },
   "composer": {
     "toolsButton": "+Tools",
@@ -722,7 +705,14 @@
     "frequencyPenalty": "Frequency Penalty",
     "presencePenalty": "Presence Penalty"
   },
-  "actions": {
-    "workspacePlayground": "Multi-model compare"
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

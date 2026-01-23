@@ -393,7 +393,7 @@
     "message": "Quick ingest を使って文字起こしやメモを追加し、チャットで参照してください。"
   },
   "empty_example3": {
-    "message": "ヘッダーから別のプロンプトやモデルを試して回答を比較します。"
+    "message": "Try different prompts or models, or open Workspace Playground to compare answers."
   },
   "empty_primaryCta": {
     "message": "チャットを開始"
@@ -1387,5 +1387,29 @@
   },
   "errors_loadLocalHistoryDefault": {
     "message": "ローカルのチャット履歴の読み込み中に問題が発生しました。"
+  },
+  "ttsClips_title": {
+    "message": "TTS clips"
+  },
+  "ttsClips_empty": {
+    "message": "Generate chat audio to save it here."
+  },
+  "ttsClips_clearAll": {
+    "message": "Clear all"
+  },
+  "ttsClips_clearConfirm": {
+    "message": "Clear all saved TTS clips?"
+  },
+  "ttsClips_deleteConfirm": {
+    "message": "Delete this clip?"
+  },
+  "ttsClips_download": {
+    "message": "Download"
+  },
+  "ttsClips_downloadAll": {
+    "message": "Download all segments"
+  },
+  "ttsClips_segmentsLabel": {
+    "message": "{{count}} segments"
   }
 }

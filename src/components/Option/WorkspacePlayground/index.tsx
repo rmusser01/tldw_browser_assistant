@@ -27,7 +27,9 @@ export const WorkspacePlayground: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useStorage("workspaceSidebarOpen", true)
   const [debugOpen, setDebugOpen] = useStorage("workspaceDebugOpen", false)
 
-  const { messages, streaming } = useMessageOption()
+  const { messages, streaming } = useMessageOption({
+    forceCompareEnabled: true
+  })
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 120)
 
@@ -101,7 +103,7 @@ export const WorkspacePlayground: React.FC = () => {
       {/* Main content */}
       <div className="flex min-h-0 flex-1">
         {/* Chat area */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="relative flex min-w-0 flex-1 flex-col">
           <div
             ref={containerRef}
             role="log"

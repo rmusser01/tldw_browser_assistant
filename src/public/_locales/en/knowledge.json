@@ -286,5 +286,158 @@
   },
   "empty_connectExample2": {
     "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "empty_noSourcesTitle": {
+    "message": "Index knowledge to search"
+  },
+  "empty_noSourcesDescription": {
+    "message": "Your server is online, but no knowledge indexes were found. Add documents to start searching."
+  },
+  "empty_noSourcesPrimaryCta": {
+    "message": "Open Quick ingest"
+  },
+  "search_title": {
+    "message": "Knowledge Search"
+  },
+  "search_subtitle": {
+    "message": "Search your knowledge and get AI-powered answers"
+  },
+  "search_placeholder": {
+    "message": "Search your knowledge base..."
+  },
+  "search_settings": {
+    "message": "Advanced settings"
+  },
+  "search_autoAnswer": {
+    "message": "Auto-answer questions"
+  },
+  "search_hint": {
+    "message": "Enter a query above to search your knowledge base"
+  },
+  "search_errorTitle": {
+    "message": "Search failed"
+  },
+  "search_failed": {
+    "message": "Search failed. Please try again."
+  },
+  "search_aiAnswer": {
+    "message": "AI Answer"
+  },
+  "search_sources": {
+    "message": "Sources"
+  },
+  "search_source": {
+    "message": "Source {{num}}"
+  },
+  "search_cited": {
+    "message": "Cited"
+  },
+  "search_askAbout": {
+    "message": "Ask about this"
+  },
+  "search_noResults": {
+    "message": "No results found for your query"
+  },
+  "search_unsupported": {
+    "message": "RAG not available"
+  },
+  "search_unsupportedDesc": {
+    "message": "This server does not support RAG search. Upgrade your server or check Diagnostics."
+  },
+  "presets_fast": {
+    "message": "Fast"
+  },
+  "presets_balanced": {
+    "message": "Balanced"
+  },
+  "presets_thorough": {
+    "message": "Thorough"
+  },
+  "settings_title": {
+    "message": "Advanced RAG Settings"
+  },
+  "settings_reset": {
+    "message": "Reset to defaults"
+  },
+  "settings_autoRag": {
+    "message": "RAG for every reply"
+  },
+  "settings_autoRagHelp": {
+    "message": "Enable RAG search for all chat messages"
+  },
+  "settings_searchMode": {
+    "message": "Search Mode"
+  },
+  "settings_searchModeHybrid": {
+    "message": "Hybrid (recommended)"
+  },
+  "settings_searchModeVector": {
+    "message": "Vector (semantic)"
+  },
+  "settings_searchModeFts": {
+    "message": "Full-text (keyword)"
+  },
+  "settings_searchModeHelp": {
+    "message": "Hybrid combines semantic and keyword search for best results"
+  },
+  "settings_topK": {
+    "message": "Results per query (top-k)"
+  },
+  "settings_topKHelp": {
+    "message": "Higher values return more results but may include less relevant content"
+  },
+  "settings_generationOptions": {
+    "message": "Generation Options"
+  },
+  "settings_enableGeneration": {
+    "message": "Enable answer generation"
+  },
+  "settings_enableGenerationHelp": {
+    "message": "Generate AI summaries from search results"
+  },
+  "settings_enableCitations": {
+    "message": "Include citations"
+  },
+  "settings_enableCitationsHelp": {
+    "message": "Add source references to generated answers"
+  },
+  "settings_sources": {
+    "message": "Source Types"
+  },
+  "settings_sourceMedia": {
+    "message": "Media (videos, audio)"
+  },
+  "settings_sourceNotes": {
+    "message": "Notes"
+  },
+  "settings_sourceCharacters": {
+    "message": "Characters"
+  },
+  "settings_sourceChats": {
+    "message": "Chat history"
+  },
+  "settings_sourcesHelp": {
+    "message": "Leave empty to search all sources"
+  },
+  "settings_openFullSettings": {
+    "message": "Open full RAG settings"
+  },
+  "chat_title": {
+    "message": "Ask about this source"
+  },
+  "chat_untitledSource": {
+    "message": "Selected source"
+  },
+  "chat_hint": {
+    "message": "Ask a question about this source to start a conversation"
+  },
+  "chat_placeholder": {
+    "message": "Ask a follow-up question..."
+  },
+  "chat_noResponse": {
+    "message": "No response received"
+  },
+  "chat_error": {
+    "message": "Sorry, I encountered an error. Please try again."
   }
 }

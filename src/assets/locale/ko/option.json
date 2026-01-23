@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요",
     "modeSpeech": "음성",
     "moreTools": "더보기",
-    "writingPlayground": "글쓰기 플레이그라운드"
+    "writingPlayground": "글쓰기 플레이그라운드",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "글쓰기 플레이그라운드",

@@ -19,21 +19,7 @@ import {
   ChevronRight
 } from "lucide-react"
 import { classNames } from "@/libs/class-name"
-
-export interface ToolCall {
-  id: string
-  type: "function"
-  function: {
-    name: string
-    arguments: string
-  }
-}
-
-export interface ToolCallResult {
-  tool_call_id: string
-  content: string
-  error?: boolean
-}
+import type { ToolCall, ToolCallResult } from "@/types/tool-calls"
 
 interface ToolCallBlockProps {
   toolCalls: ToolCall[]
@@ -84,7 +70,10 @@ const TOOL_LABELS: Record<string, string> = {
 }
 
 // Format tool arguments for compact display
-const formatArgsPreview = (toolName: string, argsStr: string): string => {
+const formatArgsPreview = (
+  toolName: string,
+  argsStr?: string | null
+): string => {
   try {
     const args = JSON.parse(argsStr || "{}")
 
@@ -129,7 +118,7 @@ const formatArgsPreview = (toolName: string, argsStr: string): string => {
 }
 
 // Format full arguments for expanded view
-const formatFullArgs = (argsStr: string): string => {
+const formatFullArgs = (argsStr?: string | null): string => {
   try {
     const parsed = JSON.parse(argsStr)
     return JSON.stringify(parsed, null, 2)

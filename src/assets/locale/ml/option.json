@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} ഇനം ക്യൂ ചെയ്തിരിക്കുന്നു — പരിശോധിച്ച് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     "modeSpeech": "സ്പീച്ച്",
     "moreTools": "കൂടുതൽ",
-    "writingPlayground": "എഴുത്ത് പ്ലേഗ്രൗണ്ട്"
+    "writingPlayground": "എഴുത്ത് പ്ലേഗ്രൗണ്ട്",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "എഴുത്ത് പ്ലേഗ്രൗണ്ട്",

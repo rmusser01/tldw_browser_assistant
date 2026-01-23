@@ -250,6 +250,8 @@ export const SidePanelBody = ({
                   onNewBranch={() => { createChatBranch(index) }}
                   isTTSEnabled={ttsEnabled}
                   generationInfo={message?.generationInfo}
+                  toolCalls={message?.toolCalls}
+                  toolResults={message?.toolResults}
                   isStreaming={streaming}
                   reasoningTimeTaken={message?.reasoning_time_taken}
                   openReasoning={openReasoning}

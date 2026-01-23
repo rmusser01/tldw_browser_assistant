@@ -204,7 +204,7 @@
     "demoDescription": "デモモードです。質問してアシスタントの応答を試してみてください。後で自分の tldw サーバーに接続できます。",
     "example1": "質問をして、議論したいドキュメントやウェブページをドラッグしてください。",
     "example2": "Quick ingest を使って文字起こしやメモを追加し、チャットで参照してください。",
-    "example3": "ヘッダーから別のプロンプトやモデルを試して回答を比較します。",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "チャットを開始",
     "secondaryCta": "サーバー設定を開く"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "この文字起こしは編集可能です。",
     "transcriptLockedHint": "ライブ文字起こしの更新にロックされています。",
     "transcriptRecordingHint": "録音中のため、文字起こしはロックされています。"
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

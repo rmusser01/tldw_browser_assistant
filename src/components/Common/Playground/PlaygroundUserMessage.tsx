@@ -294,7 +294,8 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                         cancel()
                       } else {
                         speak({
-                          utterance: props.message
+                          utterance: props.message,
+                          saveClip: false
                         })
                       }
                     }}

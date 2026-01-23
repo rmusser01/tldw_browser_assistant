@@ -2578,5 +2578,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "Familiesikkerhet og serverens sikkerhetsrekkverk på ett sted."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

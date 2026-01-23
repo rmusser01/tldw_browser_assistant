@@ -84,8 +84,6 @@ import { TokenProgressBar } from "./TokenProgressBar"
 import { AttachmentsSummary } from "./AttachmentsSummary"
 import {
   ParameterPresets,
-  JsonModeToggle,
-  JsonModeIndicator,
   SystemPromptTemplatesButton,
   SessionCostEstimation,
   type PromptTemplate
@@ -4072,8 +4070,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-2">
                             <div className="flex flex-wrap items-center gap-2">
                               <ParameterPresets compact />
-                              <JsonModeToggle compact />
-                              <JsonModeIndicator />
                             </div>
                             <div className="flex flex-wrap items-center gap-2">
                               <SystemPromptTemplatesButton
@@ -4466,8 +4462,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               </button>
                             </Tooltip>
                           )}
-                          <JsonModeToggle compact />
-                          <JsonModeIndicator />
                           {modelUsageBadge}
                           <Tooltip
                             title={

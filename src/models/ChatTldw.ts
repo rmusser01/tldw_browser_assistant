@@ -10,6 +10,7 @@ import {
   ChatMessage,
   type ChatCompletionContentPart
 } from "@/services/tldw"
+import type { ToolCall } from "@/types/tool-calls"
 
 export interface ChatTldwOptions {
   model: string
@@ -99,7 +100,50 @@ export class ChatTldw {
     const { signal, callbacks } = options || {}
 
     const tldwMessages = this.convertToTldwMessages(messages)
-      const stream = tldwChat.streamMessage(tldwMessages, {
+    const toolCalls: ToolCall[] = []
+
+    const applyToolCallDelta = (deltas: any[]) => {
+      deltas.forEach((delta, fallbackIndex) => {
+        const index =
+          typeof delta?.index === "number" ? delta.index : fallbackIndex
+        if (!toolCalls[index]) {
+          toolCalls[index] = {
+            id: typeof delta?.id === "string" ? delta.id : `tool-${index}`,
+            type: "function",
+            function: { name: "", arguments: "" }
+          }
+        }
+        if (typeof delta?.id === "string") {
+          toolCalls[index].id = delta.id
+        }
+        if (typeof delta?.type === "string") {
+          toolCalls[index].type = delta.type as ToolCall["type"]
+        }
+        if (delta?.function) {
+          if (typeof delta.function.name === "string") {
+            toolCalls[index].function.name += delta.function.name
+          }
+          if (typeof delta.function.arguments === "string") {
+            const prevArgs = toolCalls[index].function.arguments || ""
+            toolCalls[index].function.arguments = prevArgs + delta.function.arguments
+          }
+        }
+      })
+    }
+
+    const handleChunk = (chunk: any) => {
+      const deltas =
+        chunk?.choices?.[0]?.delta?.tool_calls ??
+        chunk?.choices?.[0]?.tool_calls ??
+        chunk?.tool_calls
+      if (Array.isArray(deltas)) {
+        applyToolCallDelta(deltas)
+      }
+    }
+
+    const stream = tldwChat.streamMessage(
+      tldwMessages,
+      {
         model: this.model,
         temperature: this.temperature,
         maxTokens: this.maxTokens,
@@ -119,7 +163,9 @@ export class ChatTldw {
         apiProvider: this.apiProvider,
         extraHeaders: this.extraHeaders,
         extraBody: this.extraBody
-      })
+      },
+      handleChunk
+    )
 
     async function* generator() {
       let fullText = ""
@@ -138,8 +184,10 @@ export class ChatTldw {
       } finally {
         // Synthesize a minimal LangChain-style result for handleLLMEnd
         if (callbacks && callbacks.length > 0) {
+          const generationInfo =
+            toolCalls.length > 0 ? { tool_calls: toolCalls } : undefined
           const result = {
-            generations: [[{ text: fullText, generationInfo: undefined }]]
+            generations: [[{ text: fullText, generationInfo }]]
           }
           for (const cb of callbacks) {
             try {

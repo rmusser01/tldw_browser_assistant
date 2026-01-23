@@ -2,12 +2,13 @@ import logoImage from "@/assets/icon.png"
 import { useMessage } from "@/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip } from "antd"
-import { CogIcon, ExternalLink, Menu, Pencil } from "lucide-react"
+import { CogIcon, ExternalLink, Menu, Pencil, Volume2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import { StatusDot } from "./StatusDot"
 import { browser } from "wxt/browser"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { TtsClipsDrawer } from "./TtsClipsDrawer"
 
 type SidepanelHeaderSimpleProps = {
   sidebarOpen?: boolean
@@ -35,6 +36,7 @@ export const SidepanelHeaderSimple = ({
   const { t } = useTranslation(["sidepanel", "common", "option"])
   const notification = useAntdNotification()
   const [localSidebarOpen, setLocalSidebarOpen] = React.useState(false)
+  const [ttsClipsOpen, setTtsClipsOpen] = React.useState(false)
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
   const [draftTitle, setDraftTitle] = React.useState(activeTitle || "")
   const titleBlurActionRef = React.useRef<"submit" | "cancel" | null>(null)
@@ -210,6 +212,18 @@ export const SidepanelHeaderSimple = ({
 
       {/* Right: Full-screen + Settings */}
       <div className="flex items-center gap-1">
+        <Tooltip title={t("playground:ttsClips.title", "TTS clips")}>
+          <button
+            type="button"
+            onClick={() => setTtsClipsOpen(true)}
+            aria-label={t("playground:ttsClips.title", "TTS clips")}
+            className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+            title={t("playground:ttsClips.title", "TTS clips")}
+            data-testid="chat-open-tts-clips"
+          >
+            <Volume2 className="size-4" aria-hidden="true" />
+          </button>
+        </Tooltip>
         <Tooltip title={t("sidepanel:header.openFullScreen", "Open Full-Screen")}>
           <button
             type="button"
@@ -233,6 +247,10 @@ export const SidepanelHeaderSimple = ({
           </Link>
         </Tooltip>
       </div>
+      <TtsClipsDrawer
+        open={ttsClipsOpen}
+        onClose={() => setTtsClipsOpen(false)}
+      />
     </div>
   )
 }

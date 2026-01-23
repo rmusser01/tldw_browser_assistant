@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} 件がキューにあります — クリックして確認および処理します",
     "modeSpeech": "音声",
     "moreTools": "その他",
-    "writingPlayground": "ライティングプレイグラウンド"
+    "writingPlayground": "ライティングプレイグラウンド",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "ライティングプレイグラウンド",

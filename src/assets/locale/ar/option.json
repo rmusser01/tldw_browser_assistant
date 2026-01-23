@@ -94,7 +94,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة",
     "modeSpeech": "الصوت",
     "moreTools": "المزيد",
-    "writingPlayground": "ساحة الكتابة"
+    "writingPlayground": "ساحة الكتابة",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "ساحة الكتابة",

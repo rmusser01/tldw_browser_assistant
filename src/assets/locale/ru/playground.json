@@ -204,7 +204,7 @@
     "demoDescription": "Вы в демо-режиме — задайте вопрос, чтобы посмотреть, как отвечает ассистент. Позже можно подключить свой tldw сервер.",
     "example1": "Задайте вопрос, затем перетащите документы или веб-страницы, которые хотите обсудить.",
     "example2": "Используйте «Быстрый импорт», чтобы добавить расшифровки или заметки, затем ссылайтесь на них в чате.",
-    "example3": "Попробуйте разные промпты или модели в заголовке, чтобы сравнить ответы.",
+    "example3": "Try different prompts or models, or open Workspace Playground to compare answers.",
     "primaryCta": "Начать чат",
     "secondaryCta": "Открыть настройки сервера"
   },
@@ -511,5 +511,15 @@
     "transcriptEditHint": "Редактирование включено для этой расшифровки.",
     "transcriptLockedHint": "Заблокировано для обновлений живой расшифровки.",
     "transcriptRecordingHint": "Идет запись; расшифровка заблокирована."
+  },
+  "ttsClips": {
+    "title": "TTS clips",
+    "empty": "Generate chat audio to save it here.",
+    "clearAll": "Clear all",
+    "clearConfirm": "Clear all saved TTS clips?",
+    "deleteConfirm": "Delete this clip?",
+    "download": "Download",
+    "downloadAll": "Download all segments",
+    "segmentsLabel": "{{count}} segments"
   }
 }

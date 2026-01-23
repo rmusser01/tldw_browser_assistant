@@ -19,7 +19,8 @@ import {
   DraftBatch,
   DraftAsset,
   AudiobookProject,
-  AudiobookChapterAsset
+  AudiobookChapterAsset,
+  TtsClip
 } from "./types"
 
 export class PageAssistDexieDB extends Dexie {
@@ -47,6 +48,7 @@ export class PageAssistDexieDB extends Dexie {
   // Audiobook projects
   audiobookProjects!: Table<AudiobookProject>
   audiobookChapterAssets!: Table<AudiobookChapterAsset>
+  ttsClips!: Table<TtsClip>
 
   constructor() {
     super('PageAssistDatabase');
@@ -175,6 +177,30 @@ export class PageAssistDexieDB extends Dexie {
       draftAssets: 'id, draftId, createdAt',
       audiobookProjects: 'id, title, status, createdAt, updatedAt, lastOpenedAt',
       audiobookChapterAssets: 'id, projectId, chapterId, createdAt'
+    });
+
+    // Version 8: Chat TTS clip history
+    this.version(8).stores({
+      chatHistories: 'id, title, is_rag, message_source, is_pinned, createdAt, doc_id, last_used_prompt, model_id, root_id, parent_conversation_id, server_chat_id',
+      messages: 'id, history_id, name, role, content, createdAt, messageType, modelName, clusterId, modelId, parent_message_id',
+      prompts: 'id, title, content, is_system, createdBy, createdAt',
+      webshares: 'id, title, url, api_url, share_id, createdAt',
+      sessionFiles: 'sessionId, retrievalEnabled, createdAt',
+      userSettings: 'id, user_id',
+      customModels: 'id, model_id, name, model_name, model_image, provider_id, lookup, model_type, db_type',
+      modelNickname: 'id, model_id, model_name, model_avatar',
+      processedMedia: 'id, url, createdAt',
+      folders: 'id, name, parent_id, deleted',
+      keywords: 'id, keyword, deleted',
+      folderKeywordLinks: '[folder_id+keyword_id], folder_id, keyword_id',
+      conversationKeywordLinks: '[conversation_id+keyword_id], conversation_id, keyword_id',
+      compareStates: 'history_id',
+      contentDrafts: 'id, batchId, status, mediaType, createdAt, updatedAt, expiresAt',
+      draftBatches: 'id, createdAt, updatedAt',
+      draftAssets: 'id, draftId, createdAt',
+      audiobookProjects: 'id, title, status, createdAt, updatedAt, lastOpenedAt',
+      audiobookChapterAssets: 'id, projectId, chapterId, createdAt',
+      ttsClips: 'id, createdAt, historyId, serverChatId, messageId, serverMessageId, provider'
     });
   }
 }

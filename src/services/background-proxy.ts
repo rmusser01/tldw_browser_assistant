@@ -161,6 +161,62 @@ export async function bgRequest<
   }
   const isAbortErrorMessage = (value?: string) =>
     typeof value === "string" && value.toLowerCase().includes("abort")
+  const shouldBypassBackground =
+    responseType === "arrayBuffer" &&
+    typeof path === "string" &&
+    path.includes("/api/v1/audio/")
+  const isArrayBufferLike = (value: unknown): boolean => {
+    if (!value) return false
+    if (value instanceof ArrayBuffer) return true
+    if (typeof SharedArrayBuffer !== "undefined" && value instanceof SharedArrayBuffer) {
+      return true
+    }
+    if (ArrayBuffer.isView?.(value)) return true
+    if (typeof Blob !== "undefined" && value instanceof Blob) return true
+    return false
+  }
+
+  // Some binary responses do not survive extension message serialization.
+  if (shouldBypassBackground) {
+    const storage = createSafeStorage()
+    const resp = await tldwRequest(
+      {
+        path,
+        method,
+        headers: resolvedHeaders,
+        body,
+        noAuth: resolvedNoAuth,
+        timeoutMs,
+        abortSignal,
+        responseType
+      },
+      { getConfig: () => storage.get("tldwConfig").catch(() => null) }
+    )
+    if (!resp?.ok) {
+      const msg = formatErrorMessage(
+        resp?.error,
+        `Request failed: ${resp?.status}`
+      )
+      if (!isAbortErrorMessage(msg)) {
+        console.warn("[tldw:request]", method, path, resp?.status, msg)
+        await recordRequestError({
+          method: String(method),
+          path: String(path),
+          status: resp?.status,
+          error: msg,
+          source: "direct"
+        })
+      }
+      const error = new Error(`${msg} (${method} ${path})`) as Error & {
+        status?: number
+      }
+      error.status = resp?.status
+      if (!returnResponse) {
+        throw error
+      }
+    }
+    return (returnResponse ? resp : resp.data) as T
+  }
 
   // If extension messaging is available, use it (extension context)
   try {
@@ -204,6 +260,37 @@ export async function bgRequest<
           error.status = resp?.status
           if (!returnResponse) {
             throw error
+          }
+        }
+        if (!returnResponse && responseType === "arrayBuffer") {
+          const raw = (resp as any)?.data
+          if (!isArrayBufferLike(raw)) {
+            const storage = createSafeStorage()
+            const fallback = await tldwRequest(
+              {
+                path,
+                method,
+                headers: resolvedHeaders,
+                body,
+                noAuth: resolvedNoAuth,
+                timeoutMs,
+                abortSignal,
+                responseType
+              },
+              { getConfig: () => storage.get("tldwConfig").catch(() => null) }
+            )
+            if (!fallback?.ok) {
+              const msg = formatErrorMessage(
+                fallback?.error,
+                `Request failed: ${fallback?.status}`
+              )
+              const error = new Error(`${msg} (${method} ${path})`) as Error & {
+                status?: number
+              }
+              error.status = fallback?.status
+              throw error
+            }
+            return fallback.data as T
           }
         }
         return (returnResponse ? resp : resp.data) as T
@@ -259,6 +346,37 @@ export async function bgRequest<
         error.status = resp?.status
         if (!returnResponse) {
           throw error
+        }
+      }
+      if (!returnResponse && responseType === "arrayBuffer") {
+        const raw = (resp as any)?.data
+        if (!isArrayBufferLike(raw)) {
+          const storage = createSafeStorage()
+          const fallback = await tldwRequest(
+            {
+              path,
+              method,
+              headers: resolvedHeaders,
+              body,
+              noAuth: resolvedNoAuth,
+              timeoutMs,
+              abortSignal,
+              responseType
+            },
+            { getConfig: () => storage.get("tldwConfig").catch(() => null) }
+          )
+          if (!fallback?.ok) {
+            const msg = formatErrorMessage(
+              fallback?.error,
+              `Request failed: ${fallback?.status}`
+            )
+            const error = new Error(`${msg} (${method} ${path})`) as Error & {
+              status?: number
+            }
+            error.status = fallback?.status
+            throw error
+          }
+          return fallback.data as T
         }
       }
       return (returnResponse ? resp : resp.data) as T

@@ -2281,5 +2281,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "کنترل‌های ایمنی خانواده و محافظ‌های سرور در یکجا."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

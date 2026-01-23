@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} itens em fila — clique para revisar e processar",
     "modeSpeech": "Fala",
     "moreTools": "Mais",
-    "writingPlayground": "Playground de escrita"
+    "writingPlayground": "Playground de escrita",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Playground de escrita",

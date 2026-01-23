@@ -2611,5 +2611,8 @@
   },
   "moderationPlayground_subtitle": {
     "message": "가족 안전 제어와 서버 가드레일을 한곳에서."
+  },
+  "header_workspacePlayground": {
+    "message": "Workspace Playground"
   }
 }

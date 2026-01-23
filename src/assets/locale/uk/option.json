@@ -90,7 +90,8 @@
     "quickIngestQueuedAria": "{{label}} — {{count}} елементів у черзі — натисніть, щоб переглянути та обробити",
     "modeSpeech": "Мовлення",
     "moreTools": "Ще",
-    "writingPlayground": "Майстерня письма"
+    "writingPlayground": "Майстерня письма",
+    "workspacePlayground": "Workspace Playground"
   },
   "writingPlayground": {
     "title": "Майстерня письма",

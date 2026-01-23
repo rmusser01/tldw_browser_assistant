@@ -355,3 +355,38 @@ export type AudiobookChapterAsset = {
   blob: Blob
   createdAt: number
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TTS Clip Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type TtsClipSegment = {
+  id: string
+  index: number
+  text: string
+  format: string
+  mimeType: string
+  blob: Blob
+  sizeBytes: number
+}
+
+export type TtsClip = {
+  id: string
+  createdAt: number
+  provider: string
+  model?: string | null
+  voice?: string | null
+  format?: string
+  mimeType?: string
+  playbackSpeed?: number
+  utterance: string
+  textPreview: string
+  totalBytes: number
+  segments: TtsClipSegment[]
+  source?: "chat" | "selection"
+  role?: "user" | "assistant" | "system"
+  historyId?: string | null
+  serverChatId?: string | null
+  messageId?: string | null
+  serverMessageId?: string | null
+}
