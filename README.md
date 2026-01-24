@@ -1,5 +1,6 @@
+
 <p align="center">
-  <h1 align="center">tldw Browser_Assistant</h1>
+  <h1 align="center">tldw Browser_Assistant - MOVED TO https://github.com/rmusser01/tldw_server/apps/extension</h1>
 </p>
 
 <p align="center">
